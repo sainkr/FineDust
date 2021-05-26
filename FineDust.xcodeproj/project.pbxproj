@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		368F1F9B265E3B2400CD7B03 /* FineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F1F9A265E3B2400CD7B03 /* FineDust.swift */; };
 		3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEA265D400000F2B939 /* AppDelegate.swift */; };
 		3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEC265D400000F2B939 /* SceneDelegate.swift */; };
 		3696FEEF265D400000F2B939 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEE265D400000F2B939 /* ViewController.swift */; };
@@ -15,6 +16,9 @@
 		3696FEF7265D400100F2B939 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3696FEF5265D400100F2B939 /* LaunchScreen.storyboard */; };
 		3696FF02265D400100F2B939 /* FineDustTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FF01265D400100F2B939 /* FineDustTests.swift */; };
 		3696FF0D265D400100F2B939 /* FineDustUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FF0C265D400100F2B939 /* FineDustUITests.swift */; };
+		45EB8400BCA312746AF2B02C /* Pods_FineDust_FineDustUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E6ADF2A3C572BB0608D8D42 /* Pods_FineDust_FineDustUITests.framework */; };
+		6AF954A0E43FC3F03DE1D7F5 /* Pods_FineDustTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */; };
+		9B30B521A662D913C82F7098 /* Pods_FineDust.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDust.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust.release.xcconfig"; path = "Target Support Files/Pods-FineDust/Pods-FineDust.release.xcconfig"; sourceTree = "<group>"; };
+		368F1F9A265E3B2400CD7B03 /* FineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDust.swift; sourceTree = "<group>"; };
 		3696FEE7265D400000F2B939 /* FineDust.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineDust.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FEEA265D400000F2B939 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3696FEEC265D400000F2B939 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +57,12 @@
 		3696FF08265D400100F2B939 /* FineDustUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FineDustUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FF0C265D400100F2B939 /* FineDustUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustUITests.swift; sourceTree = "<group>"; };
 		3696FF0E265D400100F2B939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A0BDF5903566F29E3DABABA /* Pods-FineDust-FineDustUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust-FineDustUITests.release.xcconfig"; path = "Target Support Files/Pods-FineDust-FineDustUITests/Pods-FineDust-FineDustUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5022D9DA2FC923950344F9E4 /* Pods-FineDustTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDustTests.release.xcconfig"; path = "Target Support Files/Pods-FineDustTests/Pods-FineDustTests.release.xcconfig"; sourceTree = "<group>"; };
+		67691000CA554E5461EFBFAA /* Pods-FineDust-FineDustUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust-FineDustUITests.debug.xcconfig"; path = "Target Support Files/Pods-FineDust-FineDustUITests/Pods-FineDust-FineDustUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8E6ADF2A3C572BB0608D8D42 /* Pods_FineDust_FineDustUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDust_FineDustUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C613E28BD979BF8FE5E0D507 /* Pods-FineDustTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDustTests.debug.xcconfig"; path = "Target Support Files/Pods-FineDustTests/Pods-FineDustTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D1F93F22B3E1AD393904F466 /* Pods-FineDust.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust.debug.xcconfig"; path = "Target Support Files/Pods-FineDust/Pods-FineDust.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B30B521A662D913C82F7098 /* Pods_FineDust.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AF954A0E43FC3F03DE1D7F5 /* Pods_FineDustTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +86,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EB8400BCA312746AF2B02C /* Pods_FineDust_FineDustUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		368F1F99265E3B0E00CD7B03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				368F1F9A265E3B2400CD7B03 /* FineDust.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3696FEDE265D400000F2B939 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +108,8 @@
 				3696FF00265D400100F2B939 /* FineDustTests */,
 				3696FF0B265D400100F2B939 /* FineDustUITests */,
 				3696FEE8265D400000F2B939 /* Products */,
+				9BB2E86D3FA56B5C996AB783 /* Pods */,
+				BE0937F0E6C60030CB06B0CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +126,7 @@
 		3696FEE9265D400000F2B939 /* FineDust */ = {
 			isa = PBXGroup;
 			children = (
+				368F1F99265E3B0E00CD7B03 /* Model */,
 				3696FEEA265D400000F2B939 /* AppDelegate.swift */,
 				3696FEEC265D400000F2B939 /* SceneDelegate.swift */,
 				3696FEEE265D400000F2B939 /* ViewController.swift */,
@@ -128,6 +156,29 @@
 			path = FineDustUITests;
 			sourceTree = "<group>";
 		};
+		9BB2E86D3FA56B5C996AB783 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D1F93F22B3E1AD393904F466 /* Pods-FineDust.debug.xcconfig */,
+				2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */,
+				67691000CA554E5461EFBFAA /* Pods-FineDust-FineDustUITests.debug.xcconfig */,
+				4A0BDF5903566F29E3DABABA /* Pods-FineDust-FineDustUITests.release.xcconfig */,
+				C613E28BD979BF8FE5E0D507 /* Pods-FineDustTests.debug.xcconfig */,
+				5022D9DA2FC923950344F9E4 /* Pods-FineDustTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BE0937F0E6C60030CB06B0CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */,
+				8E6ADF2A3C572BB0608D8D42 /* Pods_FineDust_FineDustUITests.framework */,
+				129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3696FF11265D400100F2B939 /* Build configuration list for PBXNativeTarget "FineDust" */;
 			buildPhases = (
+				670167D8A8A49AB9FC17487E /* [CP] Check Pods Manifest.lock */,
 				3696FEE3265D400000F2B939 /* Sources */,
 				3696FEE4265D400000F2B939 /* Frameworks */,
 				3696FEE5265D400000F2B939 /* Resources */,
+				2EFB9F5DD273A92D8BAD3A4F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +205,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3696FF14265D400100F2B939 /* Build configuration list for PBXNativeTarget "FineDustTests" */;
 			buildPhases = (
+				DD276A22A98DA5092B90EB1C /* [CP] Check Pods Manifest.lock */,
 				3696FEF9265D400100F2B939 /* Sources */,
 				3696FEFA265D400100F2B939 /* Frameworks */,
 				3696FEFB265D400100F2B939 /* Resources */,
@@ -170,9 +224,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3696FF17265D400100F2B939 /* Build configuration list for PBXNativeTarget "FineDustUITests" */;
 			buildPhases = (
+				C61A99370505BFDD658BDADB /* [CP] Check Pods Manifest.lock */,
 				3696FF04265D400100F2B939 /* Sources */,
 				3696FF05265D400100F2B939 /* Frameworks */,
 				3696FF06265D400100F2B939 /* Resources */,
+				0223E3086F62EED3C1C9B81F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -253,12 +309,116 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0223E3086F62EED3C1C9B81F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FineDust-FineDustUITests/Pods-FineDust-FineDustUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FineDust-FineDustUITests/Pods-FineDust-FineDustUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FineDust-FineDustUITests/Pods-FineDust-FineDustUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2EFB9F5DD273A92D8BAD3A4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FineDust/Pods-FineDust-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FineDust/Pods-FineDust-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FineDust/Pods-FineDust-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		670167D8A8A49AB9FC17487E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FineDust-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C61A99370505BFDD658BDADB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FineDust-FineDustUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD276A22A98DA5092B90EB1C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FineDustTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3696FEE3265D400000F2B939 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3696FEEF265D400000F2B939 /* ViewController.swift in Sources */,
+				368F1F9B265E3B2400CD7B03 /* FineDust.swift in Sources */,
 				3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */,
 				3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */,
 			);
@@ -433,6 +593,7 @@
 		};
 		3696FF12265D400100F2B939 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1F93F22B3E1AD393904F466 /* Pods-FineDust.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -452,6 +613,7 @@
 		};
 		3696FF13265D400100F2B939 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -471,6 +633,7 @@
 		};
 		3696FF15265D400100F2B939 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C613E28BD979BF8FE5E0D507 /* Pods-FineDustTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -493,6 +656,7 @@
 		};
 		3696FF16265D400100F2B939 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5022D9DA2FC923950344F9E4 /* Pods-FineDustTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,6 +679,7 @@
 		};
 		3696FF18265D400100F2B939 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67691000CA554E5461EFBFAA /* Pods-FineDust-FineDustUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -535,6 +700,7 @@
 		};
 		3696FF19265D400100F2B939 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A0BDF5903566F29E3DABABA /* Pods-FineDust-FineDustUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
