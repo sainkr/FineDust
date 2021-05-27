@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		368F1F9B265E3B2400CD7B03 /* FineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F1F9A265E3B2400CD7B03 /* FineDust.swift */; };
+		367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074D4265FABD0003666FC /* FineDustViewModel.swift */; };
+		367074DD265FD542003666FC /* TM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074DC265FD542003666FC /* TM.swift */; };
 		3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEA265D400000F2B939 /* AppDelegate.swift */; };
 		3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEC265D400000F2B939 /* SceneDelegate.swift */; };
 		3696FEEF265D400000F2B939 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEE265D400000F2B939 /* ViewController.swift */; };
@@ -42,7 +43,8 @@
 		129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDust.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust.release.xcconfig"; path = "Target Support Files/Pods-FineDust/Pods-FineDust.release.xcconfig"; sourceTree = "<group>"; };
-		368F1F9A265E3B2400CD7B03 /* FineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDust.swift; sourceTree = "<group>"; };
+		367074D4265FABD0003666FC /* FineDustViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustViewModel.swift; sourceTree = "<group>"; };
+		367074DC265FD542003666FC /* TM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TM.swift; sourceTree = "<group>"; };
 		3696FEE7265D400000F2B939 /* FineDust.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineDust.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FEEA265D400000F2B939 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3696FEEC265D400000F2B939 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,10 +95,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		367074D3265FAB87003666FC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				367074D4265FABD0003666FC /* FineDustViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		368F1F99265E3B0E00CD7B03 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				368F1F9A265E3B2400CD7B03 /* FineDust.swift */,
+				367074DC265FD542003666FC /* TM.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -126,6 +136,7 @@
 		3696FEE9265D400000F2B939 /* FineDust */ = {
 			isa = PBXGroup;
 			children = (
+				367074D3265FAB87003666FC /* ViewModel */,
 				368F1F99265E3B0E00CD7B03 /* Model */,
 				3696FEEA265D400000F2B939 /* AppDelegate.swift */,
 				3696FEEC265D400000F2B939 /* SceneDelegate.swift */,
@@ -417,9 +428,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */,
 				3696FEEF265D400000F2B939 /* ViewController.swift in Sources */,
-				368F1F9B265E3B2400CD7B03 /* FineDust.swift in Sources */,
 				3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */,
+				367074DD265FD542003666FC /* TM.swift in Sources */,
 				3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
