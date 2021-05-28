@@ -12,29 +12,33 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-let servicekey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"
-
 struct TM{
     var tmX: Double
     var tmY: Double
 }
 
 class FineDustViewModel{
-
+    
+    lazy var observable = PublishRelay<String>()
+    
     func getFineDust(lat: Double, lng: Double){
         loadTM(lat: lat, lng: lng)
+            .flatMapLatest{ tm in self.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
+            .flatMapLatest{ station in self.loadFineDust(stationName: station)}
+            .bind(to: self.observable)
+        
+       /* loadTM(lat: lat, lng: lng)
             .map{ tm in
-                self.loadStation(tmX: tm.tmX, tmY: tm.tmY)
-                    .map{ station in
-                        self.loadFineDust(stationName: station)
-                            .map{ finedust in
-                                return finedust
-                            }
-                    }
+                    self.loadStation(tmX: tm.tmX, tmY: tm.tmY)
+                        .map{ station in
+                            print("----> station : \(station)")
+                            self.loadFineDust(stationName: station)
+                                .bind(to: self.observable)
+                        }
+                        .subscribe()
             }
-            .subscribe(onNext: { finedust in
-                print("-----> findust : \(finedust)")
-            })
+            .subscribe()*/
+
     }
     
     func loadTM(lat: Double, lng: Double) -> Observable<TM>{
@@ -55,7 +59,7 @@ class FineDustViewModel{
     
     func fetchTM(posX: Double, posY: Double, onComplete: @escaping (Result<TM, Error>) -> Void){
         let url = "https://sgisapi.kostat.go.kr/OpenAPI3/transformation/transcoord.json"
-        let accessToken = "83ccf4a2-16e6-4904-bc05-75ff40a1dc79"
+        let accessToken = "9a6c8a8d-4a52-45d9-9db1-7ef5e0100e48"
         let param: Parameters = [
             "accessToken" : accessToken,
             "src" : "4326",
@@ -102,6 +106,8 @@ class FineDustViewModel{
         url += "&tmY=\(tmY)"
         url += "&returnType=json"
         url += "&serviceKey=\(servicekey)"
+        
+        print("--->fetchStation")
         
         AF.request(url, method: .get, encoding: URLEncoding.default)
             .responseJSON{ (response) in

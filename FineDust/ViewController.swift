@@ -20,11 +20,12 @@ import CoreLocation
 class ViewController: UIViewController {
     
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var localLabel: UILabel!
     
     lazy var locationManager = CLLocationManager()
     var currentLocation: CLLocation!
     
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     let findustViewModel = FineDustViewModel()
     
@@ -32,6 +33,32 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setLocation()
+        
+        findustViewModel.observable
+            .observe(on: MainScheduler.instance)
+            .bind(to: label.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        disposeBag = DisposeBag()
+    }
+    
+    func convertToAddressWith(coordinate: CLLocation){
+        let geoCoder = CLGeocoder()
+        let locale = Locale(identifier: "Ko-kr") //원하는 언어의 나라 코드를 넣어주시면 됩니다.
+        geoCoder.reverseGeocodeLocation(coordinate, preferredLocale: locale, completionHandler: {(placemarks, error) in
+            if let address: [CLPlacemark] = placemarks {
+                guard let local_region = address.last?.administrativeArea
+                , let local_city = address.last?.locality,
+                      let local_sub = address.last?.subLocality else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.localLabel.text = "\(local_region) \(local_city) \(local_sub)"
+                }
+            }
+        })
     }
     
     func setLocation(){
@@ -39,7 +66,8 @@ class ViewController: UIViewController {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.requestWhenInUseAuthorization()
             self.currentLocation = locationManager.location
-            findustViewModel.getFineDust(lat: currentLocation.coordinate.longitude, lng: currentLocation.coordinate.latitude)
+            findustViewModel.getFineDust(lat: 127.95590235319048, lng: 37.375125349085906)
+            convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906  , longitude: 127.95590235319048))
         }
     }
 }
