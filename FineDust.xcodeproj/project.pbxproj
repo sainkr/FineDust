@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2DF2664C498002BF6C6 /* FineDust.swift */; };
+		362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */; };
+		362AE2EA2664D04B002BF6C6 /* CurrentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */; };
 		367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074D4265FABD0003666FC /* FineDustViewModel.swift */; };
 		367074DD265FD542003666FC /* TM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074DC265FD542003666FC /* TM.swift */; };
 		3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEA265D400000F2B939 /* AppDelegate.swift */; };
@@ -43,6 +46,10 @@
 		129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDust.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust.release.xcconfig"; path = "Target Support Files/Pods-FineDust/Pods-FineDust.release.xcconfig"; sourceTree = "<group>"; };
+		362AE2DF2664C498002BF6C6 /* FineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDust.swift; sourceTree = "<group>"; };
+		362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewModel.swift; sourceTree = "<group>"; };
+		362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocation.swift; sourceTree = "<group>"; };
+		363643FE2664F64E00086CFE /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		367074D4265FABD0003666FC /* FineDustViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustViewModel.swift; sourceTree = "<group>"; };
 		367074DC265FD542003666FC /* TM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TM.swift; sourceTree = "<group>"; };
 		3696FEE7265D400000F2B939 /* FineDust.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineDust.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				367074D4265FABD0003666FC /* FineDustViewModel.swift */,
+				362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -107,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				367074DC265FD542003666FC /* TM.swift */,
+				362AE2DF2664C498002BF6C6 /* FineDust.swift */,
+				362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -145,6 +155,7 @@
 				3696FEF3265D400100F2B939 /* Assets.xcassets */,
 				3696FEF5265D400100F2B939 /* LaunchScreen.storyboard */,
 				3696FEF8265D400100F2B939 /* Info.plist */,
+				363643FE2664F64E00086CFE /* MyPlayground.playground */,
 			);
 			path = FineDust;
 			sourceTree = "<group>";
@@ -431,8 +442,11 @@
 				367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */,
 				3696FEEF265D400000F2B939 /* ViewController.swift in Sources */,
 				3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */,
+				362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */,
+				362AE2EA2664D04B002BF6C6 /* CurrentLocation.swift in Sources */,
 				367074DD265FD542003666FC /* TM.swift in Sources */,
 				3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */,
+				362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

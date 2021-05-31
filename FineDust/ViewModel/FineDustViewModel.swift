@@ -12,33 +12,21 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-struct TM{
-    var tmX: Double
-    var tmY: Double
-}
+let accessToken = "eec0b76f-0b0a-4b92-a338-b41ace4c607b"
 
 class FineDustViewModel{
     
-    lazy var observable = PublishRelay<String>()
+    lazy var observable = PublishRelay<FineDust>()
     
     func getFineDust(lat: Double, lng: Double){
-        loadTM(lat: lat, lng: lng)
-            .flatMapLatest{ tm in self.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
-            .flatMapLatest{ station in self.loadFineDust(stationName: station)}
-            .bind(to: self.observable)
-        
-       /* loadTM(lat: lat, lng: lng)
-            .map{ tm in
-                    self.loadStation(tmX: tm.tmX, tmY: tm.tmY)
-                        .map{ station in
-                            print("----> station : \(station)")
-                            self.loadFineDust(stationName: station)
-                                .bind(to: self.observable)
-                        }
-                        .subscribe()
-            }
-            .subscribe()*/
-
+        _ = loadTM(lat: lat, lng: lng)
+            .flatMap{ tm in self.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
+            .flatMap{ station in self.loadFineDust(stationName: station)}
+            .take(1)
+            .bind(to: observable)
+            /*.subscribe(onNext: {
+                self.observable.accept($0)
+            })*/
     }
     
     func loadTM(lat: Double, lng: Double) -> Observable<TM>{
@@ -56,10 +44,9 @@ class FineDustViewModel{
             return Disposables.create()
         }
     }
-    
+
     func fetchTM(posX: Double, posY: Double, onComplete: @escaping (Result<TM, Error>) -> Void){
         let url = "https://sgisapi.kostat.go.kr/OpenAPI3/transformation/transcoord.json"
-        let accessToken = "9a6c8a8d-4a52-45d9-9db1-7ef5e0100e48"
         let param: Parameters = [
             "accessToken" : accessToken,
             "src" : "4326",
@@ -74,9 +61,15 @@ class FineDustViewModel{
                 case .success(let data):
                     let json = JSON(data)
                     print(json)
+                    guard json["errMsg"] == "Success" else {
+                        onComplete(.failure(NSError(domain: "TM Parsing Error", code: 1, userInfo: nil)))
+                        return
+                    }
+                    
                     let tmX = json["result"]["posX"].double!
                     let tmY = json["result"]["posY"].double!
                     onComplete(.success(TM(tmX: tmX, tmY: tmY)))
+                    
                 case .failure(let error):
                     print(" ---> error : \(error)")
                     onComplete(.failure(error))
@@ -107,8 +100,6 @@ class FineDustViewModel{
         url += "&returnType=json"
         url += "&serviceKey=\(servicekey)"
         
-        print("--->fetchStation")
-        
         AF.request(url, method: .get, encoding: URLEncoding.default)
             .responseJSON{ (response) in
                 switch response.result{
@@ -123,7 +114,7 @@ class FineDustViewModel{
             }
     }
     
-    func loadFineDust(stationName: String) -> Observable<String>{
+    func loadFineDust(stationName: String) -> Observable<FineDust>{
         return Observable.create{ emitter in
             self.fetchFineDust(stationName: stationName){ result in
                 switch result {
@@ -139,7 +130,7 @@ class FineDustViewModel{
         }
     }
     
-    func fetchFineDust(stationName: String, onComplete: @escaping (Result<String, Error>) -> Void){
+    func fetchFineDust(stationName: String, onComplete: @escaping (Result<FineDust, Error>) -> Void){
         var url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty"
         url += "?stationName="
         url += stationName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -147,6 +138,7 @@ class FineDustViewModel{
         url += "&pageNo=1"
         url += "&numOfRows=100"
         url += "&returnType=json"
+        url += "&ver=1.3"
         url += "&serviceKey="+servicekey
         
         AF.request(url, method: .get, encoding: URLEncoding.default)
@@ -154,42 +146,15 @@ class FineDustViewModel{
                 switch response.result{
                 case let .success(data):
                     let json = JSON(data)
+                    // print(json["response"]["body"]["items"][0])
                     let finedust: String = json["response"]["body"]["items"][0]["pm10Value"].string!
-                    print("---> 미세먼지 : \(finedust)")
-                    onComplete(.success(finedust))
+                    let ultrafinedust: String = json["response"]["body"]["items"][0]["pm25Value"].string!
+                    let response = FineDust(finedust: finedust, ultrafinedust: ultrafinedust)
+                    onComplete(.success(response))
                 case let .failure(error):
                     print(error)
                     onComplete(.failure(error))
                 }
             }
     }
-    
-    /*func fetchFineDust(onComplete: @escaping (Result<String, Error>) -> Void){
-        URLSession.shared.dataTask(with: URL(string: url)!) { data, res, err in
-            if let err = err {
-                onComplete(.failure(err))
-                return
-            }
-            guard let data = data else {
-                return
-            }
-
-            var responses = [String: Any]()
-            var bodys = [String: Any]()
-            var items = [[String : Any]]()
-
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else{
-                return
-            }
-
-            responses = json["response"] as! [String : Any]
-            bodys = responses["body"] as! [String : Any]
-            items = bodys["items"] as! [[String : Any]]
-            let item: [String : Any] = items[0]
-            let finedust: String = item["pm10Value"] as! String
-        
-            onComplete(.success(finedust))
-            
-        }.resume()
-    }*/
 }
