@@ -12,7 +12,8 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-let accessToken = "eec0b76f-0b0a-4b92-a338-b41ace4c607b"
+let servicekey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"
+let accessToken = "e10de305-74c6-4f9e-946f-d6926e50a912"
 
 class FineDustViewModel{
     
