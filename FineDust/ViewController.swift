@@ -21,7 +21,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var finedustLabel: UILabel!
     @IBOutlet weak var ultlrafinedustSateLabel: UILabel!
     @IBOutlet weak var ultrafinedustLabel: UILabel!
-       
+    @IBOutlet weak var findustProgressView: UIProgressView!
+    @IBOutlet weak var ultraProgressView: UIProgressView!
+    
+    var finedustColor: UIColor?
+    var ultrafinedustColor: UIColor?
+    
+    var findustValue: Int = 0
+    var ultrafindustValue: Int = 0
+    
+    var time: Float = 0.0
+    var timer: Timer?
+
     lazy var locationManager = CLLocationManager()
     var currentLocation: CLLocation!
     
@@ -35,22 +46,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setProgressView()
         setLocation()
+        setLabel()
         
         finedustViewModel.observable
             .asDriver(onErrorJustReturn: FineDust(finedust: "-", ultrafinedust: "-"))
             .drive(onNext:{ [weak self] in
-                let finedustColor = self?.setFineDustColor($0.finedust)
-                self?.finedustSateLabel.textColor = finedustColor
-                self?.finedustLabel.textColor = finedustColor
+                self?.finedustColor = self?.setFineDustColor($0.finedust)
+                self?.finedustSateLabel.textColor = self?.finedustColor
+                self?.finedustLabel.textColor = self?.finedustColor
                 self?.finedustSateLabel.text = self?.setFineDust($0.finedust)
                 self?.finedustLabel.text = $0.finedust
                 
-                let ultrafinedustColor = self?.setUltraFineDustColor($0.ultrafinedust)
-                self?.ultlrafinedustSateLabel.textColor = ultrafinedustColor
-                self?.ultrafinedustLabel.textColor = ultrafinedustColor
+                self?.ultrafinedustColor = self?.setUltraFineDustColor($0.ultrafinedust)
+                self?.ultlrafinedustSateLabel.textColor = self?.ultrafinedustColor
+                self?.ultrafinedustLabel.textColor = self?.ultrafinedustColor
                 self?.ultlrafinedustSateLabel.text = self?.setUltraFineDust($0.ultrafinedust)
                 self?.ultrafinedustLabel.text = $0.ultrafinedust
+                
+                self?.setProgressView()
             })
             .disposed(by: disposeBag)
         
@@ -73,6 +88,64 @@ class ViewController: UIViewController {
 }
 
 extension ViewController{
+    
+    func setLabel(){
+        let label = UILabel()
+        
+        label.text = "30"
+        label.frame = CGRect(x: findustProgressView.frame.minX, y: findustProgressView.frame.minY , width: 20, height: 20)
+        
+    }
+    func setProgressView(){
+        
+        if ((timer?.isValid) != nil){
+            timer!.invalidate()
+        }
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(setProgress), userInfo: nil, repeats: true)
+        
+        findustProgressView.progressViewStyle = .bar
+        findustProgressView.trackTintColor = .lightGray
+        
+        findustProgressView.clipsToBounds = true
+        findustProgressView.layer.cornerRadius = 8
+        findustProgressView.clipsToBounds = true
+        findustProgressView.layer.sublayers![1].cornerRadius = 8
+        findustProgressView.subviews[1].clipsToBounds = true
+        
+        findustProgressView.progress = 0.0
+        
+        ultraProgressView.progressViewStyle = .bar
+        ultraProgressView.trackTintColor = .lightGray
+        
+        ultraProgressView.clipsToBounds = true
+        ultraProgressView.layer.cornerRadius = 8
+        ultraProgressView.clipsToBounds = true
+        ultraProgressView.layer.sublayers![1].cornerRadius = 8
+        ultraProgressView.subviews[1].clipsToBounds = true
+        
+        ultraProgressView.progress = 0.0
+
+    }
+    
+    @objc func setProgress() {
+        time += 0.1
+        findustProgressView.progressTintColor = finedustColor
+        ultraProgressView.progressTintColor = ultrafinedustColor
+        
+        if time <= (Float(findustValue) / 200){
+            findustProgressView.setProgress((Float(findustValue) / 200), animated: true)
+        }
+        
+        if time <= (Float(ultrafindustValue) / 100){
+            ultraProgressView.setProgress((Float(ultrafindustValue) / 100), animated: true)
+        }
+        
+        if time > (Float(findustValue) / 200) &&  time > (Float(ultrafindustValue) / 100) {
+            timer!.invalidate()
+        }
+    }
+    
     func setLocation(){
         if CLLocationManager.locationServicesEnabled() {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -87,6 +160,9 @@ extension ViewController{
         guard let value = Int(result) else {
             return .black
         }
+        
+        findustValue = value
+        
         if value <= 30 {
             return .green
         }else if value <= 80 {
@@ -107,6 +183,8 @@ extension ViewController{
         guard let value = Int(result) else {
             return "-"
         }
+        
+        ultrafindustValue = value
         
         if value <= 30 {
             return "좋음"
