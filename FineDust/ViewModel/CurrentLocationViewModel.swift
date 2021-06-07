@@ -15,7 +15,7 @@ class CurrentLocationViewModel{
     lazy var observable = PublishRelay<CurrentLocation>()
 
     lazy var locationName = observable.map{
-        "\($0.location_region) \($0.location_city) \($0.location_sub)"
+        "\($0.location_city) \($0.location_sub)"
     }
 
     func convertToAddressWith(coordinate: CLLocation){
@@ -37,7 +37,7 @@ class CurrentLocationViewModel{
                         emitter.onError(NSError(domain: "data error", code: 0, userInfo: nil))
                         return
                     }
-                    let location = CurrentLocation(location_region: local_region, location_city: local_city, location_sub: local_sub)
+                    let location = CurrentLocation(location_city: local_city, location_sub: local_sub)
                     emitter.onNext(location)
                     emitter.onCompleted()
                 }

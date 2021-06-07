@@ -10,4 +10,6 @@ import Foundation
 struct FineDust{
     var finedust: String
     var ultrafinedust: String
+    var stationName: String
+    var dateTime: String
 }

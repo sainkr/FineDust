@@ -20,6 +20,10 @@
 		3696FEF7265D400100F2B939 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3696FEF5265D400100F2B939 /* LaunchScreen.storyboard */; };
 		3696FF02265D400100F2B939 /* FineDustTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FF01265D400100F2B939 /* FineDustTests.swift */; };
 		3696FF0D265D400100F2B939 /* FineDustUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FF0C265D400100F2B939 /* FineDustUITests.swift */; };
+		36E8D548266E044700AD0AB9 /* NanumSquareOTFBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 36E8D545266E044400AD0AB9 /* NanumSquareOTFBold.otf */; };
+		36E8D54C266E044A00AD0AB9 /* NanumSquareOTFExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 36E8D546266E044400AD0AB9 /* NanumSquareOTFExtraBold.otf */; };
+		36E8D550266E044C00AD0AB9 /* NanumSquareOTFLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 36E8D544266E044400AD0AB9 /* NanumSquareOTFLight.otf */; };
+		36E8D554266E044E00AD0AB9 /* NanumSquareOTFRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 36E8D547266E044400AD0AB9 /* NanumSquareOTFRegular.otf */; };
 		45EB8400BCA312746AF2B02C /* Pods_FineDust_FineDustUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E6ADF2A3C572BB0608D8D42 /* Pods_FineDust_FineDustUITests.framework */; };
 		6AF954A0E43FC3F03DE1D7F5 /* Pods_FineDustTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */; };
 		9B30B521A662D913C82F7098 /* Pods_FineDust.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */; };
@@ -66,6 +70,10 @@
 		3696FF08265D400100F2B939 /* FineDustUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FineDustUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FF0C265D400100F2B939 /* FineDustUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustUITests.swift; sourceTree = "<group>"; };
 		3696FF0E265D400100F2B939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36E8D544266E044400AD0AB9 /* NanumSquareOTFLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareOTFLight.otf; sourceTree = SOURCE_ROOT; };
+		36E8D545266E044400AD0AB9 /* NanumSquareOTFBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareOTFBold.otf; sourceTree = SOURCE_ROOT; };
+		36E8D546266E044400AD0AB9 /* NanumSquareOTFExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareOTFExtraBold.otf; sourceTree = SOURCE_ROOT; };
+		36E8D547266E044400AD0AB9 /* NanumSquareOTFRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareOTFRegular.otf; sourceTree = SOURCE_ROOT; };
 		4A0BDF5903566F29E3DABABA /* Pods-FineDust-FineDustUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust-FineDustUITests.release.xcconfig"; path = "Target Support Files/Pods-FineDust-FineDustUITests/Pods-FineDust-FineDustUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5022D9DA2FC923950344F9E4 /* Pods-FineDustTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDustTests.release.xcconfig"; path = "Target Support Files/Pods-FineDustTests/Pods-FineDustTests.release.xcconfig"; sourceTree = "<group>"; };
 		67691000CA554E5461EFBFAA /* Pods-FineDust-FineDustUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust-FineDustUITests.debug.xcconfig"; path = "Target Support Files/Pods-FineDust-FineDustUITests/Pods-FineDust-FineDustUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -146,6 +154,7 @@
 		3696FEE9265D400000F2B939 /* FineDust */ = {
 			isa = PBXGroup;
 			children = (
+				36E8D543266E043400AD0AB9 /* Font */,
 				367074D3265FAB87003666FC /* ViewModel */,
 				368F1F99265E3B0E00CD7B03 /* Model */,
 				3696FEEA265D400000F2B939 /* AppDelegate.swift */,
@@ -176,6 +185,17 @@
 				3696FF0E265D400100F2B939 /* Info.plist */,
 			);
 			path = FineDustUITests;
+			sourceTree = "<group>";
+		};
+		36E8D543266E043400AD0AB9 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				36E8D545266E044400AD0AB9 /* NanumSquareOTFBold.otf */,
+				36E8D546266E044400AD0AB9 /* NanumSquareOTFExtraBold.otf */,
+				36E8D544266E044400AD0AB9 /* NanumSquareOTFLight.otf */,
+				36E8D547266E044400AD0AB9 /* NanumSquareOTFRegular.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		9BB2E86D3FA56B5C996AB783 /* Pods */ = {
@@ -310,8 +330,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3696FEF7265D400100F2B939 /* LaunchScreen.storyboard in Resources */,
+				36E8D550266E044C00AD0AB9 /* NanumSquareOTFLight.otf in Resources */,
 				3696FEF4265D400100F2B939 /* Assets.xcassets in Resources */,
 				3696FEF2265D400000F2B939 /* Main.storyboard in Resources */,
+				36E8D54C266E044A00AD0AB9 /* NanumSquareOTFExtraBold.otf in Resources */,
+				36E8D554266E044E00AD0AB9 /* NanumSquareOTFRegular.otf in Resources */,
+				36E8D548266E044700AD0AB9 /* NanumSquareOTFBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
