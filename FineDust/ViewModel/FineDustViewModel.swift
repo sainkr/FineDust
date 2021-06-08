@@ -12,23 +12,21 @@ import Alamofire
 import SwiftyJSON
 import CoreLocation
 
-
-let accessToken = "3f036454-2776-42d9-921e-7a4433267f7f"
+let servicekey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"
+let accessToken = "20d16308-c5a4-4339-a6f4-40644f4a30bb"
 
 class FineDustViewModel{
     var currentFineDust = FineDust(finedust: "-", ultrafinedust: "-", stationName: "-", dateTime: "-")
     
     lazy var observable = PublishRelay<FineDust>()
-    
+    lazy var finedustRelay = BehaviorRelay<[FineDust]>(value: [])
+
     func getFineDust(lat: Double, lng: Double){
         _ = loadTM(lat: lat, lng: lng)
             .flatMap{ tm in self.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
             .flatMap{ station in self.loadFineDust(stationName: station)}
             .take(1)
             .bind(to: observable)
-            /*.subscribe(onNext: {
-                self.observable.accept($0)
-            })*/
     }
     
     func loadTM(lat: Double, lng: Double) -> Observable<TM>{

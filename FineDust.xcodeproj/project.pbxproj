@@ -20,6 +20,8 @@
 		3696FEF7265D400100F2B939 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3696FEF5265D400100F2B939 /* LaunchScreen.storyboard */; };
 		3696FF02265D400100F2B939 /* FineDustTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FF01265D400100F2B939 /* FineDustTests.swift */; };
 		3696FF0D265D400100F2B939 /* FineDustUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FF0C265D400100F2B939 /* FineDustUITests.swift */; };
+		36A291C8266F808F00C26FAB /* LoacationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A291C7266F808F00C26FAB /* LoacationListViewController.swift */; };
+		36A291D1266FA0F300C26FAB /* SerachLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A291D0266FA0F300C26FAB /* SerachLocationViewController.swift */; };
 		36E8D548266E044700AD0AB9 /* NanumSquareOTFBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 36E8D545266E044400AD0AB9 /* NanumSquareOTFBold.otf */; };
 		36E8D54C266E044A00AD0AB9 /* NanumSquareOTFExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 36E8D546266E044400AD0AB9 /* NanumSquareOTFExtraBold.otf */; };
 		36E8D550266E044C00AD0AB9 /* NanumSquareOTFLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 36E8D544266E044400AD0AB9 /* NanumSquareOTFLight.otf */; };
@@ -70,6 +72,8 @@
 		3696FF08265D400100F2B939 /* FineDustUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FineDustUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FF0C265D400100F2B939 /* FineDustUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustUITests.swift; sourceTree = "<group>"; };
 		3696FF0E265D400100F2B939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36A291C7266F808F00C26FAB /* LoacationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoacationListViewController.swift; sourceTree = "<group>"; };
+		36A291D0266FA0F300C26FAB /* SerachLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerachLocationViewController.swift; sourceTree = "<group>"; };
 		36E8D544266E044400AD0AB9 /* NanumSquareOTFLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareOTFLight.otf; sourceTree = SOURCE_ROOT; };
 		36E8D545266E044400AD0AB9 /* NanumSquareOTFBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareOTFBold.otf; sourceTree = SOURCE_ROOT; };
 		36E8D546266E044400AD0AB9 /* NanumSquareOTFExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareOTFExtraBold.otf; sourceTree = SOURCE_ROOT; };
@@ -154,12 +158,12 @@
 		3696FEE9265D400000F2B939 /* FineDust */ = {
 			isa = PBXGroup;
 			children = (
+				36A291CC266FA0D000C26FAB /* ViewController */,
 				36E8D543266E043400AD0AB9 /* Font */,
 				367074D3265FAB87003666FC /* ViewModel */,
 				368F1F99265E3B0E00CD7B03 /* Model */,
 				3696FEEA265D400000F2B939 /* AppDelegate.swift */,
 				3696FEEC265D400000F2B939 /* SceneDelegate.swift */,
-				3696FEEE265D400000F2B939 /* ViewController.swift */,
 				3696FEF0265D400000F2B939 /* Main.storyboard */,
 				3696FEF3265D400100F2B939 /* Assets.xcassets */,
 				3696FEF5265D400100F2B939 /* LaunchScreen.storyboard */,
@@ -185,6 +189,16 @@
 				3696FF0E265D400100F2B939 /* Info.plist */,
 			);
 			path = FineDustUITests;
+			sourceTree = "<group>";
+		};
+		36A291CC266FA0D000C26FAB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3696FEEE265D400000F2B939 /* ViewController.swift */,
+				36A291C7266F808F00C26FAB /* LoacationListViewController.swift */,
+				36A291D0266FA0F300C26FAB /* SerachLocationViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		36E8D543266E043400AD0AB9 /* Font */ = {
@@ -468,6 +482,8 @@
 				3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */,
 				362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */,
 				362AE2EA2664D04B002BF6C6 /* CurrentLocation.swift in Sources */,
+				36A291D1266FA0F300C26FAB /* SerachLocationViewController.swift in Sources */,
+				36A291C8266F808F00C26FAB /* LoacationListViewController.swift in Sources */,
 				367074DD265FD542003666FC /* TM.swift in Sources */,
 				3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */,
 				362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */,

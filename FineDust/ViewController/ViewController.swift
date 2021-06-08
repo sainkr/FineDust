@@ -125,22 +125,23 @@ extension ViewController{
     }
     
     @objc func setProgress() {
+        
+        guard let finedustValue = Int(finedustViewModel.currentFineDust.finedust), let ultrafindustValue = Int(finedustViewModel.currentFineDust.ultrafinedust) else { return }
+        
         time += 0.1
         findustProgressView.progressTintColor = finedustColor
         ultraProgressView.progressTintColor = ultrafinedustColor
         
-        guard let finedustValue = Int(finedustViewModel.currentFineDust.finedust) else { return }
-        guard let ultrafindustValue = Int(finedustViewModel.currentFineDust.ultrafinedust) else { return }
-        
         if time <= finedustViewModel.calculatorFineDust(finedustValue){
             findustProgressView.setProgress(time, animated: true)
         }
-        
         if time <= finedustViewModel.calculatorUltraFineDust(ultrafindustValue){
             ultraProgressView.setProgress(time, animated: true)
         }
         
         if time > finedustViewModel.calculatorFineDust(finedustValue) &&  time > finedustViewModel.calculatorUltraFineDust(ultrafindustValue) {
+            print(finedustViewModel.calculatorFineDust(finedustValue))
+            print(finedustViewModel.calculatorUltraFineDust(ultrafindustValue))
             timer!.invalidate()
         }
     }
