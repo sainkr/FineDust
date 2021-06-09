@@ -13,7 +13,7 @@ import SwiftyJSON
 import CoreLocation
 
 let servicekey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"
-let accessToken = "20d16308-c5a4-4339-a6f4-40644f4a30bb"
+let accessToken = "50073822-e488-4fc8-8281-274996d5f7bd"
 
 class FineDustViewModel{
     var currentFineDust = FineDust(finedust: "-", ultrafinedust: "-", stationName: "-", dateTime: "-")

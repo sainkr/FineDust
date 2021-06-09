@@ -45,7 +45,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setProgressView()
-        setLocation()
         
         finedustViewModel.observable
             .asDriver(onErrorJustReturn: FineDust(finedust: "-", ultrafinedust: "-", stationName: "-", dateTime: "-"))
@@ -76,22 +75,47 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // requestLocation()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         disposeBag = DisposeBag()
     }
     
 }
 
-extension ViewController{
-    func setLocation(){
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.requestWhenInUseAuthorization()
-            self.currentLocation = locationManager.location
-            finedustViewModel.getFineDust(lat: 127.95590235319048, lng: 37.375125349085906)
-            currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906  , longitude: 127.95590235319048))
+// MARK: - Location Handling
+
+extension ViewController {
+    // Location 허용
+    private func requestLocation() {
+        guard CLLocationManager.locationServicesEnabled() else {
+            displayLocationServicesDisabledAlert()
+            return
         }
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        self.currentLocation = locationManager.location
+        finedustViewModel.getFineDust(lat: 127.95590235319048, lng: 37.375125349085906)
+        currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906  , longitude: 127.95590235319048))
     }
+    
+    private func displayLocationServicesDisabledAlert() {
+        let message = NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "Location services are disabled")
+        let alertController = UIAlertController(title: NSLocalizedString("LOCATION_SERVICES_ALERT_TITLE", comment: "Location services alert title"),
+                                                message: message,
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: "OK alert button"), style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension ViewController{
     
     func setProgressView(){
         if ((timer?.isValid) != nil){

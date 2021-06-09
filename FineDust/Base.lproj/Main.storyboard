@@ -411,6 +411,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="362" height="56"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="NmZ-nb-AjZ" id="hO3-Rg-vpC"/>
+                                </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6p-HH-lBI">
                                 <rect key="frame" x="372" y="0.0" width="32" height="56"/>
@@ -426,15 +429,36 @@
                                 <rect key="frame" x="0.0" y="56" width="414" height="752"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="paP-IZ-Thr">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchLocationCell" id="paP-IZ-Thr" customClass="SearchLocationCell" customModule="FineDust" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="30.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="paP-IZ-Thr" id="icJ-gt-8gg">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sx-Ef-VK3">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="30.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9Sx-Ef-VK3" firstAttribute="top" secondItem="icJ-gt-8gg" secondAttribute="top" id="0Gt-Dj-uG2"/>
+                                                <constraint firstAttribute="bottom" secondItem="9Sx-Ef-VK3" secondAttribute="bottom" id="1aW-ii-qag"/>
+                                                <constraint firstAttribute="trailing" secondItem="9Sx-Ef-VK3" secondAttribute="trailing" id="Tpu-DM-AWx"/>
+                                                <constraint firstItem="9Sx-Ef-VK3" firstAttribute="leading" secondItem="icJ-gt-8gg" secondAttribute="leading" id="aoo-WD-tyk"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="label" destination="9Sx-Ef-VK3" id="cRz-BJ-cKb"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="NmZ-nb-AjZ" id="Eh5-AD-ERR"/>
+                                    <outlet property="delegate" destination="NmZ-nb-AjZ" id="34t-5V-0OT"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="T4B-XH-6Aq"/>
