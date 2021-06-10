@@ -10,18 +10,31 @@ import MapKit
 
 class SerachLocationViewController: UIViewController {
 
+    private enum SegueID: String {
+        case showAdd
+    }
+    
     private var searchCompleter: MKLocalSearchCompleter?
     var completerResults: [MKLocalSearchCompletion]?
-    
-    private var currentPlacemark: CLPlacemark?
     private var searchRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
+    private var placeMark: MKPlacemark?
     
     @IBOutlet weak var serachBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = segue.destination as? ViewController else {
+            return
+        }
+        if segue.identifier == SegueID.showAdd.rawValue {
+            vc.navigationBarisHidden = false
+            vc.location = placeMark?.coordinate
+            vc.mode = .add
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +94,6 @@ extension SerachLocationViewController:  MKLocalSearchCompleterDelegate{
             print("MKLocalSearchCompleter encountered an error: \(error.localizedDescription). The query fragment is: \"\(completer.queryFragment)\"")
         }
     }
-    
 }
 
 extension SerachLocationViewController: UITableViewDataSource {
@@ -93,6 +105,7 @@ extension SerachLocationViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchLocationCell", for: indexPath) as? SearchLocationCell else { return UITableViewCell() }
         
         if let suggestion = completerResults?[indexPath.row] {
+   
             cell.label?.attributedText = createHighlightedString(text: suggestion.title, rangeValues: suggestion.titleHighlightRanges)
         }
         
@@ -100,7 +113,7 @@ extension SerachLocationViewController: UITableViewDataSource {
     }
     
     private func createHighlightedString(text: String, rangeValues: [NSValue]) -> NSAttributedString {
-        let attributes = [NSAttributedString.Key.backgroundColor : UIColor.yellow ]
+        let attributes = [NSAttributedString.Key.foregroundColor : UIColor.blue ]
         let highlightedString = NSMutableAttributedString(string: text)
         
         // Each `NSValue` wraps an `NSRange` that can be used as a style attribute's range with `NSAttributedString`.
@@ -125,7 +138,6 @@ extension SerachLocationViewController: UITableViewDelegate{
         // Confine the map search area to an area around the user's current location.
         searchRequest.region = searchRegion
         
-        
         // Include only point of interest results. This excludes results based on address matches.
         searchRequest.resultTypes = .address
         
@@ -134,13 +146,7 @@ extension SerachLocationViewController: UITableViewDelegate{
             guard error == nil else {
                 return
             }
-            
-            guard let placeMark = response?.mapItems[0].placemark else {
-                return
-            }
-            
-            print(placeMark)
-            
+            self.placeMark = response?.mapItems[0].placemark
         }
     }
     

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		361B2EDC2671F18A00C39F0D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EDB2671F18A00C39F0D /* APIService.swift */; };
+		361B2EE42671F58A00C39F0D /* FineDustListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */; };
+		361B2EF12671F5B600C39F0D /* FineDustList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EF02671F5B600C39F0D /* FineDustList.swift */; };
 		362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2DF2664C498002BF6C6 /* FineDust.swift */; };
 		362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */; };
 		362AE2EA2664D04B002BF6C6 /* CurrentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */; };
@@ -52,6 +55,10 @@
 		129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDust.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust.release.xcconfig"; path = "Target Support Files/Pods-FineDust/Pods-FineDust.release.xcconfig"; sourceTree = "<group>"; };
+		361B2EDB2671F18A00C39F0D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIService.swift; path = ../../../../../Applications/APIService.swift; sourceTree = "<group>"; };
+		361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustListViewModel.swift; sourceTree = "<group>"; };
+		361B2EF02671F5B600C39F0D /* FineDustList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustList.swift; sourceTree = "<group>"; };
+		361B2EF92672083300C39F0D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		362AE2DF2664C498002BF6C6 /* FineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDust.swift; sourceTree = "<group>"; };
 		362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewModel.swift; sourceTree = "<group>"; };
 		362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocation.swift; sourceTree = "<group>"; };
@@ -114,11 +121,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		361B2EF82672082D00C39F0D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				361B2EF92672083300C39F0D /* APIService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		367074D3265FAB87003666FC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				367074D4265FABD0003666FC /* FineDustViewModel.swift */,
 				362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */,
+				361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -129,6 +145,7 @@
 				367074DC265FD542003666FC /* TM.swift */,
 				362AE2DF2664C498002BF6C6 /* FineDust.swift */,
 				362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */,
+				361B2EF02671F5B600C39F0D /* FineDustList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -158,6 +175,7 @@
 		3696FEE9265D400000F2B939 /* FineDust */ = {
 			isa = PBXGroup;
 			children = (
+				361B2EF82672082D00C39F0D /* Service */,
 				36A291CC266FA0D000C26FAB /* ViewController */,
 				36E8D543266E043400AD0AB9 /* Font */,
 				367074D3265FAB87003666FC /* ViewModel */,
@@ -169,6 +187,7 @@
 				3696FEF5265D400100F2B939 /* LaunchScreen.storyboard */,
 				3696FEF8265D400100F2B939 /* Info.plist */,
 				363643FE2664F64E00086CFE /* MyPlayground.playground */,
+				361B2EDB2671F18A00C39F0D /* APIService.swift */,
 			);
 			path = FineDust;
 			sourceTree = "<group>";
@@ -477,6 +496,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				361B2EE42671F58A00C39F0D /* FineDustListViewModel.swift in Sources */,
+				361B2EDC2671F18A00C39F0D /* APIService.swift in Sources */,
 				367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */,
 				3696FEEF265D400000F2B939 /* ViewController.swift in Sources */,
 				3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */,
@@ -487,6 +508,7 @@
 				367074DD265FD542003666FC /* TM.swift in Sources */,
 				3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */,
 				362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */,
+				361B2EF12671F5B600C39F0D /* FineDustList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
