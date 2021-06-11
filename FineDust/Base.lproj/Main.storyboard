@@ -252,8 +252,10 @@
                         <outlet property="findustProgressView" destination="WuE-xD-Hkd" id="aWJ-Ec-CPM"/>
                         <outlet property="finedustLabel" destination="XKD-C0-BxD" id="Mj9-GX-DHj"/>
                         <outlet property="finedustSateLabel" destination="fV5-zN-kQ3" id="fuy-AM-tVH"/>
+                        <outlet property="listButton" destination="nth-ja-VkF" id="2vz-Uw-tjB"/>
                         <outlet property="localLabel" destination="8Dk-XA-Iom" id="oj6-sU-vQl"/>
                         <outlet property="navigationBar" destination="xkP-FA-2ve" id="4aS-a6-pqk"/>
+                        <outlet property="pageControl" destination="O73-EQ-iNY" id="pgK-fc-QIZ"/>
                         <outlet property="stationLabel" destination="y6s-rU-FAo" id="Bt7-RV-2Vb"/>
                         <outlet property="ultlrafinedustSateLabel" destination="aXX-Nx-Rnd" id="ODX-cX-5BC"/>
                         <outlet property="ultraProgressView" destination="iO3-Kf-pXY" id="46z-zU-iMw"/>

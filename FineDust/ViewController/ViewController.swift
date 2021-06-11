@@ -31,6 +31,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var ultraProgressView: UIProgressView!
     @IBOutlet weak var stationLabel: UILabel!
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var listButton: UIButton!
     
     var finedustColor: UIColor?
     var ultrafinedustColor: UIColor?
@@ -48,8 +50,7 @@ class ViewController: UIViewController {
     let finedustListViewModel = FineDustListViewModel()
     
     let cellID = "FineDustCell"
-    
-    var navigationBarisHidden = true
+
     var location: CLLocationCoordinate2D?
     
     var mode: VCMode = .main
@@ -58,6 +59,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         setProgressView(nil)
+        setPageControl()
+        
+        locationManager.delegate = self
         
         finedustViewModel.observable
             .asDriver(onErrorJustReturn: FineDust(finedust: "-", ultrafinedust: "-", stationName: "-", dateTime: "-"))
@@ -101,17 +105,19 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationBar.isHidden = navigationBarisHidden
-        
-        if let lat = location?.latitude, let lng = location?.longitude{
-            getFineDust(lat, lng)
+        if mode == .add{
+            navigationBar.isHidden = false
+            pageControl.isHidden = true
+            listButton.isHidden = true
+            
+            if let lat = location?.latitude, let lng = location?.longitude{
+                getFineDust(lat, lng)
+            }
+        }else {
+            finedustViewModel.getFineDust(lat: 127.95590235319048, lng: 37.375125349085906)
+            currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906  , longitude: 127.95590235319048))
+            // requestLocation()
         }
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // requestLocation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -132,15 +138,24 @@ class ViewController: UIViewController {
 
 // MARK: - Location Handling
 
-extension ViewController {
-    // Location 허용
+extension ViewController : CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print("Location data received.")
+            print(location)
+        }
+    }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to get users location.")
+    }
+        
+        
     private func requestLocation() {
         guard CLLocationManager.locationServicesEnabled() else {
             displayLocationServicesDisabledAlert()
             return
         }
-        
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -165,7 +180,13 @@ extension ViewController {
     }
 }
 
+// MARK: - UI
+
 extension ViewController{
+    
+    func setPageControl(){
+        pageControl.numberOfPages = FineDustListViewModel.finedustList.count
+    }
     
     func setProgressView(_ finedust: FineDust?){
         timer?.invalidate()
@@ -173,7 +194,7 @@ extension ViewController{
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(setProgress(sender:)), userInfo: finedust, repeats: true)
         
         findustProgressView.progressViewStyle = .bar
-        findustProgressView.trackTintColor = .lightGray
+        findustProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
         
         findustProgressView.clipsToBounds = true
         findustProgressView.layer.cornerRadius = 15
@@ -184,7 +205,7 @@ extension ViewController{
         findustProgressView.progress = 0.0
         
         ultraProgressView.progressViewStyle = .bar
-        ultraProgressView.trackTintColor = .lightGray
+        ultraProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
         
         ultraProgressView.clipsToBounds = true
         ultraProgressView.layer.cornerRadius = 15
@@ -193,7 +214,6 @@ extension ViewController{
         ultraProgressView.subviews[1].clipsToBounds = true
         
         ultraProgressView.progress = 0.0
-        
     }
     
     @objc func setProgress(sender: Timer) {

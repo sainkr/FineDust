@@ -31,8 +31,10 @@ class SerachLocationViewController: UIViewController {
             return
         }
         if segue.identifier == SegueID.showAdd.rawValue {
-            vc.navigationBarisHidden = false
-            vc.location = placeMark?.coordinate
+            guard let place = placeMark?.coordinate else {
+                return
+            }
+            vc.location = place
             vc.mode = .add
         }
     }
@@ -146,7 +148,9 @@ extension SerachLocationViewController: UITableViewDelegate{
             guard error == nil else {
                 return
             }
+            
             self.placeMark = response?.mapItems[0].placemark
+            print("placeMark : \(self.placeMark)")
         }
     }
     

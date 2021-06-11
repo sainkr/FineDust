@@ -20,20 +20,29 @@ class LoacationListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionViewHeight.constant = 0
         
         finedustListViewModel.getFineDust()
         
         finedustListViewModel.finedustRelay
             .bind(to: collectionView.rx.items(cellIdentifier: "LoactionCollectionViewCell", cellType: LoactionCollectionViewCell.self)){ [self] (index, element, cell) in
+                print("-------> 컬렉션뷰 : \(element)")
+                
+                if index == 1 {
+                    print("----> index : \(index)")
+                    cell.currentLocationLabel.isHidden = false
+                }else{
+                    cell.currentLocationLabel.isHidden = true
+                }
+                
                 cell.localLabel.text = element.stationName
                 cell.currentLocationLabel.isHidden = true
                 
                 cell.finedustValueLabel.text = element.finedust
                 cell.ultrafinedustValueLabel.text = element.ultrafinedust
                 
-                self.collectionViewHeight.constant = self.collectionViewHeight.constant + 128
+                
+                // self.collectionViewHeight.constant = self.collectionViewHeight.constant + 128
+                
             }
             .disposed(by: disposeBag)
     }
@@ -42,7 +51,6 @@ class LoacationListViewController: UIViewController {
         disposeBag = DisposeBag()
     }
 }
-
 
 /*extension LoacationListViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

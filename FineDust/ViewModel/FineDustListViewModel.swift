@@ -23,17 +23,26 @@ class FineDustListViewModel{
     let finedustViewModel = FineDustViewModel()
 
     func getFineDust(){
-        let stationName = ["중앙동(강원)","종로구"] // 일단 저장된거 불러와서
+        var stationName: [String] = [] // 일단 저장된거 불러와서
+        
+        print("--------> finedustList : \(FineDustListViewModel.finedustList)")
+        FineDustListViewModel.finedustList.forEach{ i in
+            stationName.append(i.stationName)
+        }
         
         Observable.from(stationName)
             .flatMap{ station in APIService.loadFineDust(stationName: station)}
             .subscribe(onNext:{ [weak self] value in
                 self?.finedust.append(value)
             }, onCompleted: {
-                
-                self.finedust.forEach{ value in
-                    // finedustList.append()
+                for i in self.finedust.indices{
+                    let finedustList = FineDustListViewModel.finedustList[i]
+                    let finedust = FineDustList(location: finedustList.location, stationName: finedustList.stationName, finedust: self.finedust[i].finedust, finedustStatus: self.finedustViewModel.setFineDust(self.finedust[i].finedust), ultrafinedust: self.finedust[i].ultrafinedust, ultrafinedustState: self.finedustViewModel.setFineDust(self.finedust[i].ultrafinedust))
+                    
+                    FineDustListViewModel.finedustList[i] = finedust
                 }
+                print("----> finedustList : \(FineDustListViewModel.finedustList)")
+                
                 self.finedustRelay.accept(FineDustListViewModel.finedustList)
             }).dispose()
     }

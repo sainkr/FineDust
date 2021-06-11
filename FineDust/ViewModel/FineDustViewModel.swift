@@ -17,12 +17,11 @@ class FineDustViewModel{
     lazy var observable = PublishRelay<FineDust>()
     
     func getFineDust(lat: Double, lng: Double){
-        APIService.loadTM(lat: lat, lng: lng)
+       _ = APIService.loadTM(lat: lat, lng: lng)
             .flatMap{ tm in APIService.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
             .flatMap{ station in APIService.loadFineDust(stationName: station)}
             .take(1)
             .bind(to: observable)
-            .dispose()
     }
     
     func setFineDustColor(_ result: String) -> UIColor{
@@ -30,13 +29,13 @@ class FineDustViewModel{
             return .black
         }
         if value <= 30 {
-            return .green
+            return #colorLiteral(red: 0.1309628189, green: 0.6049023867, blue: 1, alpha: 1)
         }else if value <= 80 {
-            return .blue
+            return #colorLiteral(red: 0.08792158216, green: 0.7761771083, blue: 0.2295451164, alpha: 1)
         }else if value <= 150 {
-            return .red
+            return #colorLiteral(red: 0.9908027053, green: 0.6055337787, blue: 0.3520092368, alpha: 1)
         }else {
-            return .red
+            return #colorLiteral(red: 1, green: 0.3110373616, blue: 0.312485069, alpha: 1)
         }
     }
     
@@ -57,13 +56,13 @@ class FineDustViewModel{
     func setUltraFineDustColor(_ result: String) -> UIColor{
         guard let value = Int(result) else { return .black }
         if value <= 15 {
-            return .green
+            return #colorLiteral(red: 0.1309628189, green: 0.6049023867, blue: 1, alpha: 1)
         }else if value <= 35 {
-            return .blue
+            return #colorLiteral(red: 0.08792158216, green: 0.7761771083, blue: 0.2295451164, alpha: 1)
         }else if value <= 70 {
-            return .red
+            return #colorLiteral(red: 0.9908027053, green: 0.6055337787, blue: 0.3520092368, alpha: 1)
         }else {
-            return .red
+            return #colorLiteral(red: 1, green: 0.3110373616, blue: 0.312485069, alpha: 1)
         }
     }
     

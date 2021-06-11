@@ -31,8 +31,7 @@ class CurrentLocationViewModel{
             
             geoCoder.reverseGeocodeLocation(coordinate, preferredLocale: locale, completionHandler: {(placemarks, error) in
                 if let address: [CLPlacemark] = placemarks {
-                    guard let local_region = address.last?.administrativeArea
-                    , let local_city = address.last?.locality,
+                    guard let local_city = address.last?.locality,
                           let local_sub = address.last?.subLocality else {
                         emitter.onError(NSError(domain: "data error", code: 0, userInfo: nil))
                         return
