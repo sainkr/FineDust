@@ -15,17 +15,16 @@ import CoreLocation
 
 class FineDustListViewModel{
     
-    static var finedustList: [FineDustList] = [FineDustList(location: "-", stationName: "-", finedust: "-", finedustStatus: "-", ultrafinedust: "-", ultrafinedustState: "-")]
+    static var finedustList: [FineDustList] = [FineDustList(location: "-", stationName: "-", finedust: "-", finedustStatus: "-", finedustColor: .white, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .white), FineDustList(location: "종로구", stationName: "종로구", finedust: "-", finedustStatus: "-", finedustColor: .white, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .white) ]
 
     var finedust: [FineDust] = []
-    lazy var finedustRelay = BehaviorRelay<[FineDustList]>(value: [])
+    lazy var finedustRelay = PublishRelay<[FineDustList]>()
     
     let finedustViewModel = FineDustViewModel()
 
     func getFineDust(){
         var stationName: [String] = [] // 일단 저장된거 불러와서
         
-        print("--------> finedustList : \(FineDustListViewModel.finedustList)")
         FineDustListViewModel.finedustList.forEach{ i in
             stationName.append(i.stationName)
         }
@@ -37,14 +36,14 @@ class FineDustListViewModel{
             }, onCompleted: {
                 for i in self.finedust.indices{
                     let finedustList = FineDustListViewModel.finedustList[i]
-                    let finedust = FineDustList(location: finedustList.location, stationName: finedustList.stationName, finedust: self.finedust[i].finedust, finedustStatus: self.finedustViewModel.setFineDust(self.finedust[i].finedust), ultrafinedust: self.finedust[i].ultrafinedust, ultrafinedustState: self.finedustViewModel.setFineDust(self.finedust[i].ultrafinedust))
+                    let finedust = FineDustList(location: finedustList.location, stationName: finedustList.stationName, finedust: self.finedust[i].finedust, finedustStatus: self.finedustViewModel.setFineDust(self.finedust[i].finedust), finedustColor: self.finedustViewModel.setFineDustColor(self.finedust[i].finedust),ultrafinedust: self.finedust[i].ultrafinedust, ultrafinedustState: self.finedustViewModel.setFineDust(self.finedust[i].ultrafinedust), ultrafinedustColor: self.finedustViewModel.setUltraFineDustColor(self.finedust[i].ultrafinedust))
                     
                     FineDustListViewModel.finedustList[i] = finedust
                 }
-                print("----> finedustList : \(FineDustListViewModel.finedustList)")
                 
                 self.finedustRelay.accept(FineDustListViewModel.finedustList)
-            }).dispose()
+            })
+
     }
     
     func addCurrentLocationFineDust(_ finedust: FineDust){

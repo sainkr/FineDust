@@ -93,8 +93,7 @@ class ViewController: UIViewController {
             .asDriver(onErrorJustReturn: "현재 위치를 찾을 수 없습니다.")
             .drive(onNext:{ [weak self] in
                 self?.localLabel.text = $0
-                print("\($0)")
-                
+
                 if self?.mode == .main{
                     self?.finedustListViewModel.addCurrentLocationFineDust($0)
                 }else{

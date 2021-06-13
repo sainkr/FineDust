@@ -57,7 +57,7 @@
 		2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust.release.xcconfig"; path = "Target Support Files/Pods-FineDust/Pods-FineDust.release.xcconfig"; sourceTree = "<group>"; };
 		361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustListViewModel.swift; sourceTree = "<group>"; };
 		361B2EF02671F5B600C39F0D /* FineDustList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustList.swift; sourceTree = "<group>"; };
-		361B2EF92672083300C39F0D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		361B2EF92672083300C39F0D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIService.swift; path = FineDust/APIService.swift; sourceTree = SOURCE_ROOT; };
 		362AE2DF2664C498002BF6C6 /* FineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDust.swift; sourceTree = "<group>"; };
 		362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewModel.swift; sourceTree = "<group>"; };
 		362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocation.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 		3696FEF1265D400000F2B939 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3696FEF3265D400100F2B939 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3696FEF6265D400100F2B939 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3696FEF8265D400100F2B939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3696FEF8265D400100F2B939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = FineDust/Resources/Info.plist; sourceTree = SOURCE_ROOT; };
 		3696FEFD265D400100F2B939 /* FineDustTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FineDustTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FF01265D400100F2B939 /* FineDustTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustTests.swift; sourceTree = "<group>"; };
 		3696FF03265D400100F2B939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -120,6 +120,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3612DA6B2675020F0008E45F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				36E8D543266E043400AD0AB9 /* Font */,
+				3696FEF3265D400100F2B939 /* Assets.xcassets */,
+				3696FEF0265D400000F2B939 /* Main.storyboard */,
+				3696FEF5265D400100F2B939 /* LaunchScreen.storyboard */,
+				3696FEF8265D400100F2B939 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		367074D3265FAB87003666FC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				3696FEE9265D400000F2B939 /* FineDust */,
+				363643FE2664F64E00086CFE /* MyPlayground.playground */,
 				3696FF00265D400100F2B939 /* FineDustTests */,
 				3696FF0B265D400100F2B939 /* FineDustUITests */,
 				3696FEE8265D400000F2B939 /* Products */,
@@ -166,18 +179,13 @@
 		3696FEE9265D400000F2B939 /* FineDust */ = {
 			isa = PBXGroup;
 			children = (
+				3696FEEA265D400000F2B939 /* AppDelegate.swift */,
+				3696FEEC265D400000F2B939 /* SceneDelegate.swift */,
 				361B2EF92672083300C39F0D /* APIService.swift */,
-				36E8D543266E043400AD0AB9 /* Font */,
 				367074D3265FAB87003666FC /* ViewModel */,
 				368F1F99265E3B0E00CD7B03 /* Model */,
-				3696FEEA265D400000F2B939 /* AppDelegate.swift */,
 				36A291CC266FA0D000C26FAB /* ViewController */,
-				3696FEEC265D400000F2B939 /* SceneDelegate.swift */,
-				3696FEF0265D400000F2B939 /* Main.storyboard */,
-				3696FEF3265D400100F2B939 /* Assets.xcassets */,
-				3696FEF5265D400100F2B939 /* LaunchScreen.storyboard */,
-				3696FEF8265D400100F2B939 /* Info.plist */,
-				363643FE2664F64E00086CFE /* MyPlayground.playground */,
+				3612DA6B2675020F0008E45F /* Resources */,
 			);
 			path = FineDust;
 			sourceTree = "<group>";
@@ -677,7 +685,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SG72AH33ZM;
-				INFOPLIST_FILE = FineDust/Info.plist;
+				INFOPLIST_FILE = FineDust/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -697,7 +705,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SG72AH33ZM;
-				INFOPLIST_FILE = FineDust/Info.plist;
+				INFOPLIST_FILE = FineDust/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
