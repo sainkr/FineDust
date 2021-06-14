@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 import MapKit
 
-class SerachLocationViewController: UIViewController {
+class SerachLocationViewController: UIViewController, UIScrollViewDelegate {
 
     private enum SegueID: String {
         case showAdd
@@ -25,7 +25,6 @@ class SerachLocationViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var disposeBag = DisposeBag()
-    
     var relay = PublishRelay<[MKLocalSearchCompletion]>()
     
     override func viewDidLoad() {
@@ -42,6 +41,7 @@ class SerachLocationViewController: UIViewController {
                 
             }.disposed(by: disposeBag)
         
+        
         // TableView Delegate
         tableView.rx.itemSelected // indexPath를 가져옴
             .subscribe(onNext: { [weak self] indexPath in
@@ -51,17 +51,19 @@ class SerachLocationViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
+
         // 내용을 가져옴
         /*tableView.rx.modelSelected(SearchLocationCell.self)
             .subscribe(onNext: { product in
-                
+            
             })
             .disposed(by: disposeBag)*/
+    
         
         // SearchBar Delegate
         searchBar.rx.text
                     .orEmpty
+                    .distinctUntilChanged()
                     .subscribe(onNext: { [weak self] searchText in
                         if searchText == "" {
                             self?.completerResults = nil
@@ -148,12 +150,11 @@ extension SerachLocationViewController{
             }
             
             self.placeMark = response?.mapItems[0].placemark
-            print("placeMark : \(self.placeMark)")
         }
     }
 }
 
-// Mark: 
+
 extension SerachLocationViewController: MKLocalSearchCompleterDelegate{
     /// - Tag: QueryResults
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {

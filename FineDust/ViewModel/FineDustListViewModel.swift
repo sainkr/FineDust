@@ -15,10 +15,10 @@ import CoreLocation
 
 class FineDustListViewModel{
     
-    static var finedustList: [FineDustList] = [FineDustList(location: "-", stationName: "-", finedust: "-", finedustStatus: "-", finedustColor: .white, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .white), FineDustList(location: "종로구", stationName: "종로구", finedust: "-", finedustStatus: "-", finedustColor: .white, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .white) ]
+    static var finedustList: [FineDust] = [FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-",lat: 0, lng: 0) ]
 
-    var finedust: [FineDust] = []
-    lazy var finedustRelay = PublishRelay<[FineDustList]>()
+    var apiFineDust: [APIFineDust] = []
+    lazy var finedustRelay = PublishRelay<[FineDust]>()
     
     let finedustViewModel = FineDustViewModel()
 
@@ -32,11 +32,11 @@ class FineDustListViewModel{
         Observable.from(stationName)
             .flatMap{ station in APIService.loadFineDust(stationName: station)}
             .subscribe(onNext:{ [weak self] value in
-                self?.finedust.append(value)
+                self?.apiFineDust.append(value)
             }, onCompleted: {
-                for i in self.finedust.indices{
+                for i in self.apiFineDust.indices{
                     let finedustList = FineDustListViewModel.finedustList[i]
-                    let finedust = FineDustList(location: finedustList.location, stationName: finedustList.stationName, finedust: self.finedust[i].finedust, finedustStatus: self.finedustViewModel.setFineDust(self.finedust[i].finedust), finedustColor: self.finedustViewModel.setFineDustColor(self.finedust[i].finedust),ultrafinedust: self.finedust[i].ultrafinedust, ultrafinedustState: self.finedustViewModel.setFineDust(self.finedust[i].ultrafinedust), ultrafinedustColor: self.finedustViewModel.setUltraFineDustColor(self.finedust[i].ultrafinedust))
+                    let finedust = self.finedustViewModel.finedust(value: self.apiFineDust[i], lat: finedustList.lat, lng: finedustList.lng)
                     
                     FineDustListViewModel.finedustList[i] = finedust
                 }
@@ -47,45 +47,11 @@ class FineDustListViewModel{
     }
     
     func addCurrentLocationFineDust(_ finedust: FineDust){
-        /*
-         var location: String
-         var stationName: String
-         var finedust: String
-         var finedustStatus: String
-         var ultrafinedust: String
-         var ultrafinedustState: String
-         */
-        FineDustListViewModel.finedustList[0].finedust = finedust.finedust
-        FineDustListViewModel.finedustList[0].finedustStatus = finedustViewModel.setFineDust(finedust.finedust)
-        FineDustListViewModel.finedustList[0].ultrafinedust = finedust.ultrafinedust
-        FineDustListViewModel.finedustList[0].ultrafinedustState = finedustViewModel.setUltraFineDust(finedust.ultrafinedust)
-        FineDustListViewModel.finedustList[0].stationName = finedust.stationName
-    }
-    
-    func addCurrentLocationFineDust(_ location: String){
-        FineDustListViewModel.finedustList[0].location = location
+        FineDustListViewModel.finedustList[0] = finedust
     }
     
     func addFineDust(_ finedust: FineDust){
-        /*
-         var location: String
-         var stationName: String
-         var finedust: String
-         var finedustStatus: String
-         var ultrafinedust: String
-         var ultrafinedustState: String
-         */
-        
-        let i = FineDustListViewModel.finedustList.count - 1
-        FineDustListViewModel.finedustList[i].finedust = finedust.finedust
-        FineDustListViewModel.finedustList[i].finedustStatus = finedustViewModel.setFineDust(finedust.finedust)
-        FineDustListViewModel.finedustList[i].ultrafinedust = finedust.ultrafinedust
-        FineDustListViewModel.finedustList[i].ultrafinedustState = finedustViewModel.setUltraFineDust(finedust.ultrafinedust)
-        FineDustListViewModel.finedustList[i].stationName = finedust.stationName
+        FineDustListViewModel.finedustList.append(finedust)
     }
-    
-    func addFineDust(_ location: String){
-        let i = FineDustListViewModel.finedustList.count - 1
-        FineDustListViewModel.finedustList[i].location = location
-    }
+
 }

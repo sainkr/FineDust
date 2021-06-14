@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     enum VCMode: String {
         case main
         case add
+        case show
+        case swipe
     }
     
     @IBOutlet weak var localLabel: UILabel!
@@ -52,7 +54,7 @@ class ViewController: UIViewController {
     let cellID = "FineDustCell"
 
     var location: CLLocationCoordinate2D?
-    
+    var index: Int?
     var mode: VCMode = .main
     
     override func viewDidLoad() {
@@ -64,18 +66,19 @@ class ViewController: UIViewController {
         locationManager.delegate = self
         
         finedustViewModel.observable
-            .asDriver(onErrorJustReturn: FineDust(finedust: "-", ultrafinedust: "-", stationName: "-", dateTime: "-"))
-            .drive(onNext:{ [weak self] in
-                self?.finedustColor = self?.finedustViewModel.setFineDustColor($0.finedust)
-                self?.finedustSateLabel.textColor = self?.finedustColor
-                self?.finedustLabel.textColor = self?.finedustColor
-                self?.finedustSateLabel.text = self?.finedustViewModel.setFineDust($0.finedust)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext:{ [weak self] in
+               
+                self?.finedustColor = $0.finedustColor
+                self?.finedustSateLabel.textColor = $0.finedustColor
+                self?.finedustLabel.textColor = $0.finedustColor
+                self?.finedustSateLabel.text = $0.finedustState
                 self?.finedustLabel.text = $0.finedust
                 
-                self?.ultrafinedustColor = self?.finedustViewModel.setUltraFineDustColor($0.ultrafinedust)
-                self?.ultlrafinedustSateLabel.textColor = self?.ultrafinedustColor
-                self?.ultrafinedustLabel.textColor = self?.ultrafinedustColor
-                self?.ultlrafinedustSateLabel.text = self?.finedustViewModel.setUltraFineDust($0.ultrafinedust)
+                self?.ultrafinedustColor = $0.ultrafinedustColor
+                self?.ultlrafinedustSateLabel.textColor = $0.ultrafinedustColor
+                self?.ultrafinedustLabel.textColor = $0.ultrafinedustColor
+                self?.ultlrafinedustSateLabel.text = $0.ultrafinedustState
                 self?.ultrafinedustLabel.text = $0.ultrafinedust
                 
                 self?.stationLabel.text = "\($0.stationName) 측정소 기준\n제공 한국환경공단 에어코리아"
@@ -83,7 +86,7 @@ class ViewController: UIViewController {
                 
                 if self?.mode == .main{
                     self?.finedustListViewModel.addCurrentLocationFineDust($0)
-                }else{
+                }else if self?.mode == .add{
                     self?.finedustListViewModel.addFineDust($0)
                 }
             })
@@ -93,12 +96,6 @@ class ViewController: UIViewController {
             .asDriver(onErrorJustReturn: "현재 위치를 찾을 수 없습니다.")
             .drive(onNext:{ [weak self] in
                 self?.localLabel.text = $0
-
-                if self?.mode == .main{
-                    self?.finedustListViewModel.addCurrentLocationFineDust($0)
-                }else{
-                    self?.finedustListViewModel.addFineDust($0)
-                }
             })
             .disposed(by: disposeBag)
     }
@@ -112,11 +109,20 @@ class ViewController: UIViewController {
             if let lat = location?.latitude, let lng = location?.longitude{
                 getFineDust(lat, lng)
             }
-        }else {
-            finedustViewModel.getFineDust(lat: 127.95590235319048, lng: 37.375125349085906)
-            currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906  , longitude: 127.95590235319048))
+        }
+        else if mode == .show{
+            
+        }
+        else {
+            finedustViewModel.getFineDust(lat: 37.375125349085906, lng: 127.95590235319048)
+            currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906 , longitude: 127.95590235319048))
             // requestLocation()
         }
+    }
+    
+    func show(_ index: Int){
+        let finedust = FineDustListViewModel.finedustList[index]
+        finedustViewModel.getFineDust(finedust: finedust)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -165,7 +171,7 @@ extension ViewController : CLLocationManagerDelegate {
     }
     
     private func getFineDust(_ lat: Double, _ lng: Double){
-        finedustViewModel.getFineDust(lat: 127.95590235319048, lng: 37.375125349085906)
+        finedustViewModel.getFineDust(lat: lat, lng: lng)
         currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906  , longitude: 127.95590235319048))
     }
     
@@ -184,7 +190,33 @@ extension ViewController : CLLocationManagerDelegate {
 extension ViewController{
     
     func setPageControl(){
+        view.isUserInteractionEnabled = true
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        view.addGestureRecognizer(swipeRight)
+        
         pageControl.numberOfPages = FineDustListViewModel.finedustList.count
+    }
+    
+    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer{
+            switch swipeGesture.direction{
+                case UISwipeGestureRecognizer.Direction.left :
+                    pageControl.currentPage += 1
+                    show(pageControl.currentPage)
+                    mode = .swipe
+                case UISwipeGestureRecognizer.Direction.right :
+                    pageControl.currentPage -= 1
+                    show(pageControl.currentPage)
+                default:
+                    break
+            }
+        }
     }
     
     func setProgressView(_ finedust: FineDust?){

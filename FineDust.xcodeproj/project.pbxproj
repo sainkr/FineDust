@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		361B2EE42671F58A00C39F0D /* FineDustListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */; };
-		361B2EF12671F5B600C39F0D /* FineDustList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EF02671F5B600C39F0D /* FineDustList.swift */; };
 		362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2DF2664C498002BF6C6 /* FineDust.swift */; };
 		362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */; };
 		362AE2EA2664D04B002BF6C6 /* CurrentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */; };
 		365191D826733CE900E15BD8 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EF92672083300C39F0D /* APIService.swift */; };
+		36571559267797C6005452D7 /* APIFineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36571558267797C6005452D7 /* APIFineDust.swift */; };
 		367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074D4265FABD0003666FC /* FineDustViewModel.swift */; };
 		367074DD265FD542003666FC /* TM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074DC265FD542003666FC /* TM.swift */; };
 		3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEA265D400000F2B939 /* AppDelegate.swift */; };
@@ -56,12 +56,12 @@
 		1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDust.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FineDust.release.xcconfig"; path = "Target Support Files/Pods-FineDust/Pods-FineDust.release.xcconfig"; sourceTree = "<group>"; };
 		361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustListViewModel.swift; sourceTree = "<group>"; };
-		361B2EF02671F5B600C39F0D /* FineDustList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustList.swift; sourceTree = "<group>"; };
 		361B2EF92672083300C39F0D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIService.swift; path = FineDust/APIService.swift; sourceTree = SOURCE_ROOT; };
 		362AE2DF2664C498002BF6C6 /* FineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDust.swift; sourceTree = "<group>"; };
 		362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewModel.swift; sourceTree = "<group>"; };
 		362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocation.swift; sourceTree = "<group>"; };
 		363643FE2664F64E00086CFE /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		36571558267797C6005452D7 /* APIFineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFineDust.swift; sourceTree = "<group>"; };
 		367074D4265FABD0003666FC /* FineDustViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustViewModel.swift; sourceTree = "<group>"; };
 		367074DC265FD542003666FC /* TM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TM.swift; sourceTree = "<group>"; };
 		3696FEE7265D400000F2B939 /* FineDust.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineDust.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +138,7 @@
 				367074D4265FABD0003666FC /* FineDustViewModel.swift */,
 				362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */,
 				361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */,
+				36571558267797C6005452D7 /* APIFineDust.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -148,7 +149,6 @@
 				367074DC265FD542003666FC /* TM.swift */,
 				362AE2DF2664C498002BF6C6 /* FineDust.swift */,
 				362AE2E92664D04B002BF6C6 /* CurrentLocation.swift */,
-				361B2EF02671F5B600C39F0D /* FineDustList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -496,6 +496,7 @@
 			files = (
 				361B2EE42671F58A00C39F0D /* FineDustListViewModel.swift in Sources */,
 				367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */,
+				36571559267797C6005452D7 /* APIFineDust.swift in Sources */,
 				3696FEEF265D400000F2B939 /* ViewController.swift in Sources */,
 				3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */,
 				362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */,
@@ -506,7 +507,6 @@
 				365191D826733CE900E15BD8 /* APIService.swift in Sources */,
 				3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */,
 				362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */,
-				361B2EF12671F5B600C39F0D /* FineDustList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

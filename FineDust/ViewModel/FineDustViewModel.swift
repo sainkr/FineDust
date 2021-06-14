@@ -13,6 +13,8 @@ import SwiftyJSON
 import CoreLocation
 
 class FineDustViewModel{
+  
+    let errorFineDust: FineDust = FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", lat: 0, lng: 0)
     
     lazy var observable = PublishRelay<FineDust>()
     
@@ -21,7 +23,31 @@ class FineDustViewModel{
             .flatMap{ tm in APIService.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
             .flatMap{ station in APIService.loadFineDust(stationName: station)}
             .take(1)
-            .bind(to: observable)
+            .subscribe(onNext:{ [weak self] value in
+                self?.observable.accept(self?.finedust(value: value, lat: lat, lng: lng) ?? FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", lat: 0, lng: 0))
+            })
+    }
+    
+    func getFineDust(finedust: FineDust){
+        _ = APIService.loadFineDust(stationName: finedust.stationName)
+            .take(1)
+            .subscribe(onNext:{ [weak self] value in
+                self?.observable.accept(self?.finedust(value: value, lat: finedust.lat, lng: finedust.lng) ?? FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", lat: 0, lng: 0))
+            })
+    }
+    
+    func finedust(value: APIFineDust, lat: Double, lng: Double) -> FineDust{
+        let finedust = value.finedust
+        let finedustState = setFineDust(finedust)
+        let finedustColor = setFineDustColor(finedust)
+        
+        let ultrafinedust = value.ultrafinedust
+        let ultrafinedustState = setUltraFineDust(ultrafinedust)
+        let ultrafinedustColor = setUltraFineDustColor(ultrafinedust)
+        
+        let finedustValue = FineDust(finedust: finedust, finedustState: finedustState , finedustColor: finedustColor , ultrafinedust: ultrafinedust, ultrafinedustState: ultrafinedustState , ultrafinedustColor: ultrafinedustColor , dateTime: value.dateTime, stationName: value.stationName, lat: 0, lng: 0)
+        
+        return finedustValue
     }
     
     func setFineDustColor(_ result: String) -> UIColor{

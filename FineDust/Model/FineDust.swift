@@ -6,10 +6,17 @@
 //
 
 import Foundation
+import UIKit
 
 struct FineDust{
     var finedust: String
+    var finedustState: String
+    var finedustColor: UIColor
     var ultrafinedust: String
-    var stationName: String
+    var ultrafinedustState: String
+    var ultrafinedustColor: UIColor
     var dateTime: String
+    var stationName: String
+    var lat: Double
+    var lng: Double
 }

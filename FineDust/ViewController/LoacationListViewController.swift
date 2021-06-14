@@ -19,8 +19,9 @@ class LoacationListViewController: UIViewController {
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     
     let finedustListViewModel = FineDustListViewModel()
-    
     var disposeBag = DisposeBag()
+    
+    var index: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +33,6 @@ class LoacationListViewController: UIViewController {
                 print("-------> 컬렉션뷰 : \(element)")
                 
                 self.collectionViewHeight.constant += 128
-                
-                print(self.collectionViewHeight.constant)
-                
                 
                 if index == 0 {
                     cell.currentLocationLabel.isHidden = false
@@ -50,6 +48,15 @@ class LoacationListViewController: UIViewController {
                 cell.ultrafinedustValueLabel.backgroundColor = element.ultrafinedustColor
             }
             .disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected // indexPath를 가져옴
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.index = indexPath.item
+            })
+            .disposed(by: disposeBag)
+        
+        collectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -58,7 +65,10 @@ class LoacationListViewController: UIViewController {
         }
         
         if segue.identifier == SegueID.showMain.rawValue{
-            vc.mode = .main
+            guard let index = index else { return }
+            
+            vc.mode = .show
+            vc.index = index
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -69,7 +79,7 @@ class LoacationListViewController: UIViewController {
 extension LoacationListViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
    
-        return CGSize(width: view.bounds.width - 100, height: 128)
+        return CGSize(width: view.bounds.width, height: 128)
     }
 }
 

@@ -11,12 +11,12 @@ import Alamofire
 import SwiftyJSON
 
 private let servicekey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"
-private let accessToken = "75f70dc0-17c2-46cc-9e12-c7b1160c02d7"
+private let accessToken = "b423b0c9-578b-4ba7-8127-f2af3030a1d7"
 
 class APIService{
     static func loadTM(lat: Double, lng: Double) -> Observable<TM>{
         return Observable.create{ emitter in
-            self.fetchTM(posX: lat, posY: lng){ result in
+            self.fetchTM(posX: lng, posY: lat){ result in
                 switch result {
                 case let .success(tm):
                     emitter.onNext(tm)
@@ -100,7 +100,7 @@ class APIService{
             }
     }
     
-    static func loadFineDust(stationName: String) -> Observable<FineDust>{
+    static func loadFineDust(stationName: String) -> Observable<APIFineDust>{
         return Observable.create{ emitter in
             self.fetchFineDust(stationName: stationName){ result in
                 switch result {
@@ -116,7 +116,7 @@ class APIService{
         }
     }
     
-    static func fetchFineDust(stationName: String, onComplete: @escaping (Result<FineDust, Error>) -> Void){
+    static func fetchFineDust(stationName: String, onComplete: @escaping (Result<APIFineDust, Error>) -> Void){
         var url = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty"
         url += "?stationName="
         url += stationName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -136,9 +136,9 @@ class APIService{
                     let finedust: String = json["response"]["body"]["items"][0]["pm10Value"].string!
                     let ultrafinedust: String = json["response"]["body"]["items"][0]["pm25Value"].string!
                     let dateTime: String = json["response"]["body"]["items"][0]["dataTime"].string!
-                    let response = FineDust(finedust: finedust, ultrafinedust: ultrafinedust, stationName: stationName, dateTime: dateTime)
-
-                    print(json["response"]["body"]["items"][0])
+                    
+                    let response = APIFineDust(finedust: finedust, ultrafinedust: ultrafinedust, dateTime: dateTime, stationName: stationName)
+                    
                     onComplete(.success(response))
                 case let .failure(error):
                     print("----> error : 측정소 실시간")
