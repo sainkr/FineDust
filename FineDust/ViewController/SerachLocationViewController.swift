@@ -27,6 +27,8 @@ class SerachLocationViewController: UIViewController, UIScrollViewDelegate {
     var disposeBag = DisposeBag()
     var relay = PublishRelay<[MKLocalSearchCompletion]>()
     
+    let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,10 +36,8 @@ class SerachLocationViewController: UIViewController, UIScrollViewDelegate {
         relay
             .bind(to: self.tableView.rx.items(cellIdentifier: "SearchLocationCell",cellType: SearchLocationCell.self))
             { [weak self] (index, element, cell) in
-                print("----> element: \(element)")
-                if let suggestion = self?.completerResults?[index] {
-                    cell.label?.attributedText = self?.createHighlightedString(text: suggestion.title, rangeValues: suggestion.titleHighlightRanges)
-                }
+                
+                cell.label?.attributedText = self?.createHighlightedString(text: element.title, rangeValues: element.titleHighlightRanges)
                 
             }.disposed(by: disposeBag)
         
@@ -51,14 +51,6 @@ class SerachLocationViewController: UIViewController, UIScrollViewDelegate {
                 }
             })
             .disposed(by: disposeBag)
-
-        // 내용을 가져옴
-        /*tableView.rx.modelSelected(SearchLocationCell.self)
-            .subscribe(onNext: { product in
-            
-            })
-            .disposed(by: disposeBag)*/
-    
         
         // SearchBar Delegate
         searchBar.rx.text
@@ -80,11 +72,7 @@ class SerachLocationViewController: UIViewController, UIScrollViewDelegate {
         guard let vc = segue.destination as? ViewController else {
             return
         }
-        if segue.identifier == SegueID.showAdd.rawValue {
-            guard let place = placeMark?.coordinate else {
-                return
-            }
-            vc.location = place
+        if segue.identifier == SegueID.showAdd.rawValue {    
             vc.mode = .add
         }
     }
@@ -150,6 +138,8 @@ extension SerachLocationViewController{
             }
             
             self.placeMark = response?.mapItems[0].placemark
+            NotificationCenter.default.post(name: self.CompleteSearchNotification, object: nil, userInfo: ["coordinate" : self.placeMark?.coordinate])
+            
         }
     }
 }
@@ -199,7 +189,6 @@ extension SerachLocationViewController: MKLocalSearchCompleterDelegate{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchLocationCell", for: indexPath) as? SearchLocationCell else { return UITableViewCell() }
         
         if let suggestion = completerResults?[indexPath.row] {
-   
             cell.label?.attributedText = createHighlightedString(text: suggestion.title, rangeValues: suggestion.titleHighlightRanges)
         }
         
@@ -222,9 +211,7 @@ extension SerachLocationViewController: MKLocalSearchCompleterDelegate{
 
 
 /*extension SerachLocationViewController: UITableViewDelegate{
-    
 
-    
     // 선택된 위치의 정보 가져오기
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

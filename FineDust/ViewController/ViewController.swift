@@ -21,7 +21,6 @@ class ViewController: UIViewController {
         case main
         case add
         case show
-        case swipe
     }
     
     @IBOutlet weak var localLabel: UILabel!
@@ -57,9 +56,14 @@ class ViewController: UIViewController {
     var index: Int?
     var mode: VCMode = .main
     
+    var currentFinedust: FineDust?
+
+    let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(didReciveNotification(_:)), name: CompleteSearchNotification, object: nil)
         setProgressView(nil)
         setPageControl()
         
@@ -85,9 +89,10 @@ class ViewController: UIViewController {
                 self?.setProgressView($0)
                 
                 if self?.mode == .main{
+                    print("----? main")
                     self?.finedustListViewModel.addCurrentLocationFineDust($0)
                 }else if self?.mode == .add{
-                    self?.finedustListViewModel.addFineDust($0)
+                    self?.currentFinedust = $0
                 }
             })
             .disposed(by: disposeBag)
@@ -105,24 +110,22 @@ class ViewController: UIViewController {
             navigationBar.isHidden = false
             pageControl.isHidden = true
             listButton.isHidden = true
-            
-            if let lat = location?.latitude, let lng = location?.longitude{
-                getFineDust(lat, lng)
-            }
         }
         else if mode == .show{
-            
+            show(index!)
         }
         else {
-            finedustViewModel.getFineDust(lat: 37.375125349085906, lng: 127.95590235319048)
+            finedustViewModel.getFineDust(lat: 37.375125349085906, lng: 127.95590235319048, timeStamp: 2147483647)
             currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906 , longitude: 127.95590235319048))
             // requestLocation()
         }
     }
     
     func show(_ index: Int){
+        print(FineDustListViewModel.finedustList)
         let finedust = FineDustListViewModel.finedustList[index]
         finedustViewModel.getFineDust(finedust: finedust)
+        currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude: finedust.lat, longitude: finedust.lng))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -135,9 +138,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: {
-            
-        })
+        if var finedust = currentFinedust, let lat = location?.latitude, let lng = location?.longitude{
+            finedust.lat = lat
+            finedust.lng = lng
+            finedust.timeStamp = Int(Date().timeIntervalSince1970.rounded())
+            finedustListViewModel.addFineDust(finedust)
+            dismiss(animated: true, completion: {})
+        }
+    }
+    
+    
+    @objc func didReciveNotification(_ noti: Notification){
+        guard let coordinate = noti.userInfo?["coordinate"] as? CLLocationCoordinate2D else { return }
+        location = coordinate
+        getFineDust(coordinate.latitude, coordinate.longitude)
     }
 }
 
@@ -171,8 +185,8 @@ extension ViewController : CLLocationManagerDelegate {
     }
     
     private func getFineDust(_ lat: Double, _ lng: Double){
-        finedustViewModel.getFineDust(lat: lat, lng: lng)
-        currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906  , longitude: 127.95590235319048))
+        // finedustViewModel.getFineDust(lat: lat, lng: lng)
+        currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:lat  , longitude: lng))
     }
     
     private func displayLocationServicesDisabledAlert() {
@@ -207,12 +221,17 @@ extension ViewController{
         if let swipeGesture = gesture as? UISwipeGestureRecognizer{
             switch swipeGesture.direction{
                 case UISwipeGestureRecognizer.Direction.left :
-                    pageControl.currentPage += 1
-                    show(pageControl.currentPage)
-                    mode = .swipe
+                    mode = .show
+                    if pageControl.currentPage < FineDustListViewModel.finedustList.count - 1{
+                        pageControl.currentPage += 1
+                        show(pageControl.currentPage)
+                    }
                 case UISwipeGestureRecognizer.Direction.right :
-                    pageControl.currentPage -= 1
-                    show(pageControl.currentPage)
+                    mode = .show
+                    if pageControl.currentPage > 0{
+                        pageControl.currentPage -= 1
+                        show(pageControl.currentPage)
+                    }
                 default:
                     break
             }

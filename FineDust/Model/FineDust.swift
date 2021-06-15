@@ -19,4 +19,5 @@ struct FineDust{
     var stationName: String
     var lat: Double
     var lng: Double
+    var timeStamp: Int
 }
