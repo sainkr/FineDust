@@ -3,7 +3,6 @@ import RxCocoa
 import RxSwift
 import MapKit
 
+var arr = [1,2,3,4]
 
-Observable.of(1,1,10,20,20,30,30)
-    .distinctUntilChanged()
-    .subscribe(onNext: { value in print(value)})
+print(arr.filter{ $0 != 1 })

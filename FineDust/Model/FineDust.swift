@@ -17,6 +17,7 @@ struct FineDust{
     var ultrafinedustColor: UIColor
     var dateTime: String
     var stationName: String
+    var currentLocation: String
     var lat: Double
     var lng: Double
     var timeStamp: Int

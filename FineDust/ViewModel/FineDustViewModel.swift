@@ -14,17 +14,17 @@ import CoreLocation
 
 class FineDustViewModel{
   
-    let errorFineDust: FineDust = FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", lat: 37.375125349085906, lng: 127.95590235319048,timeStamp: 0)
+    let errorFineDust: FineDust = FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", currentLocation: "-" ,lat: 37.375125349085906, lng: 127.95590235319048,timeStamp: 0)
     
     lazy var observable = PublishRelay<FineDust>()
     
-    func getFineDust(lat: Double, lng: Double, timeStamp: Int){
+    func getFineDust( lat: Double, lng: Double, timeStamp: Int){
        _ = APIService.loadTM(lat: lat, lng: lng)
             .flatMap{ tm in APIService.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
             .flatMap{ station in APIService.loadFineDust(stationName: station)}
             .take(1)
             .subscribe(onNext:{ [weak self] value in
-                self?.observable.accept(self?.finedust(value: value, lat: lat, lng: lng, timeStamp: timeStamp) ?? FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", lat: 0, lng: 0, timeStamp: 0))
+                self?.observable.accept(self?.finedust(value: value, currentLocation: "-", lat: lat, lng: lng, timeStamp: timeStamp) ?? self?.errorFineDust as! FineDust)
             })
     }
     
@@ -32,11 +32,11 @@ class FineDustViewModel{
         _ = APIService.loadFineDust(stationName: finedust.stationName)
             .take(1)
             .subscribe(onNext:{ [weak self] value in
-                self?.observable.accept(self?.finedust(value: value, lat: finedust.lat, lng: finedust.lng, timeStamp: finedust.timeStamp) ?? FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", lat: 0, lng: 0, timeStamp: 0))
+                self?.observable.accept(self?.finedust(value: value, currentLocation: finedust.currentLocation, lat: finedust.lat, lng: finedust.lng, timeStamp: finedust.timeStamp) ?? self?.errorFineDust as! FineDust)
             })
     }
     
-    func finedust(value: APIFineDust, lat: Double, lng: Double, timeStamp: Int) -> FineDust{
+    func finedust(value: APIFineDust, currentLocation: String, lat: Double, lng: Double, timeStamp: Int) -> FineDust{
         let finedust = value.finedust
         let finedustState = setFineDust(finedust)
         let finedustColor = setFineDustColor(finedust)
@@ -45,7 +45,7 @@ class FineDustViewModel{
         let ultrafinedustState = setUltraFineDust(ultrafinedust)
         let ultrafinedustColor = setUltraFineDustColor(ultrafinedust)
         
-        let finedustValue = FineDust(finedust: finedust, finedustState: finedustState , finedustColor: finedustColor , ultrafinedust: ultrafinedust, ultrafinedustState: ultrafinedustState , ultrafinedustColor: ultrafinedustColor , dateTime: value.dateTime, stationName: value.stationName, lat: lat, lng: lng, timeStamp: timeStamp)
+        let finedustValue = FineDust(finedust: finedust, finedustState: finedustState , finedustColor: finedustColor , ultrafinedust: ultrafinedust, ultrafinedustState: ultrafinedustState , ultrafinedustColor: ultrafinedustColor , dateTime: value.dateTime, stationName: value.stationName, currentLocation: currentLocation,lat: lat, lng: lng, timeStamp: timeStamp)
         
         return finedustValue
     }

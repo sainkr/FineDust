@@ -9,32 +9,35 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoacationListViewController: UIViewController {
-
+class LoacationListViewController: UIViewController{
+    
     private enum SegueID: String {
         case showMain
     }
     
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
     
     let finedustListViewModel = FineDustListViewModel()
     var disposeBag = DisposeBag()
     
+    let CompleteAddNotification: Notification.Name = Notification.Name("CompleteAddNotification")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(completeAddNotication(_:)), name: CompleteAddNotification, object: nil)
+        
         finedustListViewModel.finedustRelay
-            .bind(to: collectionView.rx.items(cellIdentifier: "LoactionCollectionViewCell", cellType: LoactionCollectionViewCell.self)){ (index, element, cell) in
-          
+            .bind(to: tableView.rx.items(cellIdentifier: "LoactionCollectionViewCell", cellType: LoactionCollectionViewCell.self)){ (index, element, cell) in
+                
                 if index == 0 {
                     cell.currentLocationLabel.isHidden = false
-
+                    
                 }else{
                     cell.currentLocationLabel.isHidden = true
                 }
                 
-                cell.localLabel.text = element.stationName
+                cell.localLabel.text = element.currentLocation
                 cell.finedustValueLabel.text = element.finedust
                 cell.finedustValueLabel.backgroundColor = element.finedustColor
                 cell.ultrafinedustValueLabel.text = element.ultrafinedust
@@ -42,7 +45,7 @@ class LoacationListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        collectionView.rx.itemSelected // indexPath를 가져옴
+        tableView.rx.itemSelected // indexPath를 가져옴
             .subscribe(onNext: { [weak self] indexPath in
                 let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
                 guard let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController else {
@@ -55,38 +58,62 @@ class LoacationListViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        collectionView.rx.setDelegate(self)
+        tableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+        
+        /*tableView.rx.itemDeleted
+         .subscribe(onNext: { [weak self] indexPath in
+         self?.finedustListViewModel.removeFineDust(indexPath.item)
+         })
+         .disposed(by: disposeBag)*/
+        
+        
+        /*tableView.rx.setDataSource(self)
+         .disposed(by: disposeBag)*/
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
-        print("viewwilappear")
         finedustListViewModel.getFineDust()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        print("viewDidDisappear")
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
-        print("---> viewdisappear")
         disposeBag = DisposeBag()
     }
     
-    @IBAction func buttonTapped(_ sender: Any) {
-        finedustListViewModel.addFineDust(FineDust(finedust: "16", finedustState: "좋음", finedustColor: .blue , ultrafinedust: "9", ultrafinedustState: "좋음", ultrafinedustColor: .blue, dateTime: "2021-06-15 22:00", stationName: "중구", lat: 37.375125349085906, lng: 127.95590235319048, timeStamp: Int(Date().timeIntervalSince1970.rounded())))
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    @objc
+    func completeAddNotication(_ noti: Notification){
+        finedustListViewModel.reloadFineDustList()
     }
 }
 
-extension LoacationListViewController: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-   
-        return CGSize(width: view.bounds.width, height: 128)
+extension LoacationListViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.item > 0 else { return nil }
+        
+        let action = UIContextualAction(style: .normal, title: nil) { (action, view, completion) in
+            self.finedustListViewModel.removeFineDust(indexPath.item)
+            // tableView.deleteRows(at: [indexPath], with: .automatic)
+            completion(true)
+        }
+        
+        action.backgroundColor = .red
+        action.title = "삭제"
+        
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
     }
 }
 
-class LoactionCollectionViewCell: UICollectionViewCell{
+
+
+class LoactionCollectionViewCell: UITableViewCell{
     @IBOutlet weak var localLabel: UILabel!
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var finedustValueLabel: UILabel!

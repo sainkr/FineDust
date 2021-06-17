@@ -53,15 +53,18 @@ class ViewController: UIViewController {
     let cellID = "FineDustCell"
 
     var location: CLLocationCoordinate2D?
-    var index: Int?
+    var index: Int = 0
     var mode: VCMode = .main
     
     var currentFinedust: FineDust?
 
     let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
+    let CompleteAddNotification: Notification.Name = Notification.Name("CompleteAddNotification")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currentFinedust = finedustViewModel.errorFineDust
 
         NotificationCenter.default.addObserver(self, selector: #selector(didReciveNotification(_:)), name: CompleteSearchNotification, object: nil)
         setProgressView(nil)
@@ -89,10 +92,22 @@ class ViewController: UIViewController {
                 self?.setProgressView($0)
                 
                 if self?.mode == .main{
-                    print("----? main")
                     self?.finedustListViewModel.addCurrentLocationFineDust($0)
                 }else if self?.mode == .add{
-                    self?.currentFinedust = $0
+                    if self?.currentFinedust == nil {
+                        self?.currentFinedust = $0
+                    }
+                    self?.currentFinedust?.finedust = $0.finedust
+                    self?.currentFinedust?.finedustState = $0.finedustState
+                    self?.currentFinedust?.finedustColor = $0.finedustColor
+                    self?.currentFinedust?.ultrafinedust = $0.ultrafinedust
+                    self?.currentFinedust?.ultrafinedustState = $0.ultrafinedustState
+                    self?.currentFinedust?.ultrafinedustColor = $0.ultrafinedustColor
+                    self?.currentFinedust?.dateTime = $0.dateTime
+                    self?.currentFinedust?.stationName = $0.stationName
+                    self?.currentFinedust?.lat = $0.lat
+                    self?.currentFinedust?.lng = $0.lng
+                    self?.currentFinedust?.timeStamp = $0.timeStamp
                 }
             })
             .disposed(by: disposeBag)
@@ -101,6 +116,11 @@ class ViewController: UIViewController {
             .asDriver(onErrorJustReturn: "현재 위치를 찾을 수 없습니다.")
             .drive(onNext:{ [weak self] in
                 self?.localLabel.text = $0
+                if self?.mode == .main{
+                    self?.finedustListViewModel.addCurrentLocationFineDust($0)
+                }else if self?.mode == .add{
+                    self?.currentFinedust?.currentLocation = $0
+                }
             })
             .disposed(by: disposeBag)
     }
@@ -112,17 +132,16 @@ class ViewController: UIViewController {
             listButton.isHidden = true
         }
         else if mode == .show{
-            show(index!)
+            show(index)
         }
         else {
-            finedustViewModel.getFineDust(lat: 37.375125349085906, lng: 127.95590235319048, timeStamp: 2147483647)
+            finedustViewModel.getFineDust( lat: 37.375125349085906, lng: 127.95590235319048, timeStamp: 2147483647)
             currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906 , longitude: 127.95590235319048))
             // requestLocation()
         }
     }
     
     func show(_ index: Int){
-        print(FineDustListViewModel.finedustList)
         let finedust = FineDustListViewModel.finedustList[index]
         finedustViewModel.getFineDust(finedust: finedust)
         currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude: finedust.lat, longitude: finedust.lng))
@@ -141,16 +160,21 @@ class ViewController: UIViewController {
         if var finedust = currentFinedust, let lat = location?.latitude, let lng = location?.longitude{
             finedust.lat = lat
             finedust.lng = lng
-            finedust.timeStamp = Int(Date().timeIntervalSince1970.rounded())
             finedustListViewModel.addFineDust(finedust)
-            dismiss(animated: true, completion: {})
+            dismiss(animated: true, completion: {
+                NotificationCenter.default.post(name: self.CompleteAddNotification, object: nil)
+            })
         }
     }
     
+    @IBAction func pagecontrolChanged(_ sender: Any) {
+        show(pageControl.currentPage)
+    }
     
     @objc func didReciveNotification(_ noti: Notification){
         guard let coordinate = noti.userInfo?["coordinate"] as? CLLocationCoordinate2D else { return }
         location = coordinate
+        print("----> location : \(location)")
         getFineDust(coordinate.latitude, coordinate.longitude)
     }
 }
@@ -158,6 +182,7 @@ class ViewController: UIViewController {
 // MARK: - Location Handling
 
 extension ViewController : CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             print("Location data received.")
@@ -185,8 +210,8 @@ extension ViewController : CLLocationManagerDelegate {
     }
     
     private func getFineDust(_ lat: Double, _ lng: Double){
-        // finedustViewModel.getFineDust(lat: lat, lng: lng)
-        currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:lat  , longitude: lng))
+        finedustViewModel.getFineDust(lat: lat, lng: lng, timeStamp: Int(Date().timeIntervalSince1970.rounded()))
+        currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:lat , longitude: lng))
     }
     
     private func displayLocationServicesDisabledAlert() {
@@ -215,6 +240,8 @@ extension ViewController{
         view.addGestureRecognizer(swipeRight)
         
         pageControl.numberOfPages = FineDustListViewModel.finedustList.count
+        pageControl.currentPage = index
+        
     }
     
     @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
@@ -241,7 +268,7 @@ extension ViewController{
     func setProgressView(_ finedust: FineDust?){
         timer?.invalidate()
         
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(setProgress(sender:)), userInfo: finedust, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(setProgress(sender:)), userInfo: finedust, repeats: true)
         
         findustProgressView.progressViewStyle = .bar
         findustProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
@@ -272,7 +299,7 @@ extension ViewController{
         let finedustValue = Int(finedust.finedust)!
         let ultrafindustValue = Int(finedust.ultrafinedust)!
         
-        time += 0.1
+        time += 0.01
         findustProgressView.progressTintColor = finedustColor
         ultraProgressView.progressTintColor = ultrafinedustColor
         
@@ -284,8 +311,9 @@ extension ViewController{
         }
         
         if time > finedustViewModel.calculatorFineDust(finedustValue) &&  time > finedustViewModel.calculatorUltraFineDust(ultrafindustValue) {
-            print(finedustViewModel.calculatorFineDust(finedustValue))
-            print(finedustViewModel.calculatorUltraFineDust(ultrafindustValue))
+            // print(finedustViewModel.calculatorFineDust(finedustValue))
+            // print(finedustViewModel.calculatorUltraFineDust(ultrafindustValue))
+            time = 0.0
             timer!.invalidate()
         }
     }

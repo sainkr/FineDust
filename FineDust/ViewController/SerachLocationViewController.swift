@@ -28,9 +28,12 @@ class SerachLocationViewController: UIViewController, UIScrollViewDelegate {
     var relay = PublishRelay<[MKLocalSearchCompletion]>()
     
     let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
+    let CompleteAddNotification: Notification.Name = Notification.Name("CompleteAddNotification")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(completeAddNotication(_:)), name: CompleteAddNotification, object: nil)
         
         // TableView Datasource
         relay
@@ -85,7 +88,6 @@ class SerachLocationViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopProvidingCompletions()
-        
         disposeBag = DisposeBag()
     }
     
@@ -101,6 +103,15 @@ class SerachLocationViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: {
+            
+            let finedustListViewModel = FineDustListViewModel()
+            finedustListViewModel.getFineDust()
+        })
+    }
+    
+    @objc
+    func completeAddNotication(_ noti: Notification){
         dismiss(animated: true, completion: nil)
     }
 }
