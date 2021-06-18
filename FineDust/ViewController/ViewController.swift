@@ -67,6 +67,7 @@ class ViewController: UIViewController {
         currentFinedust = finedustViewModel.errorFineDust
 
         NotificationCenter.default.addObserver(self, selector: #selector(didReciveNotification(_:)), name: CompleteSearchNotification, object: nil)
+        
         setProgressView(nil)
         setPageControl()
         
@@ -174,7 +175,6 @@ class ViewController: UIViewController {
     @objc func didReciveNotification(_ noti: Notification){
         guard let coordinate = noti.userInfo?["coordinate"] as? CLLocationCoordinate2D else { return }
         location = coordinate
-        print("----> location : \(location)")
         getFineDust(coordinate.latitude, coordinate.longitude)
     }
 }

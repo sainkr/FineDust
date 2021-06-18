@@ -22,3 +22,11 @@ struct FineDust{
     var lng: Double
     var timeStamp: Int
 }
+
+struct StoreFineDust: Codable{
+    var stationName: String
+    var currentLocation: String
+    var lat: Double
+    var lng: Double
+    var timeStamp: Int
+}

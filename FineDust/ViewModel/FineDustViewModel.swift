@@ -14,7 +14,7 @@ import CoreLocation
 
 class FineDustViewModel{
   
-    let errorFineDust: FineDust = FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", currentLocation: "-" ,lat: 37.375125349085906, lng: 127.95590235319048,timeStamp: 0)
+    let errorFineDust: FineDust = FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", currentLocation: "-" ,lat: 0, lng: 0, timeStamp: 0)
     
     lazy var observable = PublishRelay<FineDust>()
     
@@ -47,6 +47,7 @@ class FineDustViewModel{
         
         let finedustValue = FineDust(finedust: finedust, finedustState: finedustState , finedustColor: finedustColor , ultrafinedust: ultrafinedust, ultrafinedustState: ultrafinedustState , ultrafinedustColor: ultrafinedustColor , dateTime: value.dateTime, stationName: value.stationName, currentLocation: currentLocation,lat: lat, lng: lng, timeStamp: timeStamp)
         
+        print(finedustValue)
         return finedustValue
     }
     

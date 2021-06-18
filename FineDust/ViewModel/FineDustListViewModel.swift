@@ -23,8 +23,7 @@ class FineDustListViewModel{
     let finedustViewModel = FineDustViewModel()
 
     func getFineDust(){
-        var stationName: [String] = [] // 일단 저장된거 불러와서
-        var apiFineDust: [APIFineDust] = []
+        var stationName: [String] = []
         
         FineDustListViewModel.finedustList.forEach{ i in
             stationName.append(i.stationName)
@@ -35,6 +34,7 @@ class FineDustListViewModel{
             .subscribe(onNext:{ [weak self] response in
                 self?.setFinedustList(response)
             }, onCompleted: {
+                print("completed")
                 FineDustListViewModel.finedustList.sort{ $0.timeStamp > $1.timeStamp }
                 self.finedustRelay.accept(FineDustListViewModel.finedustList)
             })
@@ -62,21 +62,42 @@ class FineDustListViewModel{
     func addCurrentLocationFineDust(_ currentLocation: String){
         FineDustListViewModel.finedustList[0].currentLocation = currentLocation
     }
+    
     func addFineDust(_ finedust: FineDust){
         FineDustListViewModel.finedustList.append(finedust)
-        getFineDust()
+        saveFineDust()
     }
     
     func setFinedustList(_ apiFineDust: APIFineDust){
-        _ = FineDustListViewModel.finedustList.map{
-            if $0.stationName == apiFineDust.stationName {
-                _ = self.finedustViewModel.finedust(value: apiFineDust, currentLocation: $0.currentLocation, lat: $0.lat, lng: $0.lng, timeStamp: $0.timeStamp)
+        
+        for i in FineDustListViewModel.finedustList.indices{
+            if FineDustListViewModel.finedustList[i].stationName == apiFineDust.stationName{
+                FineDustListViewModel.finedustList[i] = self.finedustViewModel.finedust(value: apiFineDust, currentLocation: FineDustListViewModel.finedustList[i].currentLocation, lat: FineDustListViewModel.finedustList[i].lat, lng: FineDustListViewModel.finedustList[i].lng, timeStamp: FineDustListViewModel.finedustList[i].timeStamp)
+                break
             }
         }
     }
     
     func removeFineDust(_ i: Int){
         FineDustListViewModel.finedustList.remove(at: i)
+        saveFineDust()
         reloadFineDustList()
+    }
+    
+    func saveFineDust(){
+        var finedust: [StoreFineDust] = []
+
+        for i in 1..<FineDustListViewModel.finedustList.count{
+            finedust.append(StoreFineDust(stationName: FineDustListViewModel.finedustList[i].stationName, currentLocation: FineDustListViewModel.finedustList[i].currentLocation, lat: FineDustListViewModel.finedustList[i].lat, lng: FineDustListViewModel.finedustList[i].lng, timeStamp: FineDustListViewModel.finedustList[i].timeStamp))
+        }
+    
+        Storage.store(finedust, to: .documents, as: "finedust.json")
+    }
+    
+    func loadFineDust(){
+        let storefinedust = Storage.retrive("finedust.json", from: .documents, as: [StoreFineDust].self) ?? []
+        storefinedust.forEach{
+            FineDustListViewModel.finedustList.append(FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: $0.stationName, currentLocation: $0.currentLocation, lat: $0.lat, lng: $0.lng, timeStamp: $0.timeStamp))
+        }
     }
 }

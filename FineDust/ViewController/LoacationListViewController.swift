@@ -29,7 +29,7 @@ class LoacationListViewController: UIViewController{
         
         finedustListViewModel.finedustRelay
             .bind(to: tableView.rx.items(cellIdentifier: "LoactionCollectionViewCell", cellType: LoactionCollectionViewCell.self)){ (index, element, cell) in
-                
+                print("-----> 컬렉션 뷰 : \(element)")
                 if index == 0 {
                     cell.currentLocationLabel.isHidden = false
                     
@@ -63,7 +63,7 @@ class LoacationListViewController: UIViewController{
         
         /*tableView.rx.itemDeleted
          .subscribe(onNext: { [weak self] indexPath in
-         self?.finedustListViewModel.removeFineDust(indexPath.item)
+            self?.finedustListViewModel.removeFineDust(indexPath.item)
          })
          .disposed(by: disposeBag)*/
         
@@ -80,16 +80,10 @@ class LoacationListViewController: UIViewController{
         disposeBag = DisposeBag()
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-    }
-    
-    @objc
-    func completeAddNotication(_ noti: Notification){
+    @objc func completeAddNotication(_ noti: Notification){
         finedustListViewModel.reloadFineDustList()
     }
+         
 }
 
 extension LoacationListViewController: UITableViewDelegate{
