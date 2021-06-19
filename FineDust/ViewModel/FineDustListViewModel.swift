@@ -34,7 +34,6 @@ class FineDustListViewModel{
             .subscribe(onNext:{ [weak self] response in
                 self?.setFinedustList(response)
             }, onCompleted: {
-                print("completed")
                 FineDustListViewModel.finedustList.sort{ $0.timeStamp > $1.timeStamp }
                 self.finedustRelay.accept(FineDustListViewModel.finedustList)
             })
@@ -69,7 +68,6 @@ class FineDustListViewModel{
     }
     
     func setFinedustList(_ apiFineDust: APIFineDust){
-        
         for i in FineDustListViewModel.finedustList.indices{
             if FineDustListViewModel.finedustList[i].stationName == apiFineDust.stationName{
                 FineDustListViewModel.finedustList[i] = self.finedustViewModel.finedust(value: apiFineDust, currentLocation: FineDustListViewModel.finedustList[i].currentLocation, lat: FineDustListViewModel.finedustList[i].lat, lng: FineDustListViewModel.finedustList[i].lng, timeStamp: FineDustListViewModel.finedustList[i].timeStamp)

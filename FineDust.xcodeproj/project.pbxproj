@@ -15,6 +15,13 @@
 		36571559267797C6005452D7 /* APIFineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36571558267797C6005452D7 /* APIFineDust.swift */; };
 		367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074D4265FABD0003666FC /* FineDustViewModel.swift */; };
 		367074DD265FD542003666FC /* TM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074DC265FD542003666FC /* TM.swift */; };
+		367FDA0C267E1FA500032369 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 367FDA0B267E1FA500032369 /* WidgetKit.framework */; };
+		367FDA0E267E1FA500032369 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 367FDA0D267E1FA500032369 /* SwiftUI.framework */; };
+		367FDA11267E1FA500032369 /* FineDustWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367FDA10267E1FA500032369 /* FineDustWidget.swift */; };
+		367FDA14267E1FA500032369 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 367FDA13267E1FA500032369 /* Assets.xcassets */; };
+		367FDA16267E1FA500032369 /* FineDustWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 367FDA12267E1FA500032369 /* FineDustWidget.intentdefinition */; };
+		367FDA17267E1FA500032369 /* FineDustWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 367FDA12267E1FA500032369 /* FineDustWidget.intentdefinition */; };
+		367FDA1A267E1FA500032369 /* FineDustWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 367FDA0A267E1FA500032369 /* FineDustWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEA265D400000F2B939 /* AppDelegate.swift */; };
 		3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEC265D400000F2B939 /* SceneDelegate.swift */; };
 		3696FEEF265D400000F2B939 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEE265D400000F2B939 /* ViewController.swift */; };
@@ -36,6 +43,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		367FDA18267E1FA500032369 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3696FEDF265D400000F2B939 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 367FDA09267E1FA500032369;
+			remoteInfo = FineDustWidgetExtension;
+		};
 		3696FEFE265D400100F2B939 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3696FEDF265D400000F2B939 /* Project object */;
@@ -52,6 +66,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		367FDA1B267E1FA500032369 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				367FDA1A267E1FA500032369 /* FineDustWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FineDust.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +93,13 @@
 		36571558267797C6005452D7 /* APIFineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFineDust.swift; sourceTree = "<group>"; };
 		367074D4265FABD0003666FC /* FineDustViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustViewModel.swift; sourceTree = "<group>"; };
 		367074DC265FD542003666FC /* TM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TM.swift; sourceTree = "<group>"; };
+		367FDA0A267E1FA500032369 /* FineDustWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FineDustWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		367FDA0B267E1FA500032369 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		367FDA0D267E1FA500032369 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		367FDA10267E1FA500032369 /* FineDustWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustWidget.swift; sourceTree = "<group>"; };
+		367FDA12267E1FA500032369 /* FineDustWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = FineDustWidget.intentdefinition; sourceTree = "<group>"; };
+		367FDA13267E1FA500032369 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		367FDA15267E1FA500032369 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3696FEE7265D400000F2B939 /* FineDust.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineDust.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FEEA265D400000F2B939 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3696FEEC265D400000F2B939 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +130,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		367FDA07267E1FA500032369 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				367FDA0E267E1FA500032369 /* SwiftUI.framework in Frameworks */,
+				367FDA0C267E1FA500032369 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3696FEE4265D400000F2B939 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,6 +189,17 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		367FDA0F267E1FA500032369 /* FineDustWidget */ = {
+			isa = PBXGroup;
+			children = (
+				367FDA10267E1FA500032369 /* FineDustWidget.swift */,
+				367FDA12267E1FA500032369 /* FineDustWidget.intentdefinition */,
+				367FDA13267E1FA500032369 /* Assets.xcassets */,
+				367FDA15267E1FA500032369 /* Info.plist */,
+			);
+			path = FineDustWidget;
+			sourceTree = "<group>";
+		};
 		368F1F99265E3B0E00CD7B03 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +217,7 @@
 				363643FE2664F64E00086CFE /* MyPlayground.playground */,
 				3696FF00265D400100F2B939 /* FineDustTests */,
 				3696FF0B265D400100F2B939 /* FineDustUITests */,
+				367FDA0F267E1FA500032369 /* FineDustWidget */,
 				3696FEE8265D400000F2B939 /* Products */,
 				9BB2E86D3FA56B5C996AB783 /* Pods */,
 				BE0937F0E6C60030CB06B0CF /* Frameworks */,
@@ -174,6 +230,7 @@
 				3696FEE7265D400000F2B939 /* FineDust.app */,
 				3696FEFD265D400100F2B939 /* FineDustTests.xctest */,
 				3696FF08265D400100F2B939 /* FineDustUITests.xctest */,
+				367FDA0A267E1FA500032369 /* FineDustWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +308,8 @@
 				1950400EB0A7EBC4C5020FAD /* Pods_FineDust.framework */,
 				8E6ADF2A3C572BB0608D8D42 /* Pods_FineDust_FineDustUITests.framework */,
 				129A2E392945AE31FE304A1B /* Pods_FineDustTests.framework */,
+				367FDA0B267E1FA500032369 /* WidgetKit.framework */,
+				367FDA0D267E1FA500032369 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -258,6 +317,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		367FDA09267E1FA500032369 /* FineDustWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 367FDA1E267E1FA500032369 /* Build configuration list for PBXNativeTarget "FineDustWidgetExtension" */;
+			buildPhases = (
+				367FDA06267E1FA500032369 /* Sources */,
+				367FDA07267E1FA500032369 /* Frameworks */,
+				367FDA08267E1FA500032369 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FineDustWidgetExtension;
+			productName = FineDustWidgetExtension;
+			productReference = 367FDA0A267E1FA500032369 /* FineDustWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		3696FEE6265D400000F2B939 /* FineDust */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3696FF11265D400100F2B939 /* Build configuration list for PBXNativeTarget "FineDust" */;
@@ -267,10 +343,12 @@
 				3696FEE4265D400000F2B939 /* Frameworks */,
 				3696FEE5265D400000F2B939 /* Resources */,
 				2EFB9F5DD273A92D8BAD3A4F /* [CP] Embed Pods Frameworks */,
+				367FDA1B267E1FA500032369 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				367FDA19267E1FA500032369 /* PBXTargetDependency */,
 			);
 			name = FineDust;
 			productName = FineDust;
@@ -325,6 +403,9 @@
 				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				TargetAttributes = {
+					367FDA09267E1FA500032369 = {
+						CreatedOnToolsVersion = 12.3;
+					};
 					3696FEE6265D400000F2B939 = {
 						CreatedOnToolsVersion = 12.3;
 					};
@@ -354,11 +435,20 @@
 				3696FEE6265D400000F2B939 /* FineDust */,
 				3696FEFC265D400100F2B939 /* FineDustTests */,
 				3696FF07265D400100F2B939 /* FineDustUITests */,
+				367FDA09267E1FA500032369 /* FineDustWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		367FDA08267E1FA500032369 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				367FDA14267E1FA500032369 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3696FEE5265D400000F2B939 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -493,6 +583,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		367FDA06267E1FA500032369 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				367FDA16267E1FA500032369 /* FineDustWidget.intentdefinition in Sources */,
+				367FDA11267E1FA500032369 /* FineDustWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3696FEE3265D400000F2B939 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -502,6 +601,7 @@
 				36571559267797C6005452D7 /* APIFineDust.swift in Sources */,
 				3696FEEF265D400000F2B939 /* ViewController.swift in Sources */,
 				3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */,
+				367FDA17267E1FA500032369 /* FineDustWidget.intentdefinition in Sources */,
 				362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */,
 				362AE2EA2664D04B002BF6C6 /* CurrentLocation.swift in Sources */,
 				36B8F1B9267B6A5D004887A8 /* Storage.swift in Sources */,
@@ -533,6 +633,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		367FDA19267E1FA500032369 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 367FDA09267E1FA500032369 /* FineDustWidgetExtension */;
+			targetProxy = 367FDA18267E1FA500032369 /* PBXContainerItemProxy */;
+		};
 		3696FEFF265D400100F2B939 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3696FEE6265D400000F2B939 /* FineDust */;
@@ -565,6 +670,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		367FDA1C267E1FA500032369 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SG72AH33ZM;
+				INFOPLIST_FILE = FineDustWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sainkr.FineDust.FineDustWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		367FDA1D267E1FA500032369 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SG72AH33ZM;
+				INFOPLIST_FILE = FineDustWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sainkr.FineDust.FineDustWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		3696FF0F265D400100F2B939 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -685,6 +832,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D1F93F22B3E1AD393904F466 /* Pods-FineDust.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -705,6 +853,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2BDD4E34A12D5CEB5818A43D /* Pods-FineDust.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -812,6 +961,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		367FDA1E267E1FA500032369 /* Build configuration list for PBXNativeTarget "FineDustWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				367FDA1C267E1FA500032369 /* Debug */,
+				367FDA1D267E1FA500032369 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3696FEE2265D400000F2B939 /* Build configuration list for PBXProject "FineDust" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
