@@ -27,6 +27,7 @@ class FineDustViewModel{
                 self?.observable.accept(self?.finedust(value: value, currentLocation: "-", lat: lat, lng: lng, timeStamp: timeStamp) ?? self?.errorFineDust as! FineDust)
             })
     }
+
     
     func getFineDust(finedust: FineDust){
         _ = APIService.loadFineDust(stationName: finedust.stationName)

@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 import MapKit
+import WidgetKit
 
 // 37.375125349085906, 127.95590235319048
 // <tmX>284688.286381</tmX>
@@ -65,7 +66,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         currentFinedust = finedustViewModel.errorFineDust
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(didReciveNotification(_:)), name: CompleteSearchNotification, object: nil)
         
         setProgressView(nil)

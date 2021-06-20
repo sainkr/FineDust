@@ -11,7 +11,15 @@ target 'FineDust' do
   pod 'RxCocoa'
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  
+  target 'FineDustWidgetExtension' do
+    pod 'RxSwift'
+    pod 'RxCocoa'
+    pod 'Alamofire'
+    pod 'SwiftyJSON'
+  end
 
+  
   target 'FineDustTests' do
     inherit! :search_paths
     # Pods for testing
@@ -22,3 +30,5 @@ target 'FineDust' do
   end
 
 end
+
+
