@@ -5,6 +5,7 @@
 //  Created by 홍승아 on 2021/06/20.
 //
 
+
 import WidgetKit
 import SwiftUI
 import Intents
@@ -19,6 +20,8 @@ struct FineDustRequest{
     let location: String
     let finedustValue: String
     let finedustState: String
+    let finedustColor: UIColor
     let ultrafinedustValue: String
     let ultrafinedustState: String
+    let ultrafinedustColor: UIColor
 }

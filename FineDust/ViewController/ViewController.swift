@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var listButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
     
     var finedustColor: UIColor?
     var ultrafinedustColor: UIColor?
@@ -78,6 +79,7 @@ class ViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext:{ [weak self] in
                
+                self?.dateLabel.text = $0.dateTime
                 self?.finedustColor = $0.finedustColor
                 self?.finedustSateLabel.textColor = $0.finedustColor
                 self?.finedustLabel.textColor = $0.finedustColor

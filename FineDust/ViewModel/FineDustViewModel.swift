@@ -27,6 +27,15 @@ class FineDustViewModel{
                 self?.observable.accept(self?.finedust(value: value, currentLocation: "-", lat: lat, lng: lng, timeStamp: timeStamp) ?? self?.errorFineDust as! FineDust)
             })
     }
+    
+    func getFineDust(completion: @escaping (FineDustRequest) -> ()){
+       _ = APIService.loadFineDust(stationName: "중앙동(강원)")
+            .take(1)
+            .subscribe(onNext:{ value in
+                print(value)
+                completion(FineDustRequest(location: "-", finedustValue: value.finedust, finedustState: self.setFineDust(value.finedust), finedustColor: self.setFineDustColor(value.finedust), ultrafinedustValue: value.ultrafinedust, ultrafinedustState: self.setUltraFineDust(value.ultrafinedust) , ultrafinedustColor: self.setUltraFineDustColor(value.ultrafinedust)))
+            })
+    }
 
     
     func getFineDust(finedust: FineDust){
@@ -47,10 +56,12 @@ class FineDustViewModel{
         let ultrafinedustColor = setUltraFineDustColor(ultrafinedust)
         
         let finedustValue = FineDust(finedust: finedust, finedustState: finedustState , finedustColor: finedustColor , ultrafinedust: ultrafinedust, ultrafinedustState: ultrafinedustState , ultrafinedustColor: ultrafinedustColor , dateTime: value.dateTime, stationName: value.stationName, currentLocation: currentLocation,lat: lat, lng: lng, timeStamp: timeStamp)
-        
+        print("---> finedustValue")
         print(finedustValue)
+        
         return finedustValue
     }
+    
     
     func setFineDustColor(_ result: String) -> UIColor{
         guard let value = Int(result) else {
@@ -97,7 +108,6 @@ class FineDustViewModel{
     func setUltraFineDust(_ result: String) -> String{
         // 초미세먼지 // 좋음 0~15 // 보통 ~35 // 나쁨 ~70 // 매우나쁨 76~
         guard let value = Int(result) else { return "-"}
-
         if value <= 15 {
             return "좋음"
         }else if value <= 35 {

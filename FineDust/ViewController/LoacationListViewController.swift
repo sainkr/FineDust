@@ -40,8 +40,13 @@ class LoacationListViewController: UIViewController{
                 cell.localLabel.text = element.currentLocation
                 cell.finedustValueLabel.text = element.finedust
                 cell.finedustValueLabel.backgroundColor = element.finedustColor
+                cell.finedustStateLabel.text = element.finedustState
+                cell.finedustStateLabel.textColor = element.finedustColor
+                
                 cell.ultrafinedustValueLabel.text = element.ultrafinedust
                 cell.ultrafinedustValueLabel.backgroundColor = element.ultrafinedustColor
+                cell.ultrafinedustStateLabel.text = element.ultrafinedustState
+                cell.ultrafinedustStateLabel.textColor = element.ultrafinedustColor
             }
             .disposed(by: disposeBag)
         

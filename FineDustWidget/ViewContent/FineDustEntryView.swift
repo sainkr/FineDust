@@ -35,8 +35,9 @@ struct FineDustView: View {
                     .font(.system(size: 18))
                     .foregroundColor(.white)
                     .padding(.all, 10)
-                    .background(Color.green)
-                    .cornerRadius(10)
+                    .frame(width: 43, height: 43, alignment: .center)
+                    .background(Color(finedust.finedustColor))
+                    .cornerRadius(5)
                     .padding(.trailing,10)
                 
                 VStack(alignment: .leading, spacing: 2){
@@ -47,6 +48,7 @@ struct FineDustView: View {
                     Text("\(finedust.finedustState)")
                         .fontWeight(.bold)
                         .font(.system(size: 16))
+                        .foregroundColor(Color(finedust.finedustColor))
                 }
             }
             
@@ -56,9 +58,11 @@ struct FineDustView: View {
                     .font(.system(size: 18))
                     .foregroundColor(.white)
                     .padding(.all, 10)
-                    .background(Color.green)
-                    .cornerRadius(10)
+                    .frame(width: 43, height: 43, alignment: .center)
+                    .background(Color(finedust.ultrafinedustColor))
+                    .cornerRadius(5)
                     .padding(.trailing,10)
+
                 
                 VStack(alignment: .leading, spacing: 2){
                     Text("초미세먼지")
@@ -68,6 +72,7 @@ struct FineDustView: View {
                     Text("\(finedust.ultrafinedustState)")
                         .fontWeight(.bold)
                         .font(.system(size: 16))
+                        .foregroundColor(Color(finedust.ultrafinedustColor))
                 }
             }
         }.padding(.top, 15)
@@ -77,6 +82,6 @@ struct FineDustView: View {
 
 struct FineDustView_Previews: PreviewProvider {
     static var previews: some View {
-        FineDustView(finedust: FineDustRequest(location: "원주시 태장동", finedustValue: "20", finedustState: "보통", ultrafinedustValue: "10", ultrafinedustState: "좋음"))
+        FineDustView(finedust: FineDustRequest(location: "원주시 태장동", finedustValue: "20", finedustState: "좋음", finedustColor: #colorLiteral(red: 0.1309628189, green: 0.6049023867, blue: 1, alpha: 1), ultrafinedustValue: "10", ultrafinedustState: "보통", ultrafinedustColor: #colorLiteral(red: 0.08792158216, green: 0.7761771083, blue: 0.2295451164, alpha: 1)))
     }
 }
