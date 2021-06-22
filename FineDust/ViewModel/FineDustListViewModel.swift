@@ -15,7 +15,7 @@ import CoreLocation
 
 class FineDustListViewModel{
     
-    static var finedustList: [FineDust] = [FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", currentLocation: "-",lat: 0, lng: 0, timeStamp: 0) ]
+    static var finedustList: [FineDust] = []
 
 
     lazy var finedustRelay = PublishRelay<[FineDust]>()
@@ -56,10 +56,14 @@ class FineDustListViewModel{
         FineDustListViewModel.finedustList[0].lat = finedust.lat
         FineDustListViewModel.finedustList[0].lng = finedust.lng
         FineDustListViewModel.finedustList[0].timeStamp = finedust.timeStamp
+        print("-----> 저장 현재")
+        print(FineDustListViewModel.finedustList)
+        saveFineDust()
     }
     
     func addCurrentLocationFineDust(_ currentLocation: String){
         FineDustListViewModel.finedustList[0].currentLocation = currentLocation
+        saveFineDust()
     }
     
     func addFineDust(_ finedust: FineDust){
@@ -84,12 +88,18 @@ class FineDustListViewModel{
     
     func saveFineDust(){
         var finedust: [StoreFineDust] = []
-
-        for i in 1..<FineDustListViewModel.finedustList.count{
+        print("----> 여기서 저장인데",FineDustListViewModel.finedustList.count)
+        print(FineDustListViewModel.finedustList)
+        for i in 0..<FineDustListViewModel.finedustList.count{
             finedust.append(StoreFineDust(stationName: FineDustListViewModel.finedustList[i].stationName, currentLocation: FineDustListViewModel.finedustList[i].currentLocation, lat: FineDustListViewModel.finedustList[i].lat, lng: FineDustListViewModel.finedustList[i].lng, timeStamp: FineDustListViewModel.finedustList[i].timeStamp))
         }
     
         Storage.store(finedust, to: .documents, as: "finedust.json")
+        
+        let defaults = UserDefaults(suiteName: "group.com.sainkr.FineDust")
+        defaults?.set(FineDustListViewModel.finedustList[0].stationName, forKey: "stationName")
+        defaults?.set(FineDustListViewModel.finedustList[0].currentLocation, forKey: "currentLocation")
+        defaults?.synchronize()
     }
     
     func loadFineDust(){
@@ -97,5 +107,18 @@ class FineDustListViewModel{
         storefinedust.forEach{
             FineDustListViewModel.finedustList.append(FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: $0.stationName, currentLocation: $0.currentLocation, lat: $0.lat, lng: $0.lng, timeStamp: $0.timeStamp))
         }
+        print("저장됨 --- >.  -- >.  ")
+        print(FineDustListViewModel.finedustList)
+    }
+    
+    func loadWidgetFineDust() -> [FineDust]{
+        let storefinedust = Storage.retrive("finedust.json", from: .documents, as: [StoreFineDust].self) ?? []
+        storefinedust.forEach{
+            print(FineDustListViewModel.finedustList)
+            FineDustListViewModel.finedustList.append(FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: $0.stationName, currentLocation: $0.currentLocation, lat: $0.lat, lng: $0.lng, timeStamp: $0.timeStamp))
+        }
+        print("----? ?? ? ")
+        print(FineDustListViewModel.finedustList)
+        return FineDustListViewModel.finedustList
     }
 }

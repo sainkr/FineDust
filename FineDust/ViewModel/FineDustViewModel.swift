@@ -28,8 +28,8 @@ class FineDustViewModel{
             })
     }
     
-    func getFineDust(completion: @escaping (FineDustRequest) -> ()){
-       _ = APIService.loadFineDust(stationName: "중앙동(강원)")
+    func getFineDust(station: String, completion: @escaping (FineDustRequest) -> ()){
+       _ = APIService.loadFineDust(stationName: station)
             .take(1)
             .subscribe(onNext:{ value in
                 print(value)

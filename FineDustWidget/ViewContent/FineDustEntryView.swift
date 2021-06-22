@@ -32,9 +32,8 @@ struct FineDustView: View {
             HStack(spacing: 0){
                 Text("\(finedust.finedustValue)")
                     .fontWeight(.bold)
-                    .font(.system(size: 18))
+                    .font(.system(size: 17))
                     .foregroundColor(.white)
-                    .padding(.all, 10)
                     .frame(width: 43, height: 43, alignment: .center)
                     .background(Color(finedust.finedustColor))
                     .cornerRadius(5)
@@ -57,7 +56,6 @@ struct FineDustView: View {
                     .fontWeight(.bold)
                     .font(.system(size: 18))
                     .foregroundColor(.white)
-                    .padding(.all, 10)
                     .frame(width: 43, height: 43, alignment: .center)
                     .background(Color(finedust.ultrafinedustColor))
                     .cornerRadius(5)
@@ -82,6 +80,6 @@ struct FineDustView: View {
 
 struct FineDustView_Previews: PreviewProvider {
     static var previews: some View {
-        FineDustView(finedust: FineDustRequest(location: "원주시 태장동", finedustValue: "20", finedustState: "좋음", finedustColor: #colorLiteral(red: 0.1309628189, green: 0.6049023867, blue: 1, alpha: 1), ultrafinedustValue: "10", ultrafinedustState: "보통", ultrafinedustColor: #colorLiteral(red: 0.08792158216, green: 0.7761771083, blue: 0.2295451164, alpha: 1)))
+        FineDustView(finedust: FineDustRequest(location: "원주시 태장동", finedustValue: "150", finedustState: "좋음", finedustColor: #colorLiteral(red: 0.1309628189, green: 0.6049023867, blue: 1, alpha: 1), ultrafinedustValue: "10", ultrafinedustState: "보통", ultrafinedustColor: #colorLiteral(red: 0.08792158216, green: 0.7761771083, blue: 0.2295451164, alpha: 1)))
     }
 }

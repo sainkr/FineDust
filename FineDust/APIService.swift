@@ -10,8 +10,9 @@ import RxSwift
 import Alamofire
 import SwiftyJSON
 
+
 private let servicekey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"
-private let accessToken = "778312ab-e743-41c8-b60d-c9b91fb18a64"
+private let accessToken = "9dc1452f-e158-44bf-addb-2922541945e2"
 
 class APIService{
     static func loadTM(lat: Double, lng: Double) -> Observable<TM>{
