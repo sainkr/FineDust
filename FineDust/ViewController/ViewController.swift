@@ -4,6 +4,7 @@
 //
 //  Created by 홍승아 on 2021/05/25.
 //
+// 37.375125349085906, 127.95590235319048 // <tmX>284688.286381</tmX>// <tmY>431240.919844</tmY>
 
 import UIKit
 import RxSwift
@@ -11,10 +12,6 @@ import RxCocoa
 import CoreLocation
 import MapKit
 import WidgetKit
-
-// 37.375125349085906, 127.95590235319048
-// <tmX>284688.286381</tmX>
-// <tmY>431240.919844</tmY>
 
 class ViewController: UIViewController {
     
@@ -67,18 +64,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         currentFinedust = finedustViewModel.errorFineDust
-        
         NotificationCenter.default.addObserver(self, selector: #selector(didReciveNotification(_:)), name: CompleteSearchNotification, object: nil)
         
         setProgressView(nil)
         setPageControl()
-        
-        locationManager.delegate = self
-        
+    
         finedustViewModel.observable
             .observe(on: MainScheduler.instance)
             .subscribe(onNext:{ [weak self] in
-               
                 self?.dateLabel.text = $0.dateTime
                 self?.finedustColor = $0.finedustColor
                 self?.finedustSateLabel.textColor = $0.finedustColor
@@ -138,17 +131,11 @@ class ViewController: UIViewController {
         else if mode == .show{
             show(index)
         }
-        else {
-            finedustViewModel.getFineDust( lat: 37.375125349085906, lng: 127.95590235319048, timeStamp: 2147483647)
-            currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906 , longitude: 127.95590235319048))
-            // requestLocation()
+        else if mode == .main{
+            /*finedustViewModel.getFineDust( lat: 37.375125349085906, lng: 127.95590235319048, timeStamp: 2147483647)
+            currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude:37.375125349085906 , longitude: 127.95590235319048))*/
+            requestLocation()
         }
-    }
-    
-    func show(_ index: Int){
-        let finedust = FineDustListViewModel.finedustList[index]
-        finedustViewModel.getFineDust(finedust: finedust)
-        currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude: finedust.lat, longitude: finedust.lng))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -174,42 +161,34 @@ class ViewController: UIViewController {
     @IBAction func pagecontrolChanged(_ sender: Any) {
         show(pageControl.currentPage)
     }
-    
-    @objc func didReciveNotification(_ noti: Notification){
-        guard let coordinate = noti.userInfo?["coordinate"] as? CLLocationCoordinate2D else { return }
-        location = coordinate
-        getFineDust(coordinate.latitude, coordinate.longitude)
-    }
 }
 
 // MARK: - Location Handling
-
 extension ViewController : CLLocationManagerDelegate {
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            print("Location data received.")
-            print(location)
-        }
     }
     
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if manager.authorizationStatus == .authorizedWhenInUse {
+            self.currentLocation = locationManager.location
+            getFineDust(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude)
+        }
+    }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to get users location.")
     }
         
-        
     private func requestLocation() {
+        locationManager.delegate = self
+        
         guard CLLocationManager.locationServicesEnabled() else {
             displayLocationServicesDisabledAlert()
             return
         }
+
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        self.currentLocation = locationManager.location
-        
-        getFineDust(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude)
     }
     
     private func getFineDust(_ lat: Double, _ lng: Double){
@@ -227,10 +206,57 @@ extension ViewController : CLLocationManagerDelegate {
     }
 }
 
-// MARK: - UI
+// MARK: - Timer
+extension ViewController{
+    func setProgressView(_ finedust: FineDust?){
+        timer?.invalidate()
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(setProgress(sender:)), userInfo: finedust, repeats: true)
+        
+        findustProgressView.progressViewStyle = .bar
+        findustProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
+        findustProgressView.clipsToBounds = true
+        findustProgressView.layer.cornerRadius = 15
+        findustProgressView.clipsToBounds = true
+        findustProgressView.layer.sublayers![1].cornerRadius = 15
+        findustProgressView.subviews[1].clipsToBounds = true
+        findustProgressView.progress = 0.0
+        
+        ultraProgressView.progressViewStyle = .bar
+        ultraProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
+        ultraProgressView.clipsToBounds = true
+        ultraProgressView.layer.cornerRadius = 15
+        ultraProgressView.clipsToBounds = true
+        ultraProgressView.layer.sublayers![1].cornerRadius = 15
+        ultraProgressView.subviews[1].clipsToBounds = true
+        ultraProgressView.progress = 0.0
+    }
+    
+    @objc func setProgress(sender: Timer) {
+        guard let finedust = sender.userInfo as? FineDust else { return }
+        
+        let finedustValue = Int(finedust.finedust)!
+        let ultrafindustValue = Int(finedust.ultrafinedust)!
+        
+        time += 0.01
+        findustProgressView.progressTintColor = finedustColor
+        ultraProgressView.progressTintColor = ultrafinedustColor
+        
+        if time <= finedustViewModel.calculatorFineDust(finedustValue){
+            findustProgressView.setProgress(time, animated: true)
+        }
+        if time <= finedustViewModel.calculatorUltraFineDust(ultrafindustValue){
+            ultraProgressView.setProgress(time, animated: true)
+        }
+        
+        if time > finedustViewModel.calculatorFineDust(finedustValue) &&  time > finedustViewModel.calculatorUltraFineDust(ultrafindustValue) {
+            time = 0.0
+            timer!.invalidate()
+        }
+    }
+}
 
 extension ViewController{
-    
     func setPageControl(){
         view.isUserInteractionEnabled = true
         
@@ -242,7 +268,7 @@ extension ViewController{
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         view.addGestureRecognizer(swipeRight)
         
-        pageControl.numberOfPages = FineDustListViewModel.finedustList.count
+        pageControl.numberOfPages = FineDustListViewModel.finedustList.count == 0 ? 1 : FineDustListViewModel.finedustList.count
         pageControl.currentPage = index
         
     }
@@ -268,57 +294,15 @@ extension ViewController{
         }
     }
     
-    func setProgressView(_ finedust: FineDust?){
-        timer?.invalidate()
-        
-        timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(setProgress(sender:)), userInfo: finedust, repeats: true)
-        
-        findustProgressView.progressViewStyle = .bar
-        findustProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
-        
-        findustProgressView.clipsToBounds = true
-        findustProgressView.layer.cornerRadius = 15
-        findustProgressView.clipsToBounds = true
-        findustProgressView.layer.sublayers![1].cornerRadius = 15
-        findustProgressView.subviews[1].clipsToBounds = true
-        
-        findustProgressView.progress = 0.0
-        
-        ultraProgressView.progressViewStyle = .bar
-        ultraProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
-        
-        ultraProgressView.clipsToBounds = true
-        ultraProgressView.layer.cornerRadius = 15
-        ultraProgressView.clipsToBounds = true
-        ultraProgressView.layer.sublayers![1].cornerRadius = 15
-        ultraProgressView.subviews[1].clipsToBounds = true
-        
-        ultraProgressView.progress = 0.0
+    @objc func didReciveNotification(_ noti: Notification){ // 지역 추가했을 때 
+        guard let coordinate = noti.userInfo?["coordinate"] as? CLLocationCoordinate2D else { return }
+        location = coordinate
+        getFineDust(coordinate.latitude, coordinate.longitude)
     }
     
-    @objc func setProgress(sender: Timer) {
-        guard let finedust = sender.userInfo as? FineDust else { return }
-        
-        let finedustValue = Int(finedust.finedust)!
-        let ultrafindustValue = Int(finedust.ultrafinedust)!
-        
-        time += 0.01
-        findustProgressView.progressTintColor = finedustColor
-        ultraProgressView.progressTintColor = ultrafinedustColor
-        
-        if time <= finedustViewModel.calculatorFineDust(finedustValue){
-            findustProgressView.setProgress(time, animated: true)
-        }
-        if time <= finedustViewModel.calculatorUltraFineDust(ultrafindustValue){
-            ultraProgressView.setProgress(time, animated: true)
-        }
-        
-        if time > finedustViewModel.calculatorFineDust(finedustValue) &&  time > finedustViewModel.calculatorUltraFineDust(ultrafindustValue) {
-            // print(finedustViewModel.calculatorFineDust(finedustValue))
-            // print(finedustViewModel.calculatorUltraFineDust(ultrafindustValue))
-            time = 0.0
-            timer!.invalidate()
-        }
+    func show(_ index: Int){
+        let finedust = FineDustListViewModel.finedustList[index]
+        finedustViewModel.getFineDust(finedust: finedust)
+        currentlocationViewModel.convertToAddressWith(coordinate: CLLocation(latitude: finedust.lat, longitude: finedust.lng))
     }
-    
 }

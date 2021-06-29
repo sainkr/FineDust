@@ -110,8 +110,6 @@ extension LoacationListViewController: UITableViewDelegate{
     }
 }
 
-
-
 class LoactionCollectionViewCell: UITableViewCell{
     @IBOutlet weak var localLabel: UILabel!
     @IBOutlet weak var currentLocationLabel: UILabel!

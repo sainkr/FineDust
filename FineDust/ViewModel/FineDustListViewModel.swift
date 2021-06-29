@@ -17,7 +17,6 @@ class FineDustListViewModel{
     
     static var finedustList: [FineDust] = []
 
-
     lazy var finedustRelay = PublishRelay<[FineDust]>()
     
     let finedustViewModel = FineDustViewModel()
@@ -45,6 +44,9 @@ class FineDustListViewModel{
     }
     
     func addCurrentLocationFineDust(_ finedust: FineDust){
+        if FineDustListViewModel.finedustList.count == 0{
+            FineDustListViewModel.finedustList.append(FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", currentLocation: "-" ,lat: 0, lng: 0, timeStamp: 0))
+        }
         FineDustListViewModel.finedustList[0].finedust = finedust.finedust
         FineDustListViewModel.finedustList[0].finedustState = finedust.finedustState
         FineDustListViewModel.finedustList[0].finedustColor = finedust.finedustColor
@@ -56,12 +58,13 @@ class FineDustListViewModel{
         FineDustListViewModel.finedustList[0].lat = finedust.lat
         FineDustListViewModel.finedustList[0].lng = finedust.lng
         FineDustListViewModel.finedustList[0].timeStamp = finedust.timeStamp
-        print("-----> 저장 현재")
-        print(FineDustListViewModel.finedustList)
         saveFineDust()
     }
     
     func addCurrentLocationFineDust(_ currentLocation: String){
+        if FineDustListViewModel.finedustList.count == 0{
+            FineDustListViewModel.finedustList.append(FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: "-", currentLocation: "-" ,lat: 0, lng: 0, timeStamp: 0))
+        }
         FineDustListViewModel.finedustList[0].currentLocation = currentLocation
         saveFineDust()
     }
@@ -88,8 +91,6 @@ class FineDustListViewModel{
     
     func saveFineDust(){
         var finedust: [StoreFineDust] = []
-        print("----> 여기서 저장인데",FineDustListViewModel.finedustList.count)
-        print(FineDustListViewModel.finedustList)
         for i in 0..<FineDustListViewModel.finedustList.count{
             finedust.append(StoreFineDust(stationName: FineDustListViewModel.finedustList[i].stationName, currentLocation: FineDustListViewModel.finedustList[i].currentLocation, lat: FineDustListViewModel.finedustList[i].lat, lng: FineDustListViewModel.finedustList[i].lng, timeStamp: FineDustListViewModel.finedustList[i].timeStamp))
         }
@@ -107,8 +108,6 @@ class FineDustListViewModel{
         storefinedust.forEach{
             FineDustListViewModel.finedustList.append(FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: $0.stationName, currentLocation: $0.currentLocation, lat: $0.lat, lng: $0.lng, timeStamp: $0.timeStamp))
         }
-        print("저장됨 --- >.  -- >.  ")
-        print(FineDustListViewModel.finedustList)
     }
     
     func loadWidgetFineDust() -> [FineDust]{
@@ -117,8 +116,6 @@ class FineDustListViewModel{
             print(FineDustListViewModel.finedustList)
             FineDustListViewModel.finedustList.append(FineDust(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: $0.stationName, currentLocation: $0.currentLocation, lat: $0.lat, lng: $0.lng, timeStamp: $0.timeStamp))
         }
-        print("----? ?? ? ")
-        print(FineDustListViewModel.finedustList)
         return FineDustListViewModel.finedustList
     }
 }
