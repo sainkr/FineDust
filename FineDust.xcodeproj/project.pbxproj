@@ -23,6 +23,8 @@
 		367FDA16267E1FA500032369 /* FineDustWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 367FDA12267E1FA500032369 /* FineDustWidget.intentdefinition */; };
 		367FDA17267E1FA500032369 /* FineDustWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 367FDA12267E1FA500032369 /* FineDustWidget.intentdefinition */; };
 		367FDA1A267E1FA500032369 /* FineDustWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 367FDA0A267E1FA500032369 /* FineDustWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		368702E5268B448A00D97FDC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368702E4268B448A00D97FDC /* PageViewController.swift */; };
+		368702EA268B478300D97FDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3696FEF0265D400000F2B939 /* Main.storyboard */; };
 		3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEA265D400000F2B939 /* AppDelegate.swift */; };
 		3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEC265D400000F2B939 /* SceneDelegate.swift */; };
 		3696FEEF265D400000F2B939 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEE265D400000F2B939 /* ViewController.swift */; };
@@ -116,6 +118,7 @@
 		367FDA12267E1FA500032369 /* FineDustWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = FineDustWidget.intentdefinition; sourceTree = "<group>"; };
 		367FDA13267E1FA500032369 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		367FDA15267E1FA500032369 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		368702E4268B448A00D97FDC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		3696FEE7265D400000F2B939 /* FineDust.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineDust.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FEEA265D400000F2B939 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3696FEEC265D400000F2B939 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -306,6 +309,7 @@
 				3696FEEE265D400000F2B939 /* ViewController.swift */,
 				36A291C7266F808F00C26FAB /* LoacationListViewController.swift */,
 				36A291D0266FA0F300C26FAB /* SerachLocationViewController.swift */,
+				368702E4268B448A00D97FDC /* PageViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -502,6 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				367FDA14267E1FA500032369 /* Assets.xcassets in Resources */,
+				368702EA268B478300D97FDC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +701,7 @@
 				362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */,
 				362AE2EA2664D04B002BF6C6 /* CurrentLocation.swift in Sources */,
 				36D8D340267F597000A55D1E /* FineDustEntry.swift in Sources */,
+				368702E5268B448A00D97FDC /* PageViewController.swift in Sources */,
 				36B8F1B9267B6A5D004887A8 /* Storage.swift in Sources */,
 				36A291D1266FA0F300C26FAB /* SerachLocationViewController.swift in Sources */,
 				36A291C8266F808F00C26FAB /* LoacationListViewController.swift in Sources */,

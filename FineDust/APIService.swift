@@ -12,7 +12,7 @@ import SwiftyJSON
 
 
 private let servicekey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"
-private let accessToken = "05f92315-5b5d-46e6-b41d-bf3f36378519"
+private let accessToken = "889532f7-89dc-455b-8457-056314a4025c"
 
 class APIService{
     static func loadTM(lat: Double, lng: Double) -> Observable<TM>{

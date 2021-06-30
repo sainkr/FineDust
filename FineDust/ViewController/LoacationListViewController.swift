@@ -53,10 +53,10 @@ class LoacationListViewController: UIViewController{
         tableView.rx.itemSelected // indexPath를 가져옴
             .subscribe(onNext: { [weak self] indexPath in
                 let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-                guard let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController else {
+                guard let vc = storyboard.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
                     return }
-                vc.mode = .show
-                vc.index = indexPath.item
+                
+                vc.currentPage = indexPath.item
                 vc.modalPresentationStyle = .fullScreen
                 
                 self?.present(vc, animated: true, completion: nil)

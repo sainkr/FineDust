@@ -30,8 +30,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var ultraProgressView: UIProgressView!
     @IBOutlet weak var stationLabel: UILabel!
     @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var listButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     
     var finedustColor: UIColor?
@@ -67,7 +65,6 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didReciveNotification(_:)), name: CompleteSearchNotification, object: nil)
         
         setProgressView(nil)
-        setPageControl()
     
         finedustViewModel.observable
             .observe(on: MainScheduler.instance)
@@ -120,13 +117,12 @@ class ViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if mode == .add{
             navigationBar.isHidden = false
-            pageControl.isHidden = true
-            listButton.isHidden = true
         }
         else if mode == .show{
             show(index)
@@ -157,10 +153,6 @@ class ViewController: UIViewController {
             })
         }
     }
-    
-    @IBAction func pagecontrolChanged(_ sender: Any) {
-        show(pageControl.currentPage)
-    }
 }
 
 // MARK: - Location Handling
@@ -171,7 +163,9 @@ extension ViewController : CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if manager.authorizationStatus == .authorizedWhenInUse {
             self.currentLocation = locationManager.location
-            getFineDust(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude)
+
+            // getFineDust(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude)
+            getFineDust(37.375125349085906, 127.95590235319048)
         }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -207,7 +201,7 @@ extension ViewController : CLLocationManagerDelegate {
 }
 
 // MARK: - Timer
-extension ViewController{
+extension ViewController {
     func setProgressView(_ finedust: FineDust?){
         timer?.invalidate()
         
@@ -234,9 +228,7 @@ extension ViewController{
     
     @objc func setProgress(sender: Timer) {
         guard let finedust = sender.userInfo as? FineDust else { return }
-        
-        let finedustValue = Int(finedust.finedust)!
-        let ultrafindustValue = Int(finedust.ultrafinedust)!
+        guard let finedustValue = Int(finedust.finedust), let ultrafindustValue = Int(finedust.ultrafinedust) else { return }
         
         time += 0.01
         findustProgressView.progressTintColor = finedustColor
@@ -257,43 +249,6 @@ extension ViewController{
 }
 
 extension ViewController{
-    func setPageControl(){
-        view.isUserInteractionEnabled = true
-        
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
-        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
-        view.addGestureRecognizer(swipeLeft)
-        
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(_:)))
-        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
-        view.addGestureRecognizer(swipeRight)
-        
-        pageControl.numberOfPages = FineDustListViewModel.finedustList.count == 0 ? 1 : FineDustListViewModel.finedustList.count
-        pageControl.currentPage = index
-        
-    }
-    
-    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer{
-            switch swipeGesture.direction{
-                case UISwipeGestureRecognizer.Direction.left :
-                    mode = .show
-                    if pageControl.currentPage < FineDustListViewModel.finedustList.count - 1{
-                        pageControl.currentPage += 1
-                        show(pageControl.currentPage)
-                    }
-                case UISwipeGestureRecognizer.Direction.right :
-                    mode = .show
-                    if pageControl.currentPage > 0{
-                        pageControl.currentPage -= 1
-                        show(pageControl.currentPage)
-                    }
-                default:
-                    break
-            }
-        }
-    }
-    
     @objc func didReciveNotification(_ noti: Notification){ // 지역 추가했을 때 
         guard let coordinate = noti.userInfo?["coordinate"] as? CLLocationCoordinate2D else { return }
         location = coordinate
