@@ -40,17 +40,15 @@ class PageViewController: UIViewController{
 
 extension PageViewController: UIPageViewControllerDataSource{
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        print("Before")
         if currentPage == 0 {
             return nil
         }
-
-        currentPage -= 1
         
+        currentPage -= 1
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController
         vc?.mode = .show
-        vc?.index = currentPage - 1
+        vc?.index = currentPage
 
         return vc
     }
@@ -59,13 +57,13 @@ extension PageViewController: UIPageViewControllerDataSource{
         if currentPage == FineDustListViewModel.finedustList.count - 1{
             return nil
         }
-    
+        
         currentPage += 1
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController
         vc?.mode = .show
         vc?.index = currentPage
-    
+
         return vc
     }
 }
@@ -73,8 +71,9 @@ extension PageViewController: UIPageViewControllerDataSource{
 extension PageViewController: UIPageViewControllerDelegate{
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard completed else { return }
-        print("delegate",currentPage)
-        
-        pageControl.currentPage = currentPage
+        if let currentViewController = pageViewController.viewControllers?[0] as? ViewController{
+            pageControl.currentPage = currentViewController.index
+            currentPage = currentViewController.index
+        }
     }
 }
