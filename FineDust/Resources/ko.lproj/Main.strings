@@ -1,0 +1,78 @@
+
+/* Class = "UILabel"; text = "초미세먼지"; ObjectID = "0lK-JQ-8w1"; */
+"0lK-JQ-8w1.text" = "초미세먼지";
+
+/* Class = "UILabel"; text = "좋음"; ObjectID = "0pr-gp-zXF"; */
+"0pr-gp-zXF.text" = "좋음";
+
+/* Class = "UILabel"; text = "150"; ObjectID = "0z2-T1-sh5"; */
+"0z2-T1-sh5.text" = "150";
+
+/* Class = "UILabel"; text = "d"; ObjectID = "8Dk-XA-Iom"; */
+"8Dk-XA-Iom.text" = "d";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9Sx-Ef-VK3"; */
+"9Sx-Ef-VK3.text" = "Label";
+
+/* Class = "UILabel"; text = "35"; ObjectID = "Apr-0M-dyM"; */
+"Apr-0M-dyM.text" = "35";
+
+/* Class = "UIViewController"; title = "ViewController"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "ViewController";
+
+/* Class = "UIViewController"; title = "PageViewController"; ObjectID = "EuI-GS-zpa"; */
+"EuI-GS-zpa.title" = "PageViewController";
+
+/* Class = "UILabel"; text = "30"; ObjectID = "H1M-6K-CCu"; */
+"H1M-6K-CCu.text" = "30";
+
+/* Class = "UILabel"; text = "d"; ObjectID = "Kly-fq-hh3"; */
+"Kly-fq-hh3.text" = "d";
+
+/* Class = "UILabel"; text = "35"; ObjectID = "L8h-Dv-KRJ"; */
+"L8h-Dv-KRJ.text" = "35";
+
+/* Class = "UIViewController"; title = "SerachLocationViewController"; ObjectID = "NmZ-nb-AjZ"; */
+"NmZ-nb-AjZ.title" = "SerachLocationViewController";
+
+/* Class = "UIBarButtonItem"; title = "취소"; ObjectID = "Pd5-yP-hTY"; */
+"Pd5-yP-hTY.title" = "취소";
+
+/* Class = "UILabel"; text = "35"; ObjectID = "Rcl-n9-JRy"; */
+"Rcl-n9-JRy.text" = "35";
+
+/* Class = "UILabel"; text = "보통"; ObjectID = "Udz-RC-u27"; */
+"Udz-RC-u27.text" = "보통";
+
+/* Class = "UILabel"; text = "미세먼지"; ObjectID = "Uvv-yV-SwU"; */
+"Uvv-yV-SwU.text" = "미세먼지";
+
+/* Class = "UILabel"; text = "75"; ObjectID = "e1v-Of-TEn"; */
+"e1v-Of-TEn.text" = "75";
+
+/* Class = "UIButton"; normalTitle = "취소"; ObjectID = "e6p-HH-lBI"; */
+"e6p-HH-lBI.normalTitle" = "취소";
+
+/* Class = "UILabel"; text = "미세먼지"; ObjectID = "fnJ-ZU-qZp"; */
+"fnJ-ZU-qZp.text" = "미세먼지";
+
+/* Class = "UIBarButtonItem"; title = "추가"; ObjectID = "i3d-hz-8mK"; */
+"i3d-hz-8mK.title" = "추가";
+
+/* Class = "UILabel"; text = "나의 위치"; ObjectID = "iym-rV-qhX"; */
+"iym-rV-qhX.text" = "나의 위치";
+
+/* Class = "UILabel"; text = "원주시 태장동"; ObjectID = "nPy-tL-lk3"; */
+"nPy-tL-lk3.text" = "원주시 태장동";
+
+/* Class = "UILabel"; text = "80"; ObjectID = "nsO-xb-C3B"; */
+"nsO-xb-C3B.text" = "80";
+
+/* Class = "UILabel"; text = "초미세먼지"; ObjectID = "uB6-fL-d5J"; */
+"uB6-fL-d5J.text" = "초미세먼지";
+
+/* Class = "UILabel"; text = "제공 한국환경공단 에어코리아"; ObjectID = "y6s-rU-FAo"; */
+"y6s-rU-FAo.text" = "제공 한국환경공단 에어코리아";
+
+/* Class = "UILabel"; text = "15"; ObjectID = "z8o-1w-ig9"; */
+"z8o-1w-ig9.text" = "15";

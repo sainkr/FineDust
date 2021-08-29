@@ -8,6 +8,6 @@
 import Foundation
 
 struct TM{
-    var tmX: Double
-    var tmY: Double
+  var tmX: Double
+  var tmY: Double
 }

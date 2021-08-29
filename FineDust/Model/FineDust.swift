@@ -5,28 +5,51 @@
 //  Created by 홍승아 on 2021/05/31.
 //
 
-import Foundation
 import UIKit
 
 struct FineDust{
-    var finedust: String
-    var finedustState: String
-    var finedustColor: UIColor
-    var ultrafinedust: String
-    var ultrafinedustState: String
-    var ultrafinedustColor: UIColor
-    var dateTime: String
-    var stationName: String
-    var currentLocation: String
-    var lat: Double
-    var lng: Double
-    var timeStamp: Int
+  var fineDustValue: String
+  var fineDustState: String
+  var fineDustColor: UIColor
 }
 
-struct StoreFineDust: Codable{
-    var stationName: String
-    var currentLocation: String
-    var lat: Double
-    var lng: Double
-    var timeStamp: Int
+struct UltraFineDust{
+  var ultraFineDustValue: String
+  var ultraFineDustState: String
+  var ultraFineDustColor: UIColor
+}
+
+struct StoredFineDustData: Codable{
+  var timeStamp: Int
+  var stationName: String
+  var location: LocationData
+}
+
+// api
+// dateTime, fineDusdtValue, ultraFineDustValue, stationName
+struct FineDustAPIData{
+  var dateTime: String
+  var fineDust: FineDust
+  var ultraFineDust: UltraFineDust
+  var stationName: String
+}
+
+// location
+// lat, lng, locationName
+struct LocationData: Codable{
+  var locationName: String
+  var latitude: Double
+  var longtitude: Double
+}
+
+// finedustData
+
+// 두 개ㅡㄹㄹ 합한..
+struct FineDustData{
+  var timeStamp: Int
+  var dateTime: String
+  var fineDust: FineDust
+  var ultraFineDust: UltraFineDust
+  var stationName: String
+  var location: LocationData
 }

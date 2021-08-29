@@ -51,10 +51,10 @@
             </objects>
             <point key="canvasLocation" x="-2190" y="13"/>
         </scene>
-        <!--ViewController-->
+        <!--FineDustViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController restorationIdentifier="ViewController" storyboardIdentifier="ViewController" title="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="FineDust" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="FineDustViewController" storyboardIdentifier="FineDustViewController" title="FineDustViewController" id="BYZ-38-t0r" customClass="FineDustViewController" customModule="FineDust" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,13 +78,13 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="d" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Dk-XA-Iom">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Dk-XA-Iom">
                                 <rect key="frame" x="0.0" y="86" width="414" height="33.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="d" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kly-fq-hh3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kly-fq-hh3">
                                 <rect key="frame" x="0.0" y="139.5" width="414" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -270,21 +270,21 @@
                     <navigationItem key="navigationItem" id="mpn-T9-IWU"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="dateLabel" destination="Kly-fq-hh3" id="hhR-UD-k9M"/>
-                        <outlet property="findustProgressView" destination="WuE-xD-Hkd" id="aWJ-Ec-CPM"/>
-                        <outlet property="finedustLabel" destination="XKD-C0-BxD" id="Mj9-GX-DHj"/>
-                        <outlet property="finedustSateLabel" destination="fV5-zN-kQ3" id="fuy-AM-tVH"/>
-                        <outlet property="localLabel" destination="8Dk-XA-Iom" id="oj6-sU-vQl"/>
+                        <outlet property="dateLabel" destination="Kly-fq-hh3" id="ka1-UX-FZ5"/>
+                        <outlet property="fineDustProgressView" destination="WuE-xD-Hkd" id="HK3-la-xYQ"/>
+                        <outlet property="fineDustStateLabel" destination="fV5-zN-kQ3" id="MHi-Qv-hLr"/>
+                        <outlet property="fineDustValueLabel" destination="XKD-C0-BxD" id="JMG-JS-2aS"/>
+                        <outlet property="locationNameLabel" destination="8Dk-XA-Iom" id="ysc-q8-Itj"/>
                         <outlet property="navigationBar" destination="xkP-FA-2ve" id="4aS-a6-pqk"/>
-                        <outlet property="stationLabel" destination="y6s-rU-FAo" id="Bt7-RV-2Vb"/>
-                        <outlet property="ultlrafinedustSateLabel" destination="aXX-Nx-Rnd" id="ODX-cX-5BC"/>
-                        <outlet property="ultraProgressView" destination="iO3-Kf-pXY" id="46z-zU-iMw"/>
-                        <outlet property="ultrafinedustLabel" destination="1PQ-i3-1Ht" id="H2d-E1-9VB"/>
+                        <outlet property="stationNameLabel" destination="y6s-rU-FAo" id="2hb-rE-eKG"/>
+                        <outlet property="ultlraFineDustStateLabel" destination="aXX-Nx-Rnd" id="KuV-2Z-Wcm"/>
+                        <outlet property="ultraFineDustProgressView" destination="iO3-Kf-pXY" id="OU2-na-7l4"/>
+                        <outlet property="ultraFineDustValueLabel" destination="1PQ-i3-1Ht" id="JQv-u2-lne"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1265.217391304348" y="618.75"/>
+            <point key="canvasLocation" x="527.536231884058" y="12.723214285714285"/>
         </scene>
         <!--Loacation List View Controller-->
         <scene sceneID="I5N-Ez-kD3">
@@ -316,8 +316,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 위치" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iym-rV-qhX">
-                                                    <rect key="frame" x="330" y="10" width="64" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <rect key="frame" x="331" y="10" width="63" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -425,7 +425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lou-2w-89C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="540.57971014492762" y="13.392857142857142"/>
+            <point key="canvasLocation" x="-1300" y="13"/>
         </scene>
         <!--SerachLocationViewController-->
         <scene sceneID="czg-8x-h1O">
@@ -506,7 +506,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="17A-wH-aK0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="583" y="987"/>
+            <point key="canvasLocation" x="-368" y="13"/>
         </scene>
     </scenes>
     <resources>

@@ -32,7 +32,14 @@ struct FineDustWidget: Widget {
 
 struct FineDustWidget_Previews: PreviewProvider {
     static var previews: some View {
-        FineDustWidgetEntryView(entry: SimpleEntry(date: Date(), finedust: FineDustRequest(location: "원주시 태장동", finedustValue: "30", finedustState: "보통", finedustColor: .black, ultrafinedustValue: "13", ultrafinedustState: "보통", ultrafinedustColor: .black), configuration: ConfigurationIntent()))
+      let fineDustViewModel = FineDustViewModel()
+      FineDustWidgetEntryView(entry: SimpleEntry(
+                                date: Date(),
+                                finedust: FineDustRequest(
+                                  locationName: "원주시 태장동",
+                                  fineDust: fineDustViewModel.fineDust("30"),
+                                  ultraFineDust: fineDustViewModel.ultraFineDust("13")),
+                                configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
