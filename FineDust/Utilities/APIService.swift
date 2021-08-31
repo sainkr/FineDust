@@ -57,7 +57,7 @@ class APIService{
             onComplete(.failure(APIError.tmAPIError))
             return
           }
-          print(tmX, tmY)
+          // print(tmX, tmY)
           onComplete(.success(TM(tmX: tmX, tmY: tmY)))
           
         case .failure(let error):
@@ -104,7 +104,7 @@ class APIService{
             onComplete(.failure(APIError.stationAPIError))
             return
           }
-          print(station)
+          // print(station)
           onComplete(.success(station))
         case .failure(let error):
           print(" ---> error : \(APIError.stationAPIError)")

@@ -12,12 +12,29 @@ import CoreLocation
 
 class CurrentLocationViewModel{
   
-  lazy var observable = PublishRelay<LocationData>()
+  lazy var observable = PublishRelay<String>()
   
-  func convertToAddress(latitude: Double, longtitude: Double){
+  private let fineDustListViewModel = FineDustListViewModel()
+  
+  func convertToAddress(latitude: Double, longtitude: Double, mode: FineDustVCMode){
     _ = loadLocation(latitude: latitude, longtitude: longtitude)
       .take(1)
-      .bind(to: observable)
+      .subscribe(onNext:{ [weak self] response in
+        self?.observable.accept(response.locationName)
+        if mode == .currentLocation {
+          self?.fineDustListViewModel.setCurrentLocationLocationData(response)
+        }else if mode == .searched {
+          self?.fineDustListViewModel.setSearchedLocationData(response)
+        }
+      })
+  }
+  
+  func convertToAddress(latitude: Double, longtitude: Double, completion: @escaping (String) -> ()){
+    _ = loadLocation(latitude: latitude, longtitude: longtitude)
+      .take(1)
+      .subscribe(onNext:{ response in
+        completion(response.locationName)
+      })
   }
   
   private func loadLocation(latitude: Double, longtitude: Double) -> Observable<LocationData>{

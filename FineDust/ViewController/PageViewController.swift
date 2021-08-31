@@ -22,31 +22,33 @@ class PageViewController: UIViewController{
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
-    configurePageController()
+    configurePageViewController()
+    configurePageControl()
     pageViewController.delegate = self
     pageViewController.dataSource = self
   }
   
-  private func configurePageController(){
+  private func configurePageViewController(){
     pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     addChild(pageViewController)
     view.addSubview(pageViewController.view)
     view.addSubview(pageControl)
     view.addSubview(listButton)
-    
-    guard let vc = storyboard?.instantiateViewController(withIdentifier: FineDustViewController.identifier) as? FineDustViewController else {
-      return
-    }
-    
+    guard let vc = storyboard?.instantiateViewController(withIdentifier: FineDustViewController.identifier) as? FineDustViewController else { return }
+    vc.mode = currentPage == 0 ? .currentLocation : .added
+    vc.index = currentPage
     pageViewController.setViewControllers([vc], direction: .forward, animated: true, completion: nil)
-    pageControl.numberOfPages = fineDustListViewModel.fineDustListCount == 0 ? 1 : fineDustListViewModel.fineDustListCount
+  }
+  
+  private func configurePageControl(){
+    pageControl.numberOfPages = fineDustListViewModel.fineDustListCount
     pageControl.currentPage = currentPage
   }
 }
 
 extension PageViewController: UIPageViewControllerDataSource{
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-    if currentPage == 0 {
+    if currentPage <= 0 {
       return nil
     }
     currentPage -= 1
@@ -59,7 +61,7 @@ extension PageViewController: UIPageViewControllerDataSource{
   }
   
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-    if fineDustListViewModel.fineDustListCount == 0 || currentPage == fineDustListViewModel.fineDustListCount - 1 {
+    if currentPage >= fineDustListViewModel.fineDustListCount - 1 {
       return nil
     }
     currentPage += 1
@@ -67,7 +69,7 @@ extension PageViewController: UIPageViewControllerDataSource{
       return nil
     }
     vc.mode = .added
-    vc.index = currentPage - 1
+    vc.index = currentPage
     return vc
   }
 }

@@ -13,26 +13,11 @@ import RxSwift
 import RxRelay
 import SwiftyJSON
 
-class FineDustList{
-  static let shared = FineDustList()
-  var fineDustList: [FineDustData] = []
-  var storedFineDustList: [StoredFineDustData] = []
-  var currentLocationFineDustAPIData: FineDustAPIData?
-  var currentLocationLocationData: LocationData?
-  var searchedFineDustAPIData: FineDustAPIData?
-  var searchedLocationData: LocationData?
-  private init(){}
-}
-
 class FineDustListViewModel{
   private var manager = FineDustList.shared
   lazy var observable = PublishRelay<[FineDustData]>()
   private let fineDustViewModel = FineDustViewModel()
-  
-  var fineDustListCount: Int{
-    return manager.fineDustList.count
-  }
-  
+    
   private var fineDustList: [FineDustData]{
     guard let currentLocationFineDustData = fineDustData(0, manager.currentLocationFineDustAPIData, manager.currentLocationLocationData) else { return [] }
     var list: [FineDustData] = [currentLocationFineDustData]
@@ -41,12 +26,18 @@ class FineDustListViewModel{
     return list
   }
   
+  var fineDustListCount: Int{
+    if manager.fineDustList.count == 0{
+      return 1
+    }
+    return manager.fineDustList.count + 1
+  }
+  
   func loadFineDustList(){
-    manager.fineDustList = []
     _ = Observable.from(staionName())
       .flatMap{ station in APIService.loadFineDust(stationName: station)}
       .subscribe(onNext:{ [weak self] response in
-        self?.addFineDustData(response)
+        self?.setFineDustList(response)
       }, onCompleted: {
         self.observable.accept(self.fineDustList)
       })
@@ -54,7 +45,7 @@ class FineDustListViewModel{
   
   private func staionName()-> [String]{
     var stationName: [String] = []
-    manager.storedFineDustList.forEach{ i in
+    manager.fineDustList.forEach{ i in
       stationName.append(i.stationName)
     }
     return stationName
@@ -65,12 +56,16 @@ class FineDustListViewModel{
   }
   
   private func fineDustData(_ timeStamp: Int, _ fineDustAPIData: FineDustAPIData?, _ locationData: LocationData?)-> FineDustData?{
-    guard let fineDustAPIData = fineDustAPIData, let locationData = locationData else { return nil }
+    guard let locationData = locationData else { return nil }
+    guard let fineDustAPIData = fineDustAPIData else {
+      reloadFineDustList()
+      return nil
+    }
     return FineDustData(timeStamp: timeStamp, dateTime: fineDustAPIData.dateTime, fineDust: fineDustAPIData.fineDust, ultraFineDust: fineDustAPIData.ultraFineDust, stationName: fineDustAPIData.stationName, location: locationData)
   }
   
   private func sortFineDustList(){
-    self.manager.fineDustList.sort{ $0.timeStamp > $1.timeStamp }
+    self.manager.fineDustList.sort{ $0.timeStamp < $1.timeStamp }
   }
   
   func setCurrentLocationFineDustAPIData(_ fineDustAPIData: FineDustAPIData){
@@ -89,10 +84,14 @@ class FineDustListViewModel{
     manager.searchedLocationData = locationData
   }
   
-  private func addFineDustData(_ fineDustAPIData: FineDustAPIData){
-    guard let storedFineDustData = storedFineDustData(fineDustAPIData.stationName) else { return }
-    let fineDustData = FineDustData(timeStamp: storedFineDustData.timeStamp , dateTime: fineDustAPIData.dateTime, fineDust: fineDustAPIData.fineDust, ultraFineDust: fineDustAPIData.ultraFineDust, stationName: fineDustAPIData.stationName, location: storedFineDustData.location)
-    manager.fineDustList.append(fineDustData)
+  private func setFineDustList(_ fineDustAPIData: FineDustAPIData){
+    for index in manager.fineDustList.indices{
+      if manager.fineDustList[index].stationName == fineDustAPIData.stationName{
+        let fineDustData = FineDustData(timeStamp: manager.fineDustList[index].timeStamp , dateTime: fineDustAPIData.dateTime, fineDust: fineDustAPIData.fineDust, ultraFineDust: fineDustAPIData.ultraFineDust, stationName: fineDustAPIData.stationName, location: manager.fineDustList[index].location)
+        manager.fineDustList[index] = fineDustData
+        break
+      }
+    }
   }
   
   func addFineDustData(){
@@ -102,26 +101,17 @@ class FineDustListViewModel{
   }
   
   func removeFineDust(_ i: Int){
-    manager.fineDustList.remove(at: i)
+    manager.fineDustList.remove(at: i - 1)
     saveFineDust()
     reloadFineDustList()
   }
   
   func stationName(_ index: Int)-> String{
-    return manager.fineDustList[index].stationName
+    return manager.fineDustList[index - 1].stationName
   }
   
   func locationName(_ index: Int)-> String{
-    return manager.fineDustList[index].location.locationName
-  }
-  
-  private func storedFineDustData(_ stationName: String)-> StoredFineDustData?{
-    for index in manager.storedFineDustList.indices{
-      if manager.storedFineDustList[index].stationName == stationName{
-        return manager.storedFineDustList[index]
-      }
-    }
-    return nil
+    return manager.fineDustList[index - 1].location.locationName
   }
   
   private func saveFineDust(){
@@ -130,7 +120,6 @@ class FineDustListViewModel{
       storedFineDustList.append(StoredFineDustData(timeStamp: $0.timeStamp, stationName: $0.stationName, location: $0.location))
     }
     Storage.store(storedFineDustList, to: .documents, as: "finedust.json")
-    setUserDefaults()
   }
   
   private func setUserDefaults(){
@@ -143,17 +132,8 @@ class FineDustListViewModel{
   
   func loadFineDust(){
     let storefinedust = Storage.retrive("finedust.json", from: .documents, as: [StoredFineDustData].self) ?? []
-    manager.storedFineDustList = storefinedust
-  }
-  
-  func loadWidgetFineDust() -> [FineDustData]{
-    /*let storefinedust = Storage.retrive("finedust.json", from: .documents, as: [StoredFineDustData].self) ?? []
-    storedfinedust.forEach{
-      
-      /*FineDustListViewModel.finedustList.append(FineDustData(finedust: "-", finedustState: "-", finedustColor: .black, ultrafinedust: "-", ultrafinedustState: "-", ultrafinedustColor: .black, dateTime: "-", stationName: $0.stationName, currentLocation: $0.currentLocation, lat: $0.lat, lng: $0.lng, timeStamp: $0.timeStamp))*/
+    storefinedust.forEach{
+      manager.fineDustList.append(FineDustData(timeStamp: $0.timeStamp, dateTime: "-", fineDust: fineDustViewModel.fineDust("-"), ultraFineDust: fineDustViewModel.ultraFineDust("-"), stationName: $0.stationName, location: $0.location))
     }
-    return manager.finedustList
-     */
-    return [] // 이거 걍 추가한거임
   }
 }

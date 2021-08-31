@@ -13,17 +13,22 @@ import SwiftyJSON
 import CoreLocation
 
 class FineDustViewModel{
-  
   lazy var observable = PublishRelay<FineDustAPIData>()
   
   // 현재 위치 fineDustData, 검색 위치 fineDustData 불러옴
-  func loadFineDust(latitude: Double, longtitude: Double){
+  func loadFineDust(latitude: Double, longtitude: Double, mode: FineDustVCMode){
     _ = APIService.loadTM(latitude: latitude, longtitude: longtitude)
       .flatMap{ tm in APIService.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
       .flatMap{ station in APIService.loadFineDust(stationName: station)}
       .take(1)
       .subscribe(onNext:{ [weak self] response in
         self?.observable.accept(response)
+        let fineDustListViewModel = FineDustListViewModel()
+        if mode == .currentLocation {
+          fineDustListViewModel.setCurrentLocationFineDustAPIData(response)
+        }else if mode == .searched {
+          fineDustListViewModel.setSearchedFineDustAPIData(response)
+        }
       })
   }
   
@@ -37,8 +42,10 @@ class FineDustViewModel{
   }
   
   // Widget 현재 위치 fineDust
-  func loadFineDust(station: String, completion: @escaping (FineDustRequest) -> ()){
-    _ = APIService.loadFineDust(stationName: station)
+  func loadFineDust(latitude: Double, longtitude: Double, completion: @escaping (FineDustRequest) -> ()){
+    _ = APIService.loadTM(latitude: latitude, longtitude: longtitude)
+      .flatMap{ tm in APIService.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
+      .flatMap{ station in APIService.loadFineDust(stationName: station)}
       .take(1)
       .subscribe(onNext:{ [weak self] response in
         completion((self?.fineDustRequest(apiFineDust: response))!)

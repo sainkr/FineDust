@@ -12,5 +12,5 @@ class FineDustAPI{
   static let stationURL = "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList"
   static let finedustURL = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty"
   static let servicekey = "ic1bRMghX2rxMK8sUa%2B2cyNOyPqz96fTfOIbi1fHykBtmAg4D2B46M2fsdC8z7B%2ByeS0xeIsXdmiKqIrUFdevA%3D%3D"
-  static let accessToken = "ec7c29bf-b8d6-456f-9111-e999e80fc745"
+  static let accessToken = "1054f49f-e1bf-4053-b7d1-2de09354559f"
 }

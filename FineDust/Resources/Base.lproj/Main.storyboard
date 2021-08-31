@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -66,13 +67,13 @@
                                         <barButtonItem key="leftBarButtonItem" title="취소" id="Pd5-yP-hTY">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
-                                                <action selector="backButtonTapped:" destination="BYZ-38-t0r" id="cJU-P6-8Xg"/>
+                                                <action selector="backButtonDidTap:" destination="BYZ-38-t0r" id="1oP-n6-Vk2"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="추가" id="i3d-hz-8mK">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
-                                                <action selector="addButtonTapped:" destination="BYZ-38-t0r" id="FVM-cv-08Z"/>
+                                                <action selector="addButtonDidTap:" destination="BYZ-38-t0r" id="7yL-O6-81J"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -212,6 +213,21 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJ5-aU-4qD">
+                                <rect key="frame" x="359" y="10" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="U5b-Of-Fk3"/>
+                                    <constraint firstAttribute="width" constant="40" id="nYm-BD-tfT"/>
+                                </constraints>
+                                <color key="tintColor" red="0.7662855637977205" green="0.8005146772272751" blue="0.84434531586288653" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button">
+                                    <imageReference key="image" image="arrow.triangle.2.circlepath.circle" catalog="system" symbolScale="medium"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32" scale="large" weight="semibold"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshButtonDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c8v-iz-9SL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -222,6 +238,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uB6-fL-d5J" secondAttribute="trailing" id="4vU-Vl-aCI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iO3-Kf-pXY" secondAttribute="trailing" constant="20" id="59x-hI-QVr"/>
                             <constraint firstItem="uB6-fL-d5J" firstAttribute="top" secondItem="WuE-xD-Hkd" secondAttribute="bottom" constant="30" id="5ee-rm-I4o"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rJ5-aU-4qD" secondAttribute="trailing" constant="15" id="6Du-IP-cNa"/>
                             <constraint firstItem="xkP-FA-2ve" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6vY-Et-khy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="y6s-rU-FAo" secondAttribute="bottom" constant="70" id="BW6-Yk-4sp"/>
                             <constraint firstItem="y6s-rU-FAo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bk9-3j-YAr"/>
@@ -235,6 +252,7 @@
                             <constraint firstItem="WuE-xD-Hkd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="JX7-V5-3e8"/>
                             <constraint firstItem="L8h-Dv-KRJ" firstAttribute="leading" secondItem="z8o-1w-ig9" secondAttribute="trailing" id="KSv-pn-hh2"/>
                             <constraint firstItem="z8o-1w-ig9" firstAttribute="bottom" secondItem="L8h-Dv-KRJ" secondAttribute="bottom" id="Lki-Nq-PPJ"/>
+                            <constraint firstItem="rJ5-aU-4qD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="M6O-7c-T3C"/>
                             <constraint firstItem="z8o-1w-ig9" firstAttribute="top" secondItem="L8h-Dv-KRJ" secondAttribute="top" id="Pdd-SD-9jk"/>
                             <constraint firstItem="iO3-Kf-pXY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="QOs-nT-PcF"/>
                             <constraint firstItem="0z2-T1-sh5" firstAttribute="top" secondItem="nsO-xb-C3B" secondAttribute="top" id="RVj-Oa-nZX"/>
@@ -276,6 +294,7 @@
                         <outlet property="fineDustValueLabel" destination="XKD-C0-BxD" id="JMG-JS-2aS"/>
                         <outlet property="locationNameLabel" destination="8Dk-XA-Iom" id="ysc-q8-Itj"/>
                         <outlet property="navigationBar" destination="xkP-FA-2ve" id="4aS-a6-pqk"/>
+                        <outlet property="refreshButton" destination="rJ5-aU-4qD" id="msI-Ae-C7h"/>
                         <outlet property="stationNameLabel" destination="y6s-rU-FAo" id="2hb-rE-eKG"/>
                         <outlet property="ultlraFineDustStateLabel" destination="aXX-Nx-Rnd" id="KuV-2Z-Wcm"/>
                         <outlet property="ultraFineDustProgressView" destination="iO3-Kf-pXY" id="OU2-na-7l4"/>
@@ -301,7 +320,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" weight="semibold"/>
                                 </state>
                                 <connections>
-                                    <segue destination="NmZ-nb-AjZ" kind="show" id="Jdt-mC-AAF"/>
+                                    <segue destination="NmZ-nb-AjZ" kind="show" identifier="showSearch" id="Jdt-mC-AAF"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oHa-SH-B37">
@@ -427,10 +446,10 @@
             </objects>
             <point key="canvasLocation" x="-1300" y="13"/>
         </scene>
-        <!--SerachLocationViewController-->
+        <!--SearchLocationViewController-->
         <scene sceneID="czg-8x-h1O">
             <objects>
-                <viewController title="SerachLocationViewController" id="NmZ-nb-AjZ" customClass="SerachLocationViewController" customModule="FineDust" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SearchLocationViewController" id="NmZ-nb-AjZ" customClass="SearchLocationViewController" customModule="FineDust" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWs-LL-fm5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -447,7 +466,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="backButtonTapped:" destination="NmZ-nb-AjZ" eventType="touchUpInside" id="WkS-bt-joX"/>
+                                    <action selector="backButtonDidTap:" destination="NmZ-nb-AjZ" eventType="touchUpInside" id="8XP-H3-EY7"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8rV-dC-26s">
@@ -510,6 +529,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.triangle.2.circlepath.circle" catalog="system" width="128" height="121"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">

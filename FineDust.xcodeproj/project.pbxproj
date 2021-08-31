@@ -11,10 +11,22 @@
 		361B2EE42671F58A00C39F0D /* FineDustListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */; };
 		362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2DF2664C498002BF6C6 /* FineDust.swift */; };
 		362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */; };
+		3637074C26DCAAA800861CA5 /* FineDustVCMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637074B26DCAAA800861CA5 /* FineDustVCMode.swift */; };
+		3637076926DCAB6000861CA5 /* FineDustViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074D4265FABD0003666FC /* FineDustViewModel.swift */; };
+		3637076E26DCAB6400861CA5 /* FineDustVCMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637074B26DCAAA800861CA5 /* FineDustVCMode.swift */; };
+		3637077326DCAB7C00861CA5 /* CurrentLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */; };
+		3637077926DCB5DF00861CA5 /* CompleteAddDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637077826DCB5DF00861CA5 /* CompleteAddDelegate.swift */; };
+		3637078726DCC82300861CA5 /* FineDustList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637078626DCC82300861CA5 /* FineDustList.swift */; };
+		3637078C26DCC82800861CA5 /* FineDustList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637078626DCC82300861CA5 /* FineDustList.swift */; };
 		3643F8B226D6367A00499FB1 /* FineDustAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3643F8B126D6367A00499FB1 /* FineDustAPI.swift */; };
 		3643F8BB26D6496000499FB1 /* FineDustAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3643F8B126D6367A00499FB1 /* FineDustAPI.swift */; };
 		365191D826733CE900E15BD8 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EF92672083300C39F0D /* APIService.swift */; };
 		365238B826DB89D60064E282 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365238B726DB89D60064E282 /* APIError.swift */; };
+		36528FE626DE00F600F1E5B8 /* CompleteAddDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637077826DCB5DF00861CA5 /* CompleteAddDelegate.swift */; };
+		3652903126DE1E4F00F1E5B8 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3652903026DE1E4F00F1E5B8 /* LocationManagerDelegate.swift */; };
+		3652905526DE1EA000F1E5B8 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3652905426DE1EA000F1E5B8 /* LocationManager.swift */; };
+		3652905A26DE1EAB00F1E5B8 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3652905426DE1EA000F1E5B8 /* LocationManager.swift */; };
+		3652905F26DE1F9300F1E5B8 /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3652903026DE1E4F00F1E5B8 /* LocationManagerDelegate.swift */; };
 		367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074D4265FABD0003666FC /* FineDustViewModel.swift */; };
 		367074DD265FD542003666FC /* TM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074DC265FD542003666FC /* TM.swift */; };
 		367FDA0C267E1FA500032369 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 367FDA0B267E1FA500032369 /* WidgetKit.framework */; };
@@ -35,7 +47,7 @@
 		3696FF02265D400100F2B939 /* FineDustTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FF01265D400100F2B939 /* FineDustTests.swift */; };
 		3696FF0D265D400100F2B939 /* FineDustUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FF0C265D400100F2B939 /* FineDustUITests.swift */; };
 		36A291C8266F808F00C26FAB /* LoacationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A291C7266F808F00C26FAB /* LoacationListViewController.swift */; };
-		36A291D1266FA0F300C26FAB /* SerachLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A291D0266FA0F300C26FAB /* SerachLocationViewController.swift */; };
+		36A291D1266FA0F300C26FAB /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A291D0266FA0F300C26FAB /* SearchLocationViewController.swift */; };
 		36B8F1B9267B6A5D004887A8 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8F1B8267B6A5D004887A8 /* Storage.swift */; };
 		36D8D340267F597000A55D1E /* FineDustEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8D33F267F597000A55D1E /* FineDustEntry.swift */; };
 		36D8D346267F598200A55D1E /* FineDustProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8D345267F598200A55D1E /* FineDustProvider.swift */; };
@@ -46,7 +58,6 @@
 		36D8D366267F5B4B00A55D1E /* FineDustEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8D34B267F598E00A55D1E /* FineDustEntryView.swift */; };
 		36D8D3A4267F7AEA00A55D1E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EF92672083300C39F0D /* APIService.swift */; };
 		36D8D3A9267F7AF900A55D1E /* TM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074DC265FD542003666FC /* TM.swift */; };
-		36D8D3B3267F7C1E00A55D1E /* FineDustViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074D4265FABD0003666FC /* FineDustViewModel.swift */; };
 		36D8D3B8267F7C2600A55D1E /* FineDust.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AE2DF2664C498002BF6C6 /* FineDust.swift */; };
 		36D8D3C2267F7C3D00A55D1E /* FineDustListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */; };
 		36D8D3C7267F7C5800A55D1E /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B8F1B8267B6A5D004887A8 /* Storage.swift */; };
@@ -107,8 +118,13 @@
 		362AE2DF2664C498002BF6C6 /* FineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDust.swift; sourceTree = "<group>"; };
 		362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewModel.swift; sourceTree = "<group>"; };
 		363643FE2664F64E00086CFE /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		3637074B26DCAAA800861CA5 /* FineDustVCMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustVCMode.swift; sourceTree = "<group>"; };
+		3637077826DCB5DF00861CA5 /* CompleteAddDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAddDelegate.swift; sourceTree = "<group>"; };
+		3637078626DCC82300861CA5 /* FineDustList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustList.swift; sourceTree = "<group>"; };
 		3643F8B126D6367A00499FB1 /* FineDustAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FineDustAPI.swift; path = FineDust/Utilities/FineDustAPI.swift; sourceTree = SOURCE_ROOT; };
 		365238B726DB89D60064E282 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIError.swift; path = FineDust/Error/APIError.swift; sourceTree = SOURCE_ROOT; };
+		3652903026DE1E4F00F1E5B8 /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
+		3652905426DE1EA000F1E5B8 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		367074D4265FABD0003666FC /* FineDustViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustViewModel.swift; sourceTree = "<group>"; };
 		367074DC265FD542003666FC /* TM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TM.swift; sourceTree = "<group>"; };
 		367FDA0A267E1FA500032369 /* FineDustWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FineDustWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,7 +134,7 @@
 		367FDA12267E1FA500032369 /* FineDustWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = FineDustWidget.intentdefinition; sourceTree = "<group>"; };
 		367FDA13267E1FA500032369 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		367FDA15267E1FA500032369 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		368702E4268B448A00D97FDC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		368702E4268B448A00D97FDC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = FineDust/ViewController/PageViewController.swift; sourceTree = SOURCE_ROOT; };
 		3696FEE7265D400000F2B939 /* FineDust.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineDust.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FEEA265D400000F2B939 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3696FEEC265D400000F2B939 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,7 +150,7 @@
 		3696FF0C265D400100F2B939 /* FineDustUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustUITests.swift; sourceTree = "<group>"; };
 		3696FF0E265D400100F2B939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36A291C7266F808F00C26FAB /* LoacationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoacationListViewController.swift; sourceTree = "<group>"; };
-		36A291D0266FA0F300C26FAB /* SerachLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerachLocationViewController.swift; sourceTree = "<group>"; };
+		36A291D0266FA0F300C26FAB /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		36B8F1B8267B6A5D004887A8 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		36D8D325267F552F00A55D1E /* FineDust.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FineDust.entitlements; sourceTree = "<group>"; };
 		36D8D32A267F555700A55D1E /* FineDustWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FineDustWidgetExtension.entitlements; sourceTree = "<group>"; };
@@ -220,6 +236,7 @@
 				361B2EF92672083300C39F0D /* APIService.swift */,
 				36B8F1B8267B6A5D004887A8 /* Storage.swift */,
 				3643F8B126D6367A00499FB1 /* FineDustAPI.swift */,
+				3652905426DE1EA000F1E5B8 /* LocationManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -232,6 +249,15 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		36528FEB26DE010C00F1E5B8 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3637077826DCB5DF00861CA5 /* CompleteAddDelegate.swift */,
+				3652903026DE1E4F00F1E5B8 /* LocationManagerDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		367074D3265FAB87003666FC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,8 +265,9 @@
 				362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */,
 				361B2EE32671F58A00C39F0D /* FineDustListViewModel.swift */,
 			);
-			path = ViewModel;
-			sourceTree = "<group>";
+			name = ViewModel;
+			path = FineDust/ViewModel;
+			sourceTree = SOURCE_ROOT;
 		};
 		367FDA0F267E1FA500032369 /* FineDustWidget */ = {
 			isa = PBXGroup;
@@ -258,8 +285,10 @@
 		368F1F99265E3B0E00CD7B03 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3637074B26DCAAA800861CA5 /* FineDustVCMode.swift */,
 				367074DC265FD542003666FC /* TM.swift */,
 				362AE2DF2664C498002BF6C6 /* FineDust.swift */,
+				3637078626DCC82300861CA5 /* FineDustList.swift */,
 			);
 			name = Model;
 			path = FineDust/Model;
@@ -294,6 +323,7 @@
 		3696FEE9265D400000F2B939 /* FineDust */ = {
 			isa = PBXGroup;
 			children = (
+				36528FEB26DE010C00F1E5B8 /* Delegate */,
 				36D8D325267F552F00A55D1E /* FineDust.entitlements */,
 				3696FEEA265D400000F2B939 /* AppDelegate.swift */,
 				3696FEEC265D400000F2B939 /* SceneDelegate.swift */,
@@ -330,7 +360,7 @@
 			children = (
 				3696FEEE265D400000F2B939 /* FineDustViewController.swift */,
 				36A291C7266F808F00C26FAB /* LoacationListViewController.swift */,
-				36A291D0266FA0F300C26FAB /* SerachLocationViewController.swift */,
+				36A291D0266FA0F300C26FAB /* SearchLocationViewController.swift */,
 				368702E4268B448A00D97FDC /* PageViewController.swift */,
 			);
 			path = ViewController;
@@ -695,14 +725,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				3643F8BB26D6496000499FB1 /* FineDustAPI.swift in Sources */,
+				3652905A26DE1EAB00F1E5B8 /* LocationManager.swift in Sources */,
+				36528FE626DE00F600F1E5B8 /* CompleteAddDelegate.swift in Sources */,
 				36D8D3C2267F7C3D00A55D1E /* FineDustListViewModel.swift in Sources */,
 				36D8D3B8267F7C2600A55D1E /* FineDust.swift in Sources */,
+				3637077326DCAB7C00861CA5 /* CurrentLocationViewModel.swift in Sources */,
 				36D8D361267F5B4800A55D1E /* FineDustProvider.swift in Sources */,
-				36D8D3B3267F7C1E00A55D1E /* FineDustViewModel.swift in Sources */,
 				367FDA16267E1FA500032369 /* FineDustWidget.intentdefinition in Sources */,
 				36D8D366267F5B4B00A55D1E /* FineDustEntryView.swift in Sources */,
+				3637076E26DCAB6400861CA5 /* FineDustVCMode.swift in Sources */,
+				3637078C26DCC82800861CA5 /* FineDustList.swift in Sources */,
+				3652905F26DE1F9300F1E5B8 /* LocationManagerDelegate.swift in Sources */,
 				36D8D35C267F5B4500A55D1E /* FineDustEntry.swift in Sources */,
 				36D8D3A4267F7AEA00A55D1E /* APIService.swift in Sources */,
+				3637076926DCAB6000861CA5 /* FineDustViewModel.swift in Sources */,
 				367FDA11267E1FA500032369 /* FineDustWidget.swift in Sources */,
 				36D8D3A9267F7AF900A55D1E /* TM.swift in Sources */,
 				36D8D3C7267F7C5800A55D1E /* Storage.swift in Sources */,
@@ -715,16 +751,21 @@
 			files = (
 				36D8D34C267F598E00A55D1E /* FineDustEntryView.swift in Sources */,
 				361B2EE42671F58A00C39F0D /* FineDustListViewModel.swift in Sources */,
+				3652905526DE1EA000F1E5B8 /* LocationManager.swift in Sources */,
 				367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */,
 				36D8D352267F599D00A55D1E /* FineDustPlaceholderView.swift in Sources */,
 				3696FEEF265D400000F2B939 /* FineDustViewController.swift in Sources */,
 				3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */,
 				367FDA17267E1FA500032369 /* FineDustWidget.intentdefinition in Sources */,
+				3637074C26DCAAA800861CA5 /* FineDustVCMode.swift in Sources */,
+				3637078726DCC82300861CA5 /* FineDustList.swift in Sources */,
 				362AE2E52664CE89002BF6C6 /* CurrentLocationViewModel.swift in Sources */,
+				3652903126DE1E4F00F1E5B8 /* LocationManagerDelegate.swift in Sources */,
+				3637077926DCB5DF00861CA5 /* CompleteAddDelegate.swift in Sources */,
 				36D8D340267F597000A55D1E /* FineDustEntry.swift in Sources */,
 				368702E5268B448A00D97FDC /* PageViewController.swift in Sources */,
 				36B8F1B9267B6A5D004887A8 /* Storage.swift in Sources */,
-				36A291D1266FA0F300C26FAB /* SerachLocationViewController.swift in Sources */,
+				36A291D1266FA0F300C26FAB /* SearchLocationViewController.swift in Sources */,
 				3643F8B226D6367A00499FB1 /* FineDustAPI.swift in Sources */,
 				36A291C8266F808F00C26FAB /* LoacationListViewController.swift in Sources */,
 				367074DD265FD542003666FC /* TM.swift in Sources */,

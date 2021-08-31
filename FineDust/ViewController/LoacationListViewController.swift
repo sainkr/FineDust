@@ -12,7 +12,7 @@ import RxCocoa
 class LoacationListViewController: UIViewController{
   
   private enum SegueID: String {
-    case showMain
+    case showSearch
   }
   
   @IBOutlet weak var tableView: UITableView!
@@ -20,12 +20,20 @@ class LoacationListViewController: UIViewController{
   let fineDustListViewModel = FineDustListViewModel()
   var disposeBag = DisposeBag()
   
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    guard let vc = segue.destination as? SearchLocationViewController else {
+      return
+    }
+    if segue.identifier == SegueID.showSearch.rawValue {
+      vc.completeAddDelegate = self
+    }
+  }
   override func viewDidLoad() {
     super.viewDidLoad()
     
     fineDustListViewModel.observable
       .bind(to: tableView.rx.items(cellIdentifier: LoactionCollectionViewCell.identifier, cellType: LoactionCollectionViewCell.self)){ (index, element, cell) in
-        print("-----> 컬렉션 뷰 : \(element)")
+        // print("-----> 컬렉션 뷰 : \(element)")
         if index == 0 {
           cell.currentLocationLabel.isHidden = false
           
@@ -52,7 +60,7 @@ class LoacationListViewController: UIViewController{
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
           return }
-        
+
         vc.currentPage = indexPath.item
         vc.modalPresentationStyle = .fullScreen
         
@@ -75,11 +83,17 @@ class LoacationListViewController: UIViewController{
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    // fineDustListViewModel.fineDustList()
+    fineDustListViewModel.loadFineDustList()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     disposeBag = DisposeBag()
+  }
+}
+
+extension LoacationListViewController: CompleteAddDelegate{
+  func completeAdd() {
+    fineDustListViewModel.reloadFineDustList()
   }
 }
 

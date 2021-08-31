@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 import MapKit
 
-class SerachLocationViewController: UIViewController{
+class SearchLocationViewController: UIViewController{
   
   private enum SegueID: String {
     case showAdd
@@ -21,19 +21,27 @@ class SerachLocationViewController: UIViewController{
   
   private var searchCompleter: MKLocalSearchCompleter?
   var completerResults: [MKLocalSearchCompletion]?
-  private var searchRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
+  private var searchRegion: MKCoordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 36.506817, longitude: 127.978929), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
   private var placeMark: MKPlacemark?
   private var disposeBag = DisposeBag()
   var relay = PublishRelay<[MKLocalSearchCompletion]>()
   
   let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
-  let CompleteAddNotification: Notification.Name = Notification.Name("CompleteAddNotification")
+  
+  var completeAddDelegate: CompleteAddDelegate?
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    guard let vc = segue.destination as? FineDustViewController else {
+      return
+    }
+    if segue.identifier == SegueID.showAdd.rawValue {
+      vc.mode = .searched
+      vc.completeAddDelegate = self
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    NotificationCenter.default.addObserver(self, selector: #selector(completeAddNotication(_:)), name: CompleteAddNotification, object: nil)
-    
     // TableView Datasource
     relay
       .bind(to: self.tableView.rx.items(cellIdentifier: SearchLocationCell.identifier, cellType: SearchLocationCell.self))
@@ -57,23 +65,20 @@ class SerachLocationViewController: UIViewController{
       .orEmpty
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] searchText in
-        if searchText == "" {
-          self?.completerResults = nil
-          self?.tableView.reloadData()
+        guard searchText != "" else {
+          self?.searchCompleter?.queryFragment = " "
+          return
         }
         self?.searchCompleter?.queryFragment = searchText
       })
       .disposed(by: disposeBag)
     
-  }
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    guard let vc = segue.destination as? FineDustViewController else {
-      return
-    }
-    if segue.identifier == SegueID.showAdd.rawValue {    
-      vc.mode = .searched
-    }
+    /*searchBar.rx.cancelButtonClicked
+      .asDriver(onErrorJustReturn: ())
+      .drive(onNext: { [weak self] in
+        print("??")
+      }).disposed(by: disposeBag)*/
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -98,20 +103,20 @@ class SerachLocationViewController: UIViewController{
     searchCompleter = nil
   }
   
-  @IBAction func backButtonTapped(_ sender: Any) {
-    dismiss(animated: true, completion: {
-      let fineDustListViewModel = FineDustListViewModel()
-      fineDustListViewModel.loadFineDustList()
-    })
-  }
-  
-  @objc
-  func completeAddNotication(_ noti: Notification){
+  @IBAction func backButtonDidTap(_ sender: Any) {
     dismiss(animated: true, completion: nil)
   }
 }
 
-extension SerachLocationViewController{
+extension SearchLocationViewController: CompleteAddDelegate{
+  func completeAdd() {
+    dismiss(animated: true, completion: {
+      self.completeAddDelegate?.completeAdd()
+    })
+  }
+}
+
+extension SearchLocationViewController{
   private func createHighlightedString(text: String, rangeValues: [NSValue]) -> NSAttributedString {
     let attributes = [NSAttributedString.Key.foregroundColor : UIColor.blue ]
     let highlightedString = NSMutableAttributedString(string: text)
@@ -142,16 +147,13 @@ extension SerachLocationViewController{
       guard error == nil else {
         return
       }
-      
       self.placeMark = response?.mapItems[0].placemark
       NotificationCenter.default.post(name: self.CompleteSearchNotification, object: nil, userInfo: ["coordinate" : self.placeMark?.coordinate])
-      
     }
   }
 }
 
-
-extension SerachLocationViewController: MKLocalSearchCompleterDelegate{
+extension SearchLocationViewController: MKLocalSearchCompleterDelegate{
   /// - Tag: QueryResults
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
     // As the user types, new completion suggestions are continuously returned to this method.

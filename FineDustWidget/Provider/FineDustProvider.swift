@@ -5,6 +5,7 @@
 //  Created by 홍승아 on 2021/06/20.
 //
 
+import CoreLocation
 import WidgetKit
 import SwiftUI
 import Intents
@@ -12,7 +13,12 @@ import RxSwift
 
 // TimelineProvider : Widget의 디스플레이를 업데이트 할 시기를 WidgetKit에 알려주는 타입
 struct Provider: IntentTimelineProvider {
+  
   let fineDustViewModel = FineDustViewModel()
+  let currentLocationViewModel = CurrentLocationViewModel()
+  let locationManger = LocationManager()
+  var currentLocation: CLLocationCoordinate2D?
+  
   func placeholder(in context: Context) -> SimpleEntry {
     SimpleEntry(date: Date(),
                 finedust: FineDustRequest(
@@ -40,32 +46,23 @@ struct Provider: IntentTimelineProvider {
   func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
     // Generate a timeline consisting of five entries an hour apart, starting from the current date.
     let currentDate = Date()
-    let refreshDate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
     
-    let defaults = UserDefaults(suiteName: "group.com.sainkr.FineDust")
-    
-    guard let stationName = defaults?.string(forKey: "stationName"), let locationName = defaults?.string(forKey: "locationName") else {
-      let entry = SimpleEntry(
-        date: Date(),
-        finedust:FineDustRequest(
-          locationName: "오류",
-          fineDust: fineDustViewModel.fineDust("-") ,
-          ultraFineDust: fineDustViewModel.ultraFineDust("-")),
-        configuration: configuration)
-      let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-      completion(timeline)
-      return }
-    
-    fineDustViewModel.loadFineDust(station: stationName, completion: {
-      let entry = SimpleEntry(
-        date: currentDate,
-        finedust: FineDustRequest(
-          locationName: locationName,
-          fineDust: $0.fineDust,
-          ultraFineDust: $0.ultraFineDust),
-        configuration: configuration)
-      let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-      completion(timeline)
-    })
+    locationManger.requestLocation(){ coordinate in
+      currentLocationViewModel.convertToAddress(latitude: coordinate.latitude, longtitude: coordinate.longitude, completion: {
+        let locationName = $0
+        fineDustViewModel.loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude, completion: {
+            let entry = SimpleEntry(
+              date: currentDate,
+              finedust: FineDustRequest(
+                locationName: locationName,
+                fineDust: $0.fineDust,
+                ultraFineDust: $0.ultraFineDust),
+              configuration: configuration)
+            let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
+            let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+            completion(timeline)
+          })
+      })
+    }
   }
 }

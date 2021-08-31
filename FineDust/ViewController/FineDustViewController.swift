@@ -9,19 +9,12 @@
 import CoreLocation
 import UIKit
 import MapKit
-import WidgetKit
 
 import RxSwift
 import RxCocoa
 
+
 class FineDustViewController: UIViewController {
-  
-  enum FineDustVCMode{
-    case currentLocation
-    case searched
-    case added
-  }
-  
   static let identifier = "FineDustViewController"
   
   @IBOutlet weak var locationNameLabel: UILabel!
@@ -34,57 +27,45 @@ class FineDustViewController: UIViewController {
   @IBOutlet weak var ultraFineDustProgressView: UIProgressView!
   @IBOutlet weak var stationNameLabel: UILabel!
   @IBOutlet weak var navigationBar: UINavigationBar!
+  @IBOutlet weak var refreshButton: UIButton!
   
-  private var time: Float = 0.0
-  private var timer: Timer?
-  
-  lazy var locationManager = CLLocationManager()
-  var currentLocation: CLLocation!
-  
-  private var disposeBag = DisposeBag()
-  
+  private let locationManager = LocationManager()
   private let fineDustViewModel = FineDustViewModel()
   private let currentLocationViewModel = CurrentLocationViewModel()
   private let fineDustListViewModel = FineDustListViewModel()
-
+  private var time: Float = 0.0
+  private var timer: Timer?
+  private var currentLocation: CLLocation?
+  private var disposeBag = DisposeBag()
+  
   var index: Int = -1
   var mode: FineDustVCMode = .currentLocation
+  var completeAddDelegate: CompleteAddDelegate?
 
   private let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    // Storage.clear(.documents)
+    locationManager.locationMangerDelegate = self
     configureProgressView()
-    locationNameLabel.text = ""
-    dateLabel.text = ""
-    
-    NotificationCenter.default.addObserver(self, selector: #selector(didReciveNotification(_:)), name: CompleteSearchNotification, object: nil)
+    locationNameLabel.text = " "
+    dateLabel.text = " "
     
     setProgressView(nil)
     
     fineDustViewModel.observable
       .observe(on: MainScheduler.instance)
       .subscribe(onNext:{ [weak self] in
-        print($0)
         self?.configureView($0)
         self?.setProgressView($0)
-        if self?.mode == .currentLocation {
-          self?.fineDustListViewModel.setCurrentLocationFineDustAPIData($0)
-        }else if self?.mode == .searched {
-          self?.fineDustListViewModel.setSearchedFineDustAPIData($0)
-        }
       })
       .disposed(by: disposeBag)
     
     currentLocationViewModel.observable
       .observe(on: MainScheduler.instance)
       .subscribe(onNext:{ [weak self] in
-        self?.locationNameLabel.text = $0.locationName
-        if self?.mode == .currentLocation {
-          self?.fineDustListViewModel.setCurrentLocationLocationData($0)
-        }else if self?.mode == .searched {
-          self?.fineDustListViewModel.setSearchedLocationData($0)
-        }
+        self?.locationNameLabel.text = $0
       })
       .disposed(by: disposeBag)
   }
@@ -92,28 +73,37 @@ class FineDustViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     switch mode {
     case .currentLocation:
-      loadFineDust(latitude: 37.375125349085906, longtitude: 127.95590235319048)
-      // requestLocation()
-      break
+      // loadFineDust(latitude: 37.375125349085906, longtitude: 127.95590235319048)
+      locationManager.requestLocation()
+      refreshButton.isHidden = false
     case .added:
       loadFineDust(index)
     case .searched:
       navigationBar.isHidden = false
+      NotificationCenter.default.addObserver(self, selector: #selector(completeSearch(_:)), name: CompleteSearchNotification, object: nil)
     }
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     disposeBag = DisposeBag()
     timer?.invalidate()
+    NotificationCenter.default.removeObserver(self, name: CompleteSearchNotification, object: nil)
   }
   
-  @IBAction func backButtonTapped(_ sender: Any) {
+  @IBAction func backButtonDidTap(_ sender: Any) {
     dismiss(animated: true, completion: nil)
   }
-  
-  @IBAction func addButtonTapped(_ sender: Any) {
+
+  @IBAction func addButtonDidTap(_ sender: Any) {
     fineDustListViewModel.addFineDustData()
-    dismiss(animated: true, completion: nil)
+    dismiss(animated: true, completion: {
+      self.completeAddDelegate?.completeAdd()
+    })
+  }
+  
+  @IBAction func refreshButtonDidTap(_ sender: Any) {
+    guard let coordinate = currentLocation?.coordinate else { return }
+    loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude)
   }
 }
 
@@ -133,7 +123,7 @@ extension FineDustViewController {
     ultraFineDustValueLabel.text = fineDustAPIData.ultraFineDust.ultraFineDustValue
   }
   
-  @objc func didReciveNotification(_ noti: Notification){ // 지역 추가했을 때
+  @objc func completeSearch(_ noti: Notification){ // 지역 추가했을 때
     guard let coordinate = noti.userInfo?["coordinate"] as? CLLocationCoordinate2D else { return }
     loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude)
   }
@@ -144,47 +134,27 @@ extension FineDustViewController {
   }
   
   private func loadFineDust(latitude: Double, longtitude: Double){
-    fineDustViewModel.loadFineDust(latitude: latitude, longtitude: longtitude)
-    currentLocationViewModel.convertToAddress(latitude:latitude, longtitude: longtitude)
-  }
-}
-
-// MARK: - Location Handling
-extension FineDustViewController : CLLocationManagerDelegate {
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-  }
-  
-  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-    if manager.authorizationStatus == .authorizedWhenInUse {
-      self.currentLocation = locationManager.location
-      loadFineDust(latitude: currentLocation.coordinate.latitude, longtitude: currentLocation.coordinate.longitude)
-    }
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    print("Failed to get users location.")
-  }
-  
-  private func requestLocation() {
-    locationManager.delegate = self
-    
-    guard CLLocationManager.locationServicesEnabled() else {
-      displayLocationServicesDisabledAlert()
-      return
-    }
-    
-    locationManager.requestWhenInUseAuthorization()
-    locationManager.requestLocation()
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    fineDustViewModel.loadFineDust(latitude: latitude, longtitude: longtitude, mode: mode)
+    currentLocationViewModel.convertToAddress(latitude:latitude, longtitude: longtitude, mode: mode)
   }
   
   private func displayLocationServicesDisabledAlert() {
-    let message = NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "Location services are disabled")
-    let alertController = UIAlertController(title: NSLocalizedString("LOCATION_SERVICES_ALERT_TITLE", comment: "Location services alert title"),
-                                            message: message,
+    let alertController = UIAlertController(title: "위치 권한 접근 오류",
+                                            message: "미세먼지 앱의 위치 권한을 허용으로 바꿔주세요.",
                                             preferredStyle: .alert)
-    alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: "OK alert button"), style: .default, handler: nil))
+    alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
     present(alertController, animated: true, completion: nil)
+  }
+}
+
+// MARK: - LocationManagerDelegate
+extension FineDustViewController: LocationManagerDelegate{
+  func currentLocationUpdate(coordinate: CLLocationCoordinate2D) {
+    loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude)
+  }
+  
+  func currentLocationError() {
+    displayLocationServicesDisabledAlert()
   }
 }
 
