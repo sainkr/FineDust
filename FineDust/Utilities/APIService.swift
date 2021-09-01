@@ -12,11 +12,6 @@ import RxSwift
 import SwiftyJSON
 
 class APIService{
-  enum APIError: Error{
-    case tmAPIError
-    case stationAPIError
-    case finedustAPIError
-  }
   
   static func loadTM(latitude: Double, longtitude: Double) -> Observable<TM>{
     return Observable.create{ emitter in

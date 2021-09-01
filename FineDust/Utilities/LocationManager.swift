@@ -25,21 +25,17 @@ class LocationManager: NSObject {
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
   }
   
-  func requestLocation(completion: @escaping (_ coordinate: CLLocationCoordinate2D) -> ()) {
+  func requestLocation(completion: @escaping (_ coordinate: CLLocationCoordinate2D) -> ()) throws {
     locationManager.delegate = self
-    print(CLLocationManager.locationServicesEnabled())
     guard CLLocationManager.locationServicesEnabled() else {
-      return
+      throw LocationManagerError.authorizationDenied
     }
-    
     locationManager.requestWhenInUseAuthorization()
     locationManager.requestLocation()
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
-    
     guard let coordinate = locationManager.location?.coordinate else {
-      return
+      throw LocationManagerError.coordinateError
     }
-    print(coordinate)
     completion(coordinate)
   }
 }

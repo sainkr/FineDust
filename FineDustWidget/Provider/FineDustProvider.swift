@@ -37,7 +37,7 @@ struct Provider: IntentTimelineProvider {
                                               locationName: "서울시 종로구",
                                               fineDust: fineDustViewModel.fineDust("30"),
                                               ultraFineDust: fineDustViewModel.ultraFineDust("5")),
-                                              configuration: configuration)
+                                          configuration: configuration)
     completion(entry)
   }
   
@@ -46,23 +46,41 @@ struct Provider: IntentTimelineProvider {
   func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
     // Generate a timeline consisting of five entries an hour apart, starting from the current date.
     let currentDate = Date()
-    
-    locationManger.requestLocation(){ coordinate in
-      currentLocationViewModel.convertToAddress(latitude: coordinate.latitude, longtitude: coordinate.longitude, completion: {
-        let locationName = $0
-        fineDustViewModel.loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude, completion: {
-            let entry = SimpleEntry(
-              date: currentDate,
-              finedust: FineDustRequest(
-                locationName: locationName,
-                fineDust: $0.fineDust,
-                ultraFineDust: $0.ultraFineDust),
-              configuration: configuration)
+    do {
+      try locationManger.requestLocation(){ coordinate in
+        currentLocationViewModel.convertToAddress(latitude: coordinate.latitude, longtitude: coordinate.longitude, completion: {
+          let locationName = $0
+          fineDustViewModel.loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude, completion: {
+            let entry = simpleEntry(currentDate: currentDate,
+                                    locationName: locationName,
+                                    fineDust:  $0.fineDust,
+                                    ultraFineDust: $0.ultraFineDust,
+                                    configuration: configuration)
             let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
             let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
             completion(timeline)
           })
-      })
+        })
+      }
+    } catch {
+      let entry = simpleEntry(currentDate: currentDate,
+                              locationName: "오류",
+                              fineDust: fineDustViewModel.fineDust("-"),
+                              ultraFineDust: fineDustViewModel.ultraFineDust("-"),
+                              configuration: configuration)
+      let refreshDate = Calendar.current.date(byAdding: .second, value: 10, to: currentDate)!
+      let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+      completion(timeline)
     }
+  }
+  
+  func simpleEntry(currentDate: Date, locationName: String, fineDust: FineDust, ultraFineDust: UltraFineDust, configuration: ConfigurationIntent)-> SimpleEntry{
+    return SimpleEntry(
+      date: currentDate,
+      finedust: FineDustRequest(
+        locationName: locationName,
+        fineDust: fineDust,
+        ultraFineDust: ultraFineDust),
+      configuration: configuration)
   }
 }
