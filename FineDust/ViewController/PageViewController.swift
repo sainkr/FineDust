@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
-class PageViewController: UIViewController{
+class PageViewController: UIViewController {
   
   @IBOutlet weak var pageControl: UIPageControl!
   @IBOutlet weak var listButton: UIButton!
@@ -28,7 +28,7 @@ class PageViewController: UIViewController{
     pageViewController.dataSource = self
   }
   
-  private func configurePageViewController(){
+  private func configurePageViewController() {
     pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     addChild(pageViewController)
     view.addSubview(pageViewController.view)
@@ -46,6 +46,7 @@ class PageViewController: UIViewController{
   }
 }
 
+// MARK: - UIPageViewControllerDataSource
 extension PageViewController: UIPageViewControllerDataSource{
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     if currentPage <= 0 {
@@ -74,7 +75,8 @@ extension PageViewController: UIPageViewControllerDataSource{
   }
 }
 
-extension PageViewController: UIPageViewControllerDelegate{
+// MARK: - UIPageViewControllerDelegate
+extension PageViewController: UIPageViewControllerDelegate {
   func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     guard completed else { return }
     if let currentViewController = pageViewController.viewControllers?[0] as? FineDustViewController{

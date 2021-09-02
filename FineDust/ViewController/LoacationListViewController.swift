@@ -91,12 +91,14 @@ class LoacationListViewController: UIViewController{
   }
 }
 
+// MARK: - CompleteAddDelegate
 extension LoacationListViewController: CompleteAddDelegate{
   func completeAdd() {
     fineDustListViewModel.reloadFineDustList()
   }
 }
 
+// MARK: - UITableViewDelegate
 extension LoacationListViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     guard indexPath.item > 0 else { return nil }

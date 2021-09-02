@@ -13,8 +13,7 @@ import MapKit
 import RxSwift
 import RxCocoa
 
-
-class FineDustViewController: UIViewController {
+class FineDustViewController: UIViewController{
   static let identifier = "FineDustViewController"
   
   @IBOutlet weak var locationNameLabel: UILabel!
@@ -33,10 +32,12 @@ class FineDustViewController: UIViewController {
   private let fineDustViewModel = FineDustViewModel()
   private let currentLocationViewModel = CurrentLocationViewModel()
   private let fineDustListViewModel = FineDustListViewModel()
-  private var time: Float = 0.0
-  private var timer: Timer?
   private var currentLocation: CLLocation?
   private var disposeBag = DisposeBag()
+  private var time: Float = 0.0
+  private var timer: Timer?
+  private var fineDustProgress: Float = 0.0
+  private var ultraFineDustProgress: Float = 0.0
   
   var index: Int = -1
   var mode: FineDustVCMode = .currentLocation
@@ -44,15 +45,17 @@ class FineDustViewController: UIViewController {
 
   private let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
   
+
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Storage.clear(.documents)
     locationManager.locationMangerDelegate = self
-    configureProgressView()
+    
     locationNameLabel.text = " "
     dateLabel.text = " "
-    
-    setProgressView(nil)
+  
+    configureProgressView()
     
     fineDustViewModel.observable
       .observe(on: MainScheduler.instance)
@@ -73,7 +76,6 @@ class FineDustViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     switch mode {
     case .currentLocation:
-      // loadFineDust(latitude: 37.375125349085906, longtitude: 127.95590235319048)
       locationManager.requestLocation()
       refreshButton.isHidden = false
     case .added:
@@ -89,25 +91,9 @@ class FineDustViewController: UIViewController {
     timer?.invalidate()
     NotificationCenter.default.removeObserver(self, name: CompleteSearchNotification, object: nil)
   }
-  
-  @IBAction func backButtonDidTap(_ sender: Any) {
-    dismiss(animated: true, completion: nil)
-  }
-
-  @IBAction func addButtonDidTap(_ sender: Any) {
-    fineDustListViewModel.addFineDustData()
-    dismiss(animated: true, completion: {
-      self.completeAddDelegate?.completeAdd()
-    })
-  }
-  
-  @IBAction func refreshButtonDidTap(_ sender: Any) {
-    guard let coordinate = currentLocation?.coordinate else { return }
-    loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude)
-  }
 }
 
-extension FineDustViewController {
+extension FineDustViewController{
   private func configureView(_ fineDustAPIData: FineDustAPIData){
     dateLabel.text = fineDustAPIData.dateTime
     stationNameLabel.text = "\(fineDustAPIData.stationName) 측정소 기준\n제공 한국환경공단 에어코리아"
@@ -147,6 +133,25 @@ extension FineDustViewController {
   }
 }
 
+// MARK: - IBAction
+extension FineDustViewController{
+  @IBAction func backButtonDidTap(_ sender: Any) {
+    dismiss(animated: true, completion: nil)
+  }
+
+  @IBAction func addButtonDidTap(_ sender: Any) {
+    fineDustListViewModel.addFineDustData()
+    dismiss(animated: true, completion: {
+      self.completeAddDelegate?.completeAdd()
+    })
+  }
+  
+  @IBAction func refreshButtonDidTap(_ sender: Any) {
+    guard let coordinate = currentLocation?.coordinate else { return }
+    loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude)
+  }
+}
+
 // MARK: - LocationManagerDelegate
 extension FineDustViewController: LocationManagerDelegate{
   func currentLocationUpdate(coordinate: CLLocationCoordinate2D) {
@@ -159,51 +164,51 @@ extension FineDustViewController: LocationManagerDelegate{
 }
 
 // MARK: - Timer
-extension FineDustViewController {
+extension FineDustViewController{
   private func configureProgressView(){
-    fineDustProgressView.progressViewStyle = .bar
     fineDustProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
     fineDustProgressView.clipsToBounds = true
     fineDustProgressView.layer.cornerRadius = 15
-    fineDustProgressView.clipsToBounds = true
     fineDustProgressView.layer.sublayers![1].cornerRadius = 15
     fineDustProgressView.subviews[1].clipsToBounds = true
     fineDustProgressView.progress = 0.0
     
-    ultraFineDustProgressView.progressViewStyle = .bar
     ultraFineDustProgressView.trackTintColor = #colorLiteral(red: 0.835541904, green: 0.8356826901, blue: 0.8355233073, alpha: 1)
     ultraFineDustProgressView.clipsToBounds = true
     ultraFineDustProgressView.layer.cornerRadius = 15
-    ultraFineDustProgressView.clipsToBounds = true
     ultraFineDustProgressView.layer.sublayers![1].cornerRadius = 15
     ultraFineDustProgressView.subviews[1].clipsToBounds = true
     ultraFineDustProgressView.progress = 0.0
   }
   
-  private func setProgressView(_ fineDustAPIData: FineDustAPIData?){
+  private func setProgressView(_ fineDustAPIData: FineDustAPIData){
     timer?.invalidate()
+    time = 0.0
+    fineDustProgress = fineDustViewModel.calculatorFineDustValue(fineDustAPIData.fineDust.fineDustValue)
+    ultraFineDustProgress = fineDustViewModel.calculatorUltraFineDustValue(fineDustAPIData.ultraFineDust.ultraFineDustValue)
     
-    timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(setProgress(sender:)), userInfo: fineDustAPIData, repeats: true)
-  }
-  
-  @objc func setProgress(sender: Timer) {
-    guard let fineDustAPIData = sender.userInfo as? FineDustAPIData else { return }
-    time += 0.01
+    fineDustProgressView.progressViewStyle = .bar
+    ultraFineDustProgressView.progressViewStyle = .bar
     fineDustProgressView.progressTintColor = fineDustAPIData.fineDust.fineDustColor
     ultraFineDustProgressView.progressTintColor = fineDustAPIData.ultraFineDust.ultraFineDustColor
+
+    timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(setProgress(sender:)), userInfo: nil, repeats: true)
+  }
+
+  @objc func setProgress(sender: Timer) {
+    time += 0.01
     
-    let fineDustProgress = fineDustViewModel.calculatorFineDustValue(fineDustAPIData.fineDust.fineDustValue)
-    let ultraFineDustProgress = fineDustViewModel.calculatorUltraFineDustValue(fineDustAPIData.ultraFineDust.ultraFineDustValue)
     if time <= fineDustProgress{
       fineDustProgressView.setProgress(time, animated: true)
     }
+      
     if time <= ultraFineDustProgress{
       ultraFineDustProgressView.setProgress(time, animated: true)
     }
-    
+
     if time > fineDustProgress && time > ultraFineDustProgress {
       time = 0.0
-      timer!.invalidate()
+      timer?.invalidate()
     }
   }
 }

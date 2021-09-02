@@ -27,7 +27,7 @@ class FineDustListViewModel{
   }
   
   var fineDustListCount: Int{
-    if manager.fineDustList.count == 0{
+    if manager.fineDustList.count == 0 {
       return 1
     }
     return manager.fineDustList.count + 1
@@ -122,18 +122,12 @@ class FineDustListViewModel{
     Storage.store(storedFineDustList, to: .documents, as: "finedust.json")
   }
   
-  private func setUserDefaults(){
-    guard let stationName = manager.currentLocationFineDustAPIData?.stationName, let locationName = manager.currentLocationLocationData?.locationName else { return }
-    let defaults = UserDefaults(suiteName: "group.com.sainkr.FineDust")
-    defaults?.set(stationName, forKey: "stationName")
-    defaults?.set(locationName, forKey: "locationName")
-    defaults?.synchronize()
-  }
-  
   func loadFineDust(){
     let storefinedust = Storage.retrive("finedust.json", from: .documents, as: [StoredFineDustData].self) ?? []
     storefinedust.forEach{
       manager.fineDustList.append(FineDustData(timeStamp: $0.timeStamp, dateTime: "-", fineDust: fineDustViewModel.fineDust("-"), ultraFineDust: fineDustViewModel.ultraFineDust("-"), stationName: $0.stationName, location: $0.location))
     }
+    
+    // loadFineDustList()
   }
 }

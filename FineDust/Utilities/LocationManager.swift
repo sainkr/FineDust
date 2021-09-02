@@ -14,7 +14,6 @@ class LocationManager: NSObject {
   
   func requestLocation() {
     locationManager.delegate = self
-    print(CLLocationManager.locationServicesEnabled())
     guard CLLocationManager.locationServicesEnabled() else {
       locationMangerDelegate?.currentLocationError()
       return

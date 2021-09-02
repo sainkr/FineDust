@@ -14,6 +14,8 @@
 		36330D6D26DF475E002F953B /* LocationManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36330D6C26DF475E002F953B /* LocationManagerError.swift */; };
 		36330D7226DF47F8002F953B /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365238B726DB89D60064E282 /* APIError.swift */; };
 		36330D7726DF47FA002F953B /* LocationManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36330D6C26DF475E002F953B /* LocationManagerError.swift */; };
+		36330D7D26DF57A3002F953B /* ConvertToAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36330D7C26DF57A3002F953B /* ConvertToAddress.swift */; };
+		36330D8626DF57EB002F953B /* ConvertToAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36330D7C26DF57A3002F953B /* ConvertToAddress.swift */; };
 		3637074C26DCAAA800861CA5 /* FineDustVCMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637074B26DCAAA800861CA5 /* FineDustVCMode.swift */; };
 		3637076926DCAB6000861CA5 /* FineDustViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367074D4265FABD0003666FC /* FineDustViewModel.swift */; };
 		3637076E26DCAB6400861CA5 /* FineDustVCMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637074B26DCAAA800861CA5 /* FineDustVCMode.swift */; };
@@ -121,6 +123,7 @@
 		362AE2DF2664C498002BF6C6 /* FineDust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDust.swift; sourceTree = "<group>"; };
 		362AE2E42664CE89002BF6C6 /* CurrentLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationViewModel.swift; sourceTree = "<group>"; };
 		36330D6C26DF475E002F953B /* LocationManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerError.swift; sourceTree = "<group>"; };
+		36330D7C26DF57A3002F953B /* ConvertToAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertToAddress.swift; sourceTree = "<group>"; };
 		363643FE2664F64E00086CFE /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3637074B26DCAAA800861CA5 /* FineDustVCMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustVCMode.swift; sourceTree = "<group>"; };
 		3637077826DCB5DF00861CA5 /* CompleteAddDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAddDelegate.swift; sourceTree = "<group>"; };
@@ -241,6 +244,7 @@
 				36B8F1B8267B6A5D004887A8 /* Storage.swift */,
 				3643F8B126D6367A00499FB1 /* FineDustAPI.swift */,
 				3652905426DE1EA000F1E5B8 /* LocationManager.swift */,
+				36330D7C26DF57A3002F953B /* ConvertToAddress.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -734,6 +738,7 @@
 				36528FE626DE00F600F1E5B8 /* CompleteAddDelegate.swift in Sources */,
 				36330D7726DF47FA002F953B /* LocationManagerError.swift in Sources */,
 				36D8D3C2267F7C3D00A55D1E /* FineDustListViewModel.swift in Sources */,
+				36330D8626DF57EB002F953B /* ConvertToAddress.swift in Sources */,
 				36D8D3B8267F7C2600A55D1E /* FineDust.swift in Sources */,
 				3637077326DCAB7C00861CA5 /* CurrentLocationViewModel.swift in Sources */,
 				36D8D361267F5B4800A55D1E /* FineDustProvider.swift in Sources */,
@@ -780,6 +785,7 @@
 				365191D826733CE900E15BD8 /* APIService.swift in Sources */,
 				3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */,
 				36D8D346267F598200A55D1E /* FineDustProvider.swift in Sources */,
+				36330D7D26DF57A3002F953B /* ConvertToAddress.swift in Sources */,
 				362AE2E02664C498002BF6C6 /* FineDust.swift in Sources */,
 				365238B826DB89D60064E282 /* APIError.swift in Sources */,
 			);

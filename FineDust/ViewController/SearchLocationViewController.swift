@@ -72,13 +72,6 @@ class SearchLocationViewController: UIViewController{
         self?.searchCompleter?.queryFragment = searchText
       })
       .disposed(by: disposeBag)
-    
-    /*searchBar.rx.cancelButtonClicked
-      .asDriver(onErrorJustReturn: ())
-      .drive(onNext: { [weak self] in
-        print("??")
-      }).disposed(by: disposeBag)*/
-    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +101,7 @@ class SearchLocationViewController: UIViewController{
   }
 }
 
+// MARK: - CompleteAddDelegate
 extension SearchLocationViewController: CompleteAddDelegate{
   func completeAdd() {
     dismiss(animated: true, completion: {
@@ -116,6 +110,7 @@ extension SearchLocationViewController: CompleteAddDelegate{
   }
 }
 
+// MARK: - HighlightedString
 extension SearchLocationViewController{
   private func createHighlightedString(text: String, rangeValues: [NSValue]) -> NSAttributedString {
     let attributes = [NSAttributedString.Key.foregroundColor : UIColor.blue ]
@@ -153,6 +148,7 @@ extension SearchLocationViewController{
   }
 }
 
+// MARK: - MKLocalSearchCompleterDelegate
 extension SearchLocationViewController: MKLocalSearchCompleterDelegate{
   /// - Tag: QueryResults
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
