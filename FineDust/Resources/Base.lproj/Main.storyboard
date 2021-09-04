@@ -21,6 +21,9 @@
                                 <rect key="frame" x="0.0" y="814" width="414" height="28"/>
                                 <color key="pageIndicatorTintColor" systemColor="systemGray3Color"/>
                                 <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="pageControlDidTap:" destination="EuI-GS-zpa" eventType="valueChanged" id="xv5-cg-9BG"/>
+                                </connections>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzS-Z2-EZu">
                                 <rect key="frame" x="362" y="817" width="32" height="25"/>

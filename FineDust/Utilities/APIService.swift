@@ -89,7 +89,7 @@ class APIService{
   
   static func fetchStation(tmX: Double, tmY: Double, onComplete: @escaping (Result<String, Error>) -> Void){
     let url = stationURL(tmX: tmX, tmY: tmY)
-    
+
     AF.request(url, method: .get, encoding: URLEncoding.default)
       .responseJSON{ (response) in
         switch response.result{
@@ -106,6 +106,25 @@ class APIService{
           onComplete(.failure(error))
         }
       }
+    
+    /*var request = URLRequest(url: URL(string: url)!)
+    request.httpMethod = "GET"
+    URLSession.shared.dataTask(with: request) { (data, response, error) in
+      if let err = error {
+        print(" ---> error : \(APIError.stationAPIError)")
+        onComplete(.failure(err))
+      }
+      guard let data = data else {
+        onComplete(.failure(APIError.stationAPIError))
+        return
+      }
+      let json = JSON(data)
+      guard let station: String = json["response"]["body"]["items"][0]["stationName"].string else {
+        onComplete(.failure(APIError.stationAPIError))
+        return
+      }
+      onComplete(.success(station))
+    }.resume()*/
   }
   
   static func stationURL(tmX: Double, tmY: Double)-> String{
@@ -116,6 +135,7 @@ class APIService{
     url += "&serviceKey=\(FineDustAPI.servicekey)"
     return url
   }
+  
   
   static func loadFineDust(stationName: String) -> Observable<FineDustAPIData>{
     return Observable.create{ emitter in

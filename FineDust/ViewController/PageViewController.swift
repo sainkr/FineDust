@@ -28,6 +28,14 @@ class PageViewController: UIViewController {
     pageViewController.dataSource = self
   }
   
+  @IBAction func pageControlDidTap(_ sender: Any) {
+    guard let vc = storyboard?.instantiateViewController(withIdentifier: FineDustViewController.identifier) as? FineDustViewController else { return }
+    currentPage = pageControl.currentPage
+    vc.mode = currentPage == 0 ? .currentLocation : .added
+    vc.index = currentPage
+    pageViewController.setViewControllers([vc], direction: .forward, animated: true, completion: nil)
+  }
+  
   private func configurePageViewController() {
     pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     addChild(pageViewController)

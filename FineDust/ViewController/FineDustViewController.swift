@@ -76,7 +76,8 @@ class FineDustViewController: UIViewController{
   override func viewWillAppear(_ animated: Bool) {
     switch mode {
     case .currentLocation:
-      locationManager.requestLocation()
+      loadFineDust(latitude: 37.4627824, longtitude: 127.0448855)
+      // locationManager.requestLocation()
       refreshButton.isHidden = false
     case .added:
       loadFineDust(index)

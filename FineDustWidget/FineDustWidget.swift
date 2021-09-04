@@ -19,7 +19,7 @@ import Intents
 struct FineDustWidget: Widget {
   let kind: String = "FineDustWidget"
   var body: some WidgetConfiguration {
-    IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
+    StaticConfiguration(kind: kind, provider: Provider()) { entry in
       FineDustWidgetEntryView(entry: entry)
     }
     .configurationDisplayName("미세먼지") // 사용자가 위젯을 추가/편집 할 때 위젯에 표시되는 이름을 설정하는 메소드입니다.
@@ -36,8 +36,7 @@ struct FineDustWidget_Previews: PreviewProvider {
                               finedust: FineDustRequest(
                                 locationName: "원주시 태장동",
                                 fineDust: fineDustViewModel.fineDust("30"),
-                                ultraFineDust: fineDustViewModel.ultraFineDust("13")),
-                              configuration: ConfigurationIntent()))
+                                ultraFineDust: fineDustViewModel.ultraFineDust("13"))))
       .previewContext(WidgetPreviewContext(family: .systemSmall))
   }
 }

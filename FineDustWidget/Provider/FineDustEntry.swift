@@ -13,7 +13,6 @@ import Intents
 struct SimpleEntry: TimelineEntry {
   let date: Date // 필수적으로 요구 ..
   let finedust: FineDustRequest
-  let configuration: ConfigurationIntent
 }
 
 struct FineDustRequest{

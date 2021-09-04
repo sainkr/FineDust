@@ -86,10 +86,9 @@ class FineDustListViewModel{
   
   private func setFineDustList(_ fineDustAPIData: FineDustAPIData){
     for index in manager.fineDustList.indices{
-      if manager.fineDustList[index].stationName == fineDustAPIData.stationName{
+      if manager.fineDustList[index].stationName == fineDustAPIData.stationName {
         let fineDustData = FineDustData(timeStamp: manager.fineDustList[index].timeStamp , dateTime: fineDustAPIData.dateTime, fineDust: fineDustAPIData.fineDust, ultraFineDust: fineDustAPIData.ultraFineDust, stationName: fineDustAPIData.stationName, location: manager.fineDustList[index].location)
         manager.fineDustList[index] = fineDustData
-        break
       }
     }
   }
