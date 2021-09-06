@@ -13,9 +13,50 @@ import SwiftyJSON
 
 class APIService{
   
-  static func loadTM(latitude: Double, longtitude: Double) -> Observable<TM>{
+  static func loadAccessToken()-> Observable<String>{
     return Observable.create{ emitter in
-      self.fetchTM(posX: longtitude, posY: latitude){ result in
+      fetchAccessToken{ result in
+        switch result {
+        case let .success(accessToekn):
+          emitter.onNext(accessToekn)
+          emitter.onCompleted()
+        case let .failure(error):
+          emitter.onError(error)
+        }
+      }
+      return Disposables.create()
+    }
+  }
+  
+  static func fetchAccessToken(onComplete: @escaping (Result<String, Error>) -> Void){
+    let param = accessTokenParameter()
+    AF.request(FineDustAPI.authURL, method: .get, parameters: param, encoding: URLEncoding.default)
+      .responseJSON{ (response) in
+        switch response.result{
+        case .success(let data):
+          let json = JSON(data)
+          guard let accessToken = json["result"]["accessToken"].string else {
+            onComplete(.failure(APIError.authError))
+            return
+          }
+          onComplete(.success(accessToken))
+          case .failure(let error):
+          print(" ---> error : \(APIError.authError)")
+          onComplete(.failure(error))
+        }
+      }
+  }
+  
+  static func accessTokenParameter()-> Parameters{
+    return [
+      "consumer_key" : FineDustAPI.serviceID,
+      "consumer_secret" : FineDustAPI.secretKey
+    ]
+  }
+  
+  static func loadTM(accessToken: String, latitude: Double, longtitude: Double) -> Observable<TM>{
+    return Observable.create{ emitter in
+      self.fetchTM(accessToken: accessToken, posX: longtitude, posY: latitude){ result in
         switch result {
         case let .success(tm):
           emitter.onNext(tm)
@@ -28,9 +69,9 @@ class APIService{
     }
   }
   
-  static func fetchTM(posX: Double, posY: Double, onComplete: @escaping (Result<TM, Error>) -> Void){
+  static func fetchTM(accessToken: String, posX: Double, posY: Double, onComplete: @escaping (Result<TM, Error>) -> Void){
     let url = FineDustAPI.tmURL
-    let param = tmParameter(posX: posX, posY: posY)
+    let param = tmParameter(accessToken: accessToken, posX: posX, posY: posY)
     
     AF.request(url, method: .get, parameters: param, encoding: URLEncoding.default)
       .responseJSON{ (response) in
@@ -62,9 +103,9 @@ class APIService{
       }
   }
   
-  static func tmParameter(posX: Double, posY: Double)-> Parameters{
+  static func tmParameter(accessToken: String, posX: Double, posY: Double)-> Parameters{
     return [
-      "accessToken" : FineDustAPI.accessToken,
+      "accessToken" : accessToken,
       "src" : "4326",
       "dst" : "5181",
       "posX" : posX ,

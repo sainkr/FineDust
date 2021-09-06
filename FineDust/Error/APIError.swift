@@ -8,6 +8,7 @@
 import Foundation
 
 enum APIError: Error{
+  case authError
   case tmAPIError
   case stationAPIError
   case finedustAPIError

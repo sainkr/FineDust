@@ -10,7 +10,7 @@ import UIKit
 class LocationTableViewCell: UITableViewCell {
   
   static let identifier = "LocationTableViewCell"
-
+  
   @IBOutlet weak var locationNameLabel: UILabel!
   @IBOutlet weak var currentLocationLabel: UILabel!
   @IBOutlet weak var fineDustValueLabel: UILabel!
@@ -25,7 +25,32 @@ class LocationTableViewCell: UITableViewCell {
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
-    
     // Configure the view for the selected state
+  }
+  
+  func updateCurrentLocationLabel(_ index: Int){
+    if index == 0{
+      currentLocationLabel.isHidden = false
+    }else{
+      currentLocationLabel.isHidden = true
+    }
+  }
+  
+  func updateUI(_ fineDustData: FineDustData){
+    locationNameLabel.text = fineDustData.location.locationName
+    
+    fineDustValueLabel.clipsToBounds = true
+    fineDustValueLabel.layer.cornerRadius = 5
+    fineDustValueLabel.text = fineDustData.fineDust.fineDustValue
+    fineDustValueLabel.backgroundColor = fineDustData.fineDust.fineDustColor
+    fineDustStateLabel.text = fineDustData.fineDust.fineDustState
+    fineDustStateLabel.textColor = fineDustData.fineDust.fineDustColor
+    
+    ultraFineDustValueLabel.clipsToBounds = true
+    ultraFineDustValueLabel.layer.cornerRadius = 5
+    ultraFineDustValueLabel.text = fineDustData.ultraFineDust.ultraFineDustValue
+    ultraFineDustValueLabel.backgroundColor = fineDustData.ultraFineDust.ultraFineDustColor
+    ultraFineDustStateLabel.text = fineDustData.ultraFineDust.ultraFineDustState
+    ultraFineDustStateLabel.textColor = fineDustData.ultraFineDust.ultraFineDustColor
   }
 }

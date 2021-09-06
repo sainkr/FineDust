@@ -5,19 +5,22 @@
 //  Created by 홍승아 on 2021/06/29.
 //
 
+import CoreLocation
 import UIKit
+
 import RxSwift
 import RxCocoa
-import CoreLocation
 
 class PageViewController: UIViewController {
+  
+  static let identifer = "PageViewController"
   
   @IBOutlet weak var pageControl: UIPageControl!
   @IBOutlet weak var listButton: UIButton!
   
   private var fineDustListViewModel = FineDustListViewModel()
-  var currentPage = 0
   private var pageViewController: UIPageViewController!
+  var currentPage = 0
   
   override func viewDidLoad() {
     super.viewDidLoad()

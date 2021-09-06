@@ -68,7 +68,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="좋음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31F-2p-szG">
-                        <rect key="frame" x="248" y="84" width="30" height="21"/>
+                        <rect key="frame" x="248" y="87" width="30" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -80,10 +80,8 @@
                     <constraint firstItem="cD5-eU-bQE" firstAttribute="leading" secondItem="bda-Tb-lhE" secondAttribute="leading" id="8wE-Kw-GC0"/>
                     <constraint firstItem="NGJ-d1-kZn" firstAttribute="top" secondItem="va5-J2-Nre" secondAttribute="top" id="A4f-5O-uAa"/>
                     <constraint firstAttribute="trailing" secondItem="kiG-Rv-20p" secondAttribute="trailing" constant="20" id="CMT-hC-35B"/>
-                    <constraint firstItem="31F-2p-szG" firstAttribute="top" secondItem="va5-J2-Nre" secondAttribute="bottom" constant="5" id="Ixx-eX-bDU"/>
                     <constraint firstItem="NGJ-d1-kZn" firstAttribute="bottom" secondItem="ogi-2d-fkX" secondAttribute="bottom" id="KP7-WA-U7I"/>
                     <constraint firstItem="cD5-eU-bQE" firstAttribute="top" secondItem="T6b-8b-1gN" secondAttribute="top" id="Oce-uS-ck7"/>
-                    <constraint firstItem="ogi-2d-fkX" firstAttribute="top" secondItem="T6b-8b-1gN" secondAttribute="bottom" constant="8" symbolic="YES" id="Prf-Hx-GCf"/>
                     <constraint firstAttribute="bottom" secondItem="cD5-eU-bQE" secondAttribute="bottom" constant="20" id="RKc-6D-cyL"/>
                     <constraint firstItem="ogi-2d-fkX" firstAttribute="leading" secondItem="T6b-8b-1gN" secondAttribute="leading" id="Swh-HI-zl3"/>
                     <constraint firstItem="T6b-8b-1gN" firstAttribute="top" secondItem="bda-Tb-lhE" secondAttribute="bottom" constant="15" id="bR3-80-nri"/>
@@ -92,6 +90,7 @@
                     <constraint firstItem="31F-2p-szG" firstAttribute="leading" secondItem="va5-J2-Nre" secondAttribute="leading" id="kwb-yf-Cai"/>
                     <constraint firstItem="T6b-8b-1gN" firstAttribute="leading" secondItem="cD5-eU-bQE" secondAttribute="trailing" constant="8" symbolic="YES" id="nyI-hn-CAd"/>
                     <constraint firstItem="NGJ-d1-kZn" firstAttribute="leading" secondItem="T6b-8b-1gN" secondAttribute="trailing" constant="45" id="wNN-yZ-j6h"/>
+                    <constraint firstItem="31F-2p-szG" firstAttribute="bottom" secondItem="NGJ-d1-kZn" secondAttribute="bottom" id="xHr-sb-gaO"/>
                     <constraint firstItem="bda-Tb-lhE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="xU3-ra-iNd"/>
                 </constraints>
             </tableViewCellContentView>
@@ -103,7 +102,7 @@
                 <outlet property="ultraFineDustStateLabel" destination="31F-2p-szG" id="FHm-D0-PDl"/>
                 <outlet property="ultraFineDustValueLabel" destination="NGJ-d1-kZn" id="ZLI-xr-PBH"/>
             </connections>
-            <point key="canvasLocation" x="-54" y="132"/>
+            <point key="canvasLocation" x="-55.072463768115945" y="131.91964285714286"/>
         </tableViewCell>
     </objects>
 </document>

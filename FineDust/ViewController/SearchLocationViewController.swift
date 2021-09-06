@@ -11,11 +11,7 @@ import RxSwift
 import MapKit
 
 class SearchLocationViewController: UIViewController{
-  
-  private enum SegueID: String {
-    case showAdd
-  }
-  
+
   @IBOutlet weak var searchBar: UISearchBar!
   @IBOutlet weak var tableView: UITableView!
   
@@ -25,20 +21,8 @@ class SearchLocationViewController: UIViewController{
   private var placeMark: MKPlacemark?
   private var disposeBag = DisposeBag()
   var relay = PublishRelay<[MKLocalSearchCompletion]>()
-  
   let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
-  
   var completeAddDelegate: CompleteAddDelegate?
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    guard let vc = segue.destination as? FineDustViewController else {
-      return
-    }
-    if segue.identifier == SegueID.showAdd.rawValue {
-      vc.mode = .searched
-      vc.completeAddDelegate = self
-    }
-  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -50,7 +34,6 @@ class SearchLocationViewController: UIViewController{
         cell.locationAddressLabel?.attributedText = self?.createHighlightedString(text: element.title, rangeValues: element.titleHighlightRanges)
       }.disposed(by: disposeBag)
     
-    
     // TableView Delegate
     tableView.rx.itemSelected // indexPath를 가져옴
       .subscribe(onNext: { [weak self] indexPath in
@@ -58,6 +41,7 @@ class SearchLocationViewController: UIViewController{
         if let suggestion = self?.completerResults?[indexPath.row] {
           self?.search(for: suggestion)
         }
+        self?.presentFineDustViewController(indexPath.item)
       })
       .disposed(by: disposeBag)
     
@@ -104,6 +88,14 @@ class SearchLocationViewController: UIViewController{
   private func registerSearchLocationTableViewCells() {
     let searchLocationTableViewCellNib = UINib(nibName: SearchLocationTableViewCell.identifier, bundle: nil)
     tableView.register(searchLocationTableViewCellNib, forCellReuseIdentifier: SearchLocationTableViewCell.identifier)
+  }
+  
+  private func presentFineDustViewController(_ index: Int){
+    guard let vc = storyboard?.instantiateViewController(withIdentifier: FineDustViewController.identifier) as? FineDustViewController else { return }
+    vc.index = index
+    vc.mode = .searched
+    vc.completeAddDelegate = self
+    present(vc, animated: true, completion: nil)
   }
 }
 

@@ -17,7 +17,8 @@ class FineDustViewModel{
   
   // 현재 위치 fineDustData, 검색 위치 fineDustData 불러옴
   func loadFineDust(latitude: Double, longtitude: Double, mode: FineDustVCMode){
-    _ = APIService.loadTM(latitude: latitude, longtitude: longtitude)
+    _ = APIService.loadAccessToken()
+      .flatMap{ accessToekn in APIService.loadTM(accessToken: accessToekn, latitude: latitude, longtitude: longtitude)}
       .flatMap{ tm in APIService.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
       .flatMap{ station in APIService.loadFineDust(stationName: station)}
       .take(1)
@@ -47,7 +48,8 @@ class FineDustViewModel{
   
   // Widget 현재 위치 fineDust
   func loadFineDust(latitude: Double, longtitude: Double, completion: @escaping (FineDustRequest) -> ()){
-    _ = APIService.loadTM(latitude: latitude, longtitude: longtitude)
+    _ = APIService.loadAccessToken()
+      .flatMap{ accessToekn in APIService.loadTM(accessToken: accessToekn, latitude: latitude, longtitude: longtitude)}
       .flatMap{ tm in APIService.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
       .flatMap{ station in APIService.loadFineDust(stationName: station)}
       .take(1)
