@@ -45,8 +45,6 @@ class FineDustViewController: UIViewController{
 
   private let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
   
-
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Storage.clear(.documents)

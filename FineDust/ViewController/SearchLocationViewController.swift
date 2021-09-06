@@ -42,11 +42,12 @@ class SearchLocationViewController: UIViewController{
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    registerSearchLocationTableViewCells()
     // TableView Datasource
     relay
-      .bind(to: self.tableView.rx.items(cellIdentifier: SearchLocationCell.identifier, cellType: SearchLocationCell.self))
+      .bind(to: self.tableView.rx.items(cellIdentifier: SearchLocationTableViewCell.identifier, cellType: SearchLocationTableViewCell.self))
       { [weak self] (index, element, cell) in
-        cell.label?.attributedText = self?.createHighlightedString(text: element.title, rangeValues: element.titleHighlightRanges)
+        cell.locationAddressLabel?.attributedText = self?.createHighlightedString(text: element.title, rangeValues: element.titleHighlightRanges)
       }.disposed(by: disposeBag)
     
     
@@ -98,6 +99,11 @@ class SearchLocationViewController: UIViewController{
   
   @IBAction func backButtonDidTap(_ sender: Any) {
     dismiss(animated: true, completion: nil)
+  }
+  
+  private func registerSearchLocationTableViewCells() {
+    let searchLocationTableViewCellNib = UINib(nibName: SearchLocationTableViewCell.identifier, bundle: nil)
+    tableView.register(searchLocationTableViewCellNib, forCellReuseIdentifier: SearchLocationTableViewCell.identifier)
   }
 }
 
@@ -166,9 +172,4 @@ extension SearchLocationViewController: MKLocalSearchCompleterDelegate{
       print("MKLocalSearchCompleter encountered an error: \(error.localizedDescription). The query fragment is: \"\(completer.queryFragment)\"")
     }
   }
-}
-
-class SearchLocationCell: UITableViewCell {
-  static let identifier = "SearchLocationCell"
-  @IBOutlet weak var label: UILabel!
 }

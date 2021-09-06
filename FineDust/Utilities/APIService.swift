@@ -106,25 +106,6 @@ class APIService{
           onComplete(.failure(error))
         }
       }
-    
-    /*var request = URLRequest(url: URL(string: url)!)
-    request.httpMethod = "GET"
-    URLSession.shared.dataTask(with: request) { (data, response, error) in
-      if let err = error {
-        print(" ---> error : \(APIError.stationAPIError)")
-        onComplete(.failure(err))
-      }
-      guard let data = data else {
-        onComplete(.failure(APIError.stationAPIError))
-        return
-      }
-      let json = JSON(data)
-      guard let station: String = json["response"]["body"]["items"][0]["stationName"].string else {
-        onComplete(.failure(APIError.stationAPIError))
-        return
-      }
-      onComplete(.success(station))
-    }.resume()*/
   }
   
   static func stationURL(tmX: Double, tmY: Double)-> String{
@@ -135,7 +116,6 @@ class APIService{
     url += "&serviceKey=\(FineDustAPI.servicekey)"
     return url
   }
-  
   
   static func loadFineDust(stationName: String) -> Observable<FineDustAPIData>{
     return Observable.create{ emitter in
@@ -151,7 +131,7 @@ class APIService{
       return Disposables.create()
     }
   }
-  
+
   static func fetchFineDust(stationName: String, onComplete: @escaping (Result<FineDustAPIData, Error>) -> Void){
     let url = fineDustURL(stationName: stationName)
     
@@ -175,19 +155,19 @@ class APIService{
             onComplete(.failure(APIError.finedustAPIError))
             return
           }
-          
-          let fineDustViewModel = FineDustViewModel()
-          let fineDust = fineDustViewModel.fineDust(fineDustValue)
-          let ultraFineDust = fineDustViewModel.ultraFineDust(ultraFineDustValue)
-          
-          let response = FineDustAPIData(dateTime: dateTime, fineDust: fineDust, ultraFineDust: ultraFineDust, stationName: stationName)
-          
-          // print(response)
+          let response = fineDustAPIData(dateTime: dateTime, fineDustValue: fineDustValue, ultraFineDustValue: ultraFineDustValue, stationName: stationName)
           onComplete(.success(response))
         case let .failure(error):
           onComplete(.failure(error))
         }
       }
+  }
+  
+  static func fineDustAPIData(dateTime: String, fineDustValue: String, ultraFineDustValue: String, stationName: String)-> FineDustAPIData{
+    let fineDustViewModel = FineDustViewModel()
+    let fineDust = fineDustViewModel.fineDust(fineDustValue)
+    let ultraFineDust = fineDustViewModel.ultraFineDust(ultraFineDustValue)
+    return FineDustAPIData(dateTime: dateTime, fineDust: fineDust, ultraFineDust: ultraFineDust, stationName: stationName)
   }
   
   static func fineDustURL(stationName: String)-> String{

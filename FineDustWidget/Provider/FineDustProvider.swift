@@ -14,6 +14,19 @@ import RxSwift
 // TimelineProvider : Widget의 디스플레이를 업데이트 할 시기를 WidgetKit에 알려주는 타입
 struct Provider: TimelineProvider {
   
+  let fineDustViewModel = FineDustViewModel()
+  let currentLocationViewModel = CurrentLocationViewModel()
+  let locationManger = LocationManager()
+  var currentLocation: CLLocationCoordinate2D?
+  
+  func placeholder(in context: Context) -> SimpleEntry {
+    SimpleEntry(date: Date(),
+                finedust: FineDustRequest(
+                  locationName: "-",
+                  fineDust: fineDustViewModel.fineDust("-"),
+                  ultraFineDust: fineDustViewModel.ultraFineDust("-")))
+  }
+  
   // 위젯 갤러리의 미리보기인지 여부와 표시 할 위젯의 패밀리 또는 크기를 포함하여 항목 사용 방법에 대한 세부 정보가 포함 된 매개 변수를 제공합니다
   func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
     let entry: SimpleEntry =  SimpleEntry(date: Date(),
@@ -53,20 +66,6 @@ struct Provider: TimelineProvider {
       let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
       completion(timeline)
     }
-  }
-  
-  
-  let fineDustViewModel = FineDustViewModel()
-  let currentLocationViewModel = CurrentLocationViewModel()
-  let locationManger = LocationManager()
-  var currentLocation: CLLocationCoordinate2D?
-  
-  func placeholder(in context: Context) -> SimpleEntry {
-    SimpleEntry(date: Date(),
-                finedust: FineDustRequest(
-                  locationName: "-",
-                  fineDust: fineDustViewModel.fineDust("-"),
-                  ultraFineDust: fineDustViewModel.ultraFineDust("-")))
   }
   
   func simpleEntry(currentDate: Date, locationName: String, fineDust: FineDust, ultraFineDust: UltraFineDust)-> SimpleEntry{

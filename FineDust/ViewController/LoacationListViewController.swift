@@ -30,9 +30,9 @@ class LoacationListViewController: UIViewController{
   }
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    registerLocationTableViewCells()
     fineDustListViewModel.observable
-      .bind(to: tableView.rx.items(cellIdentifier: LoactionCollectionViewCell.identifier, cellType: LoactionCollectionViewCell.self)){ (index, element, cell) in
+      .bind(to: tableView.rx.items(cellIdentifier: LocationTableViewCell.identifier, cellType: LocationTableViewCell.self)){ (index, element, cell) in
         // print("-----> 컬렉션 뷰 : \(element)")
         if index == 0 {
           cell.currentLocationLabel.isHidden = false
@@ -41,17 +41,17 @@ class LoacationListViewController: UIViewController{
           cell.currentLocationLabel.isHidden = true
         }
         
-        cell.localLabel.text = element.location.locationName
+        cell.locationNameLabel.text = element.location.locationName
         
-        cell.finedustValueLabel.text = element.fineDust.fineDustValue
-        cell.finedustValueLabel.backgroundColor = element.fineDust.fineDustColor
-        cell.finedustStateLabel.text = element.fineDust.fineDustState
-        cell.finedustStateLabel.textColor = element.fineDust.fineDustColor
+        cell.fineDustValueLabel.text = element.fineDust.fineDustValue
+        cell.fineDustValueLabel.backgroundColor = element.fineDust.fineDustColor
+        cell.fineDustStateLabel.text = element.fineDust.fineDustState
+        cell.fineDustStateLabel.textColor = element.fineDust.fineDustColor
         
-        cell.ultrafinedustValueLabel.text = element.ultraFineDust.ultraFineDustValue
-        cell.ultrafinedustValueLabel.backgroundColor = element.ultraFineDust.ultraFineDustColor
-        cell.ultrafinedustStateLabel.text = element.ultraFineDust.ultraFineDustState
-        cell.ultrafinedustStateLabel.textColor = element.ultraFineDust.ultraFineDustColor
+        cell.ultraFineDustValueLabel.text = element.ultraFineDust.ultraFineDustValue
+        cell.ultraFineDustValueLabel.backgroundColor = element.ultraFineDust.ultraFineDustColor
+        cell.ultraFineDustStateLabel.text = element.ultraFineDust.ultraFineDustState
+        cell.ultraFineDustStateLabel.textColor = element.ultraFineDust.ultraFineDustColor
       }
       .disposed(by: disposeBag)
     
@@ -89,6 +89,11 @@ class LoacationListViewController: UIViewController{
   override func viewWillDisappear(_ animated: Bool) {
     disposeBag = DisposeBag()
   }
+  
+  private func registerLocationTableViewCells(){
+    let locationTableViewCellNib = UINib(nibName: LocationTableViewCell.identifier, bundle: nil)
+    tableView.register(locationTableViewCellNib, forCellReuseIdentifier: LocationTableViewCell.identifier)
+  }
 }
 
 // MARK: - CompleteAddDelegate
@@ -116,16 +121,4 @@ extension LoacationListViewController: UITableViewDelegate{
     configuration.performsFirstActionWithFullSwipe = false
     return configuration
   }
-}
-
-class LoactionCollectionViewCell: UITableViewCell{
-  
-  static let identifier = "LoactionCollectionViewCell"
-  
-  @IBOutlet weak var localLabel: UILabel!
-  @IBOutlet weak var currentLocationLabel: UILabel!
-  @IBOutlet weak var finedustValueLabel: UILabel!
-  @IBOutlet weak var finedustStateLabel: UILabel!
-  @IBOutlet weak var ultrafinedustValueLabel: UILabel!
-  @IBOutlet weak var ultrafinedustStateLabel: UILabel!
 }

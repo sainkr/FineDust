@@ -43,6 +43,10 @@
 		367FDA1A267E1FA500032369 /* FineDustWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 367FDA0A267E1FA500032369 /* FineDustWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		368702E5268B448A00D97FDC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368702E4268B448A00D97FDC /* PageViewController.swift */; };
 		368702EA268B478300D97FDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3696FEF0265D400000F2B939 /* Main.storyboard */; };
+		368AFC7126E3D8F8003444CB /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368AFC6F26E3D8F8003444CB /* LocationTableViewCell.swift */; };
+		368AFC7226E3D8F8003444CB /* LocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 368AFC7026E3D8F8003444CB /* LocationTableViewCell.xib */; };
+		368AFC8126E3DB55003444CB /* SearchLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368AFC7F26E3DB55003444CB /* SearchLocationTableViewCell.swift */; };
+		368AFC8226E3DB55003444CB /* SearchLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 368AFC8026E3DB55003444CB /* SearchLocationTableViewCell.xib */; };
 		3696FEEB265D400000F2B939 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEA265D400000F2B939 /* AppDelegate.swift */; };
 		3696FEED265D400000F2B939 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEC265D400000F2B939 /* SceneDelegate.swift */; };
 		3696FEEF265D400000F2B939 /* FineDustViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696FEEE265D400000F2B939 /* FineDustViewController.swift */; };
@@ -142,6 +146,10 @@
 		367FDA13267E1FA500032369 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		367FDA15267E1FA500032369 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		368702E4268B448A00D97FDC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = FineDust/ViewController/PageViewController.swift; sourceTree = SOURCE_ROOT; };
+		368AFC6F26E3D8F8003444CB /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
+		368AFC7026E3D8F8003444CB /* LocationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationTableViewCell.xib; sourceTree = "<group>"; };
+		368AFC7F26E3DB55003444CB /* SearchLocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationTableViewCell.swift; sourceTree = "<group>"; };
+		368AFC8026E3DB55003444CB /* SearchLocationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchLocationTableViewCell.xib; sourceTree = "<group>"; };
 		3696FEE7265D400000F2B939 /* FineDust.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FineDust.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3696FEEA265D400000F2B939 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3696FEEC265D400000F2B939 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -291,6 +299,17 @@
 			path = FineDustWidget;
 			sourceTree = "<group>";
 		};
+		368AFC5826E3D5C3003444CB /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				368AFC6F26E3D8F8003444CB /* LocationTableViewCell.swift */,
+				368AFC7026E3D8F8003444CB /* LocationTableViewCell.xib */,
+				368AFC7F26E3DB55003444CB /* SearchLocationTableViewCell.swift */,
+				368AFC8026E3DB55003444CB /* SearchLocationTableViewCell.xib */,
+			);
+			path = "Supporting Views";
+			sourceTree = "<group>";
+		};
 		368F1F99265E3B0E00CD7B03 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +361,7 @@
 				3612DA6B2675020F0008E45F /* Resources */,
 				3643F8B026D6363300499FB1 /* Utilities */,
 				365238B626DB89CE0064E282 /* Error */,
+				368AFC5826E3D5C3003444CB /* Supporting Views */,
 			);
 			path = FineDust;
 			sourceTree = "<group>";
@@ -576,10 +596,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				368AFC8226E3DB55003444CB /* SearchLocationTableViewCell.xib in Resources */,
 				3696FEF7265D400100F2B939 /* LaunchScreen.storyboard in Resources */,
 				36F10EE326956BFD0060F3F7 /* InfoPlist.strings in Resources */,
 				36E8D550266E044C00AD0AB9 /* NanumSquareOTFLight.otf in Resources */,
 				3696FEF4265D400100F2B939 /* Assets.xcassets in Resources */,
+				368AFC7226E3D8F8003444CB /* LocationTableViewCell.xib in Resources */,
 				3696FEF2265D400000F2B939 /* Main.storyboard in Resources */,
 				36E8D54C266E044A00AD0AB9 /* NanumSquareOTFExtraBold.otf in Resources */,
 				36E8D554266E044E00AD0AB9 /* NanumSquareOTFRegular.otf in Resources */,
@@ -763,7 +785,9 @@
 			files = (
 				36D8D34C267F598E00A55D1E /* FineDustEntryView.swift in Sources */,
 				36330D6D26DF475E002F953B /* LocationManagerError.swift in Sources */,
+				368AFC7126E3D8F8003444CB /* LocationTableViewCell.swift in Sources */,
 				361B2EE42671F58A00C39F0D /* FineDustListViewModel.swift in Sources */,
+				368AFC8126E3DB55003444CB /* SearchLocationTableViewCell.swift in Sources */,
 				3652905526DE1EA000F1E5B8 /* LocationManager.swift in Sources */,
 				367074D5265FABD0003666FC /* FineDustViewModel.swift in Sources */,
 				36D8D352267F599D00A55D1E /* FineDustPlaceholderView.swift in Sources */,

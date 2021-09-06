@@ -23,13 +23,17 @@ class FineDustViewModel{
       .take(1)
       .subscribe(onNext:{ [weak self] response in
         self?.observable.accept(response)
-        let fineDustListViewModel = FineDustListViewModel()
-        if mode == .currentLocation {
-          fineDustListViewModel.setCurrentLocationFineDustAPIData(response)
-        }else if mode == .searched {
-          fineDustListViewModel.setSearchedFineDustAPIData(response)
-        }
+        self?.setAPIData(mode, response)
       })
+  }
+  
+  private func setAPIData(_ mode: FineDustVCMode, _ response: FineDustAPIData){
+    let fineDustListViewModel = FineDustListViewModel()
+    if mode == .currentLocation {
+      fineDustListViewModel.setCurrentLocationFineDustAPIData(response)
+    }else if mode == .searched {
+      fineDustListViewModel.setSearchedFineDustAPIData(response)
+    }
   }
   
   // 추가된 fineDustData 불러옴

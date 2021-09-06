@@ -16,8 +16,7 @@ import SwiftyJSON
 class FineDustListViewModel{
   private var manager = FineDustList.shared
   lazy var observable = PublishRelay<[FineDustData]>()
-  private let fineDustViewModel = FineDustViewModel()
-    
+
   private var fineDustList: [FineDustData]{
     guard let currentLocationFineDustData = fineDustData(0, manager.currentLocationFineDustAPIData, manager.currentLocationLocationData) else { return [] }
     var list: [FineDustData] = [currentLocationFineDustData]
@@ -122,11 +121,10 @@ class FineDustListViewModel{
   }
   
   func loadFineDust(){
+    let fineDustViewModel = FineDustViewModel()
     let storefinedust = Storage.retrive("finedust.json", from: .documents, as: [StoredFineDustData].self) ?? []
     storefinedust.forEach{
       manager.fineDustList.append(FineDustData(timeStamp: $0.timeStamp, dateTime: "-", fineDust: fineDustViewModel.fineDust("-"), ultraFineDust: fineDustViewModel.ultraFineDust("-"), stationName: $0.stationName, location: $0.location))
     }
-    
-    // loadFineDustList()
   }
 }
