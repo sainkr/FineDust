@@ -47,7 +47,6 @@ class FineDustViewController: UIViewController{
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Storage.clear(.documents)
     locationManager.locationMangerDelegate = self
     
     locationNameLabel.text = " "
@@ -74,8 +73,7 @@ class FineDustViewController: UIViewController{
   override func viewWillAppear(_ animated: Bool) {
     switch mode {
     case .currentLocation:
-      loadFineDust(latitude: 37.4627824, longtitude: 127.0448855)
-      // locationManager.requestLocation()
+      locationManager.requestLocation()
       refreshButton.isHidden = false
     case .added:
       loadFineDust(index)
@@ -108,7 +106,7 @@ extension FineDustViewController{
     ultraFineDustValueLabel.text = fineDustAPIData.ultraFineDust.ultraFineDustValue
   }
   
-  @objc func completeSearch(_ noti: Notification){ // 지역 추가했을 때
+  @objc func completeSearch(_ noti: Notification){ // SearchLocationViewController 에서 불러옴
     guard let coordinate = noti.userInfo?["coordinate"] as? CLLocationCoordinate2D else { return }
     loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude)
   }
@@ -196,15 +194,12 @@ extension FineDustViewController{
 
   @objc func setProgress(sender: Timer) {
     time += 0.01
-    
     if time <= fineDustProgress{
       fineDustProgressView.setProgress(time, animated: true)
     }
-      
     if time <= ultraFineDustProgress{
       ultraFineDustProgressView.setProgress(time, animated: true)
     }
-
     if time > fineDustProgress && time > ultraFineDustProgress {
       time = 0.0
       timer?.invalidate()
