@@ -6,8 +6,10 @@
 //
 
 import UIKit
-import RxSwift
+
+import NVActivityIndicatorView
 import RxCocoa
+import RxSwift
 
 class LoacationListViewController: UIViewController{
   
@@ -16,8 +18,9 @@ class LoacationListViewController: UIViewController{
   }
   
   @IBOutlet weak var tableView: UITableView!
+  private var indicator: NVActivityIndicatorView!
   
-  let fineDustListViewModel = FineDustListViewModel()
+  private let fineDustListViewModel = FineDustListViewModel()
   var disposeBag = DisposeBag()
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -28,9 +31,13 @@ class LoacationListViewController: UIViewController{
       vc.completeAddDelegate = self
     }
   }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     registerLocationTableViewCells()
+    configureIndicatior()
+    
     fineDustListViewModel.observable
       .bind(to: tableView.rx.items(cellIdentifier: LocationTableViewCell.identifier, cellType: LocationTableViewCell.self)){ (index, element, cell) in
         // print("-----> 컬렉션 뷰 : \(element)")
@@ -51,10 +58,13 @@ class LoacationListViewController: UIViewController{
   
   override func viewWillAppear(_ animated: Bool) {
     fineDustListViewModel.loadFineDustList()
+    NotificationCenter.default.addObserver(self, selector: #selector(completeCurrentData(_:)), name: NotificationName.CompleteCurrentDataNotification, object: nil)
+    indicator.startAnimating()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     disposeBag = DisposeBag()
+    NotificationCenter.default.removeObserver(self, name: NotificationName.CompleteCurrentDataNotification, object: nil)
   }
   
   private func registerLocationTableViewCells(){
@@ -68,6 +78,24 @@ class LoacationListViewController: UIViewController{
     vc.currentPage = index
     vc.modalPresentationStyle = .fullScreen
     self.present(vc, animated: true, completion: nil)
+  }
+  
+  private func configureIndicatior(){
+    indicator = NVActivityIndicatorView(frame: CGRect(
+                                          x: view.bounds.width / 2 - 25,
+                                          y: view.bounds.height / 2 - 25,
+                                          width: 50,
+                                          height: 50),
+                                        type: .ballRotateChase,
+                                        color: .black,
+                                        padding: 0)
+    view.addSubview(indicator)
+  }
+  
+  @objc func completeCurrentData(_ noti: Notification){
+    DispatchQueue.main.async {
+      self.indicator.stopAnimating()
+    }
   }
 }
 

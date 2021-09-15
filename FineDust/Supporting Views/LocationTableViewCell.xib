@@ -21,6 +21,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Rj1-Ov-3sf">
+                        <rect key="frame" x="374" y="11" width="20" height="19"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="1dn-S6-huH"/>
+                            <constraint firstAttribute="height" constant="20" id="fRu-h0-5ye"/>
+                        </constraints>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cD5-eU-bQE">
                         <rect key="frame" x="20" y="58" width="50" height="50"/>
                         <color key="backgroundColor" red="0.1379823" green="0.41204798710000001" blue="0.20435289240000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -40,12 +48,6 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="보통" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogi-2d-fkX">
                         <rect key="frame" x="78" y="87" width="30" height="21"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나의 위치" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiG-Rv-20p">
-                        <rect key="frame" x="331" y="10" width="63" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -76,10 +78,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="bda-Tb-lhE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="1qq-rw-Zrv"/>
-                    <constraint firstItem="kiG-Rv-20p" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="56I-vL-R1r"/>
                     <constraint firstItem="cD5-eU-bQE" firstAttribute="leading" secondItem="bda-Tb-lhE" secondAttribute="leading" id="8wE-Kw-GC0"/>
                     <constraint firstItem="NGJ-d1-kZn" firstAttribute="top" secondItem="va5-J2-Nre" secondAttribute="top" id="A4f-5O-uAa"/>
-                    <constraint firstAttribute="trailing" secondItem="kiG-Rv-20p" secondAttribute="trailing" constant="20" id="CMT-hC-35B"/>
                     <constraint firstItem="NGJ-d1-kZn" firstAttribute="bottom" secondItem="ogi-2d-fkX" secondAttribute="bottom" id="KP7-WA-U7I"/>
                     <constraint firstItem="cD5-eU-bQE" firstAttribute="top" secondItem="T6b-8b-1gN" secondAttribute="top" id="Oce-uS-ck7"/>
                     <constraint firstAttribute="bottom" secondItem="cD5-eU-bQE" secondAttribute="bottom" constant="20" id="RKc-6D-cyL"/>
@@ -87,15 +87,17 @@
                     <constraint firstItem="T6b-8b-1gN" firstAttribute="top" secondItem="bda-Tb-lhE" secondAttribute="bottom" constant="15" id="bR3-80-nri"/>
                     <constraint firstItem="va5-J2-Nre" firstAttribute="leading" secondItem="NGJ-d1-kZn" secondAttribute="trailing" constant="16" id="bsW-Kr-nSg"/>
                     <constraint firstItem="cD5-eU-bQE" firstAttribute="bottom" secondItem="ogi-2d-fkX" secondAttribute="bottom" id="daC-M1-fpQ"/>
+                    <constraint firstAttribute="trailing" secondItem="Rj1-Ov-3sf" secondAttribute="trailing" constant="20" id="iIB-FX-rM1"/>
                     <constraint firstItem="31F-2p-szG" firstAttribute="leading" secondItem="va5-J2-Nre" secondAttribute="leading" id="kwb-yf-Cai"/>
                     <constraint firstItem="T6b-8b-1gN" firstAttribute="leading" secondItem="cD5-eU-bQE" secondAttribute="trailing" constant="8" symbolic="YES" id="nyI-hn-CAd"/>
+                    <constraint firstItem="Rj1-Ov-3sf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="usm-mx-fXQ"/>
                     <constraint firstItem="NGJ-d1-kZn" firstAttribute="leading" secondItem="T6b-8b-1gN" secondAttribute="trailing" constant="45" id="wNN-yZ-j6h"/>
                     <constraint firstItem="31F-2p-szG" firstAttribute="bottom" secondItem="NGJ-d1-kZn" secondAttribute="bottom" id="xHr-sb-gaO"/>
                     <constraint firstItem="bda-Tb-lhE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="xU3-ra-iNd"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="currentLocationLabel" destination="kiG-Rv-20p" id="Pxa-gb-mXn"/>
+                <outlet property="currentLocationImageView" destination="Rj1-Ov-3sf" id="cZu-rR-tC4"/>
                 <outlet property="fineDustStateLabel" destination="ogi-2d-fkX" id="Cbe-6f-x6Y"/>
                 <outlet property="fineDustValueLabel" destination="cD5-eU-bQE" id="Qlc-bh-vgE"/>
                 <outlet property="locationNameLabel" destination="bda-Tb-lhE" id="WsJ-Nd-LRl"/>
@@ -105,4 +107,7 @@
             <point key="canvasLocation" x="-55.072463768115945" y="131.91964285714286"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="location.fill" catalog="system" width="128" height="121"/>
+    </resources>
 </document>

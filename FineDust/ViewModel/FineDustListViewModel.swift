@@ -42,10 +42,10 @@ class FineDustListViewModel{
       })
   }
   
-  private func staionName()-> [String]{
-    var stationName: [String] = []
+  private func staionName()-> Set<String>{
+    var stationName: Set<String> = []
     manager.fineDustList.forEach{ i in
-      stationName.append(i.stationName)
+      stationName.insert(i.stationName)
     }
     return stationName
   }
@@ -60,6 +60,7 @@ class FineDustListViewModel{
       reloadFineDustList()
       return nil
     }
+    NotificationCenter.default.post(name: NotificationName.CompleteCurrentDataNotification, object: nil)
     return FineDustData(timeStamp: timeStamp, dateTime: fineDustAPIData.dateTime, fineDust: fineDustAPIData.fineDust, ultraFineDust: fineDustAPIData.ultraFineDust, stationName: fineDustAPIData.stationName, location: locationData)
   }
   
@@ -68,10 +69,12 @@ class FineDustListViewModel{
   }
   
   func setCurrentLocationFineDustAPIData(_ fineDustAPIData: FineDustAPIData){
+    print("finedust 완")
     manager.currentLocationFineDustAPIData = fineDustAPIData
   }
   
   func setCurrentLocationLocationData(_ locationData: LocationData){
+    print("location 완")
     manager.currentLocationLocationData = locationData
   }
   

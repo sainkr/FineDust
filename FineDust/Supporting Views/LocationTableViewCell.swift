@@ -12,7 +12,7 @@ class LocationTableViewCell: UITableViewCell {
   static let identifier = "LocationTableViewCell"
   
   @IBOutlet weak var locationNameLabel: UILabel!
-  @IBOutlet weak var currentLocationLabel: UILabel!
+  @IBOutlet weak var currentLocationImageView: UIImageView!
   @IBOutlet weak var fineDustValueLabel: UILabel!
   @IBOutlet weak var fineDustStateLabel: UILabel!
   @IBOutlet weak var ultraFineDustValueLabel: UILabel!
@@ -29,11 +29,7 @@ class LocationTableViewCell: UITableViewCell {
   }
   
   func updateCurrentLocationLabel(_ index: Int){
-    if index == 0{
-      currentLocationLabel.isHidden = false
-    }else{
-      currentLocationLabel.isHidden = true
-    }
+    currentLocationImageView.isHidden = index == 0 ? false : true
   }
   
   func updateUI(_ fineDustData: FineDustData){

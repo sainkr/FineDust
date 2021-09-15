@@ -12,6 +12,8 @@ target 'FineDust' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   
+  pod 'NVActivityIndicatorView'
+  
   target 'FineDustWidgetExtension' do
     pod 'RxSwift'
     pod 'RxCocoa'

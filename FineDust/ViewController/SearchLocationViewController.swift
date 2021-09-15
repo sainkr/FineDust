@@ -21,7 +21,6 @@ class SearchLocationViewController: UIViewController{
   private var placeMark: MKPlacemark?
   private var disposeBag = DisposeBag()
   var relay = PublishRelay<[MKLocalSearchCompletion]>()
-  let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
   var completeAddDelegate: CompleteAddDelegate?
   
   override func viewDidLoad() {
@@ -141,7 +140,7 @@ extension SearchLocationViewController{
         return
       }
       self.placeMark = response?.mapItems[0].placemark
-      NotificationCenter.default.post(name: self.CompleteSearchNotification, object: nil, userInfo: ["coordinate" : self.placeMark?.coordinate])
+      NotificationCenter.default.post(name: NotificationName.CompleteSearchNotification, object: nil, userInfo: ["coordinate" : self.placeMark?.coordinate])
     }
   }
 }

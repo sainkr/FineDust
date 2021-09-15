@@ -20,10 +20,11 @@ class ConvertToAddress {
         if let address: [CLPlacemark] = placemarks {
           guard let local_city = address.last?.locality,
                 let local_sub = address.last?.subLocality else {
-            emitter.onError(NSError(domain: "data error", code: 0, userInfo: nil))
+            emitter.onNext(LocationData(locationName: "측정 불가", latitude: latitude, longtitude: longtitude))
+            emitter.onCompleted()
+            // emitter.onError(NSError(domain: "data error", code: 0, userInfo: nil))
             return
           }
-          
           let location = LocationData(locationName: "\(local_city) \(local_sub)", latitude: latitude, longtitude: longtitude)
           emitter.onNext(location)
           emitter.onCompleted()

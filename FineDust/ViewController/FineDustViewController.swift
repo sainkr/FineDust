@@ -43,8 +43,6 @@ class FineDustViewController: UIViewController{
   var mode: FineDustVCMode = .currentLocation
   var completeAddDelegate: CompleteAddDelegate?
 
-  private let CompleteSearchNotification: Notification.Name = Notification.Name("CompleteSearchNotification")
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     locationManager.locationMangerDelegate = self
@@ -65,6 +63,7 @@ class FineDustViewController: UIViewController{
     currentLocationViewModel.observable
       .observe(on: MainScheduler.instance)
       .subscribe(onNext:{ [weak self] in
+        print($0)
         self?.locationNameLabel.text = $0
       })
       .disposed(by: disposeBag)
@@ -79,14 +78,16 @@ class FineDustViewController: UIViewController{
       loadFineDust(index)
     case .searched:
       navigationBar.isHidden = false
-      NotificationCenter.default.addObserver(self, selector: #selector(completeSearch(_:)), name: CompleteSearchNotification, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(completeSearch(_:)), name: NotificationName.CompleteSearchNotification, object: nil)
     }
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     disposeBag = DisposeBag()
     timer?.invalidate()
-    NotificationCenter.default.removeObserver(self, name: CompleteSearchNotification, object: nil)
+    if mode == .searched {
+      NotificationCenter.default.removeObserver(self, name: NotificationName.CompleteSearchNotification, object: nil)
+    }
   }
 }
 
