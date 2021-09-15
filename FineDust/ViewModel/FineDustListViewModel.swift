@@ -69,12 +69,10 @@ class FineDustListViewModel{
   }
   
   func setCurrentLocationFineDustAPIData(_ fineDustAPIData: FineDustAPIData){
-    print("finedust 완")
     manager.currentLocationFineDustAPIData = fineDustAPIData
   }
   
   func setCurrentLocationLocationData(_ locationData: LocationData){
-    print("location 완")
     manager.currentLocationLocationData = locationData
   }
   

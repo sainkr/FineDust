@@ -1,0 +1,6 @@
+framework module Pods_FineDust_FineDustWidgetExtension {
+  umbrella header "Pods-FineDust-FineDustWidgetExtension-umbrella.h"
+
+  export *
+  module * { export * }
+}
