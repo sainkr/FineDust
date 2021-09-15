@@ -57,8 +57,8 @@ class LoacationListViewController: UIViewController{
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    fineDustListViewModel.loadFineDustList()
     NotificationCenter.default.addObserver(self, selector: #selector(completeCurrentData(_:)), name: NotificationName.CompleteCurrentDataNotification, object: nil)
+    fineDustListViewModel.loadFineDustList()
     indicator.startAnimating()
   }
   

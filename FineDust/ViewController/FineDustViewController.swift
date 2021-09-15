@@ -4,7 +4,6 @@
 //
 //  Created by 홍승아 on 2021/05/25.
 //
-// 37.375125349085906, 127.95590235319048 // <tmX>284688.286381</tmX>// <tmY>431240.919844</tmY>
 
 import CoreLocation
 import UIKit

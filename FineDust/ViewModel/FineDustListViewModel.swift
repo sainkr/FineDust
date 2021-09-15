@@ -60,7 +60,7 @@ class FineDustListViewModel{
       reloadFineDustList()
       return nil
     }
-    NotificationCenter.default.post(name: NotificationName.CompleteCurrentDataNotification, object: nil)
+    NotificationCenter.default.post(name: NotificationName.CompleteCurrentDataNotification, object: nil, userInfo: nil)
     return FineDustData(timeStamp: timeStamp, dateTime: fineDustAPIData.dateTime, fineDust: fineDustAPIData.fineDust, ultraFineDust: fineDustAPIData.ultraFineDust, stationName: fineDustAPIData.stationName, location: locationData)
   }
   
