@@ -15,7 +15,6 @@ class LocationManager: NSObject {
   func requestLocation() {
     locationManager.delegate = self
     guard CLLocationManager.locationServicesEnabled() else {
-      locationMangerDelegate?.currentLocationError()
       return
     }
     
@@ -27,7 +26,7 @@ class LocationManager: NSObject {
   func requestLocation(completion: @escaping (_ coordinate: CLLocationCoordinate2D) -> ()) throws {
     locationManager.delegate = self
     guard CLLocationManager.locationServicesEnabled() else {
-      throw LocationManagerError.authorizationDenied
+      throw LocationManagerError.locationServicesError
     }
     locationManager.requestWhenInUseAuthorization()
     locationManager.requestLocation()
@@ -45,13 +44,20 @@ extension LocationManager : CLLocationManagerDelegate {
   }
   
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-    if manager.authorizationStatus == .authorizedWhenInUse {
+    print(manager.authorizationStatus.rawValue)
+    if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways{
       guard let coordinate = locationManager.location?.coordinate else { return }
       locationMangerDelegate?.currentLocationUpdate(coordinate: coordinate)
+    }
+    if manager.authorizationStatus == .denied {
+      locationMangerDelegate?.currentLocationError()
     }
   }
   
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    print("Failed to get users location.")
+    if manager.authorizationStatus == .denied {
+      print("Failed to get users location.")
+      locationMangerDelegate?.currentLocationError()
+    }
   }
 }

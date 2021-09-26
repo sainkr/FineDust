@@ -59,7 +59,7 @@ struct Provider: TimelineProvider {
       }
     } catch {
       let entry = simpleEntry(currentDate: currentDate,
-                              locationName: "오류",
+                              locationName: "위치 권한 오류",
                               fineDust: fineDustViewModel.fineDust("-"),
                               ultraFineDust: fineDustViewModel.ultraFineDust("-"))
       let refreshDate = Calendar.current.date(byAdding: .second, value: 10, to: currentDate)!

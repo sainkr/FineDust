@@ -123,9 +123,15 @@ extension FineDustViewController{
   
   private func displayLocationServicesDisabledAlert() {
     let alertController = UIAlertController(title: "위치 권한 접근 오류",
-                                            message: "미세먼지 앱의 위치 권한을 허용으로 바꿔주세요.",
+                                            message: "위치 접근 허용을 앱 또는 위젯을 사용하는 동안으로 바꿔주세요.",
                                             preferredStyle: .alert)
-    alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+    let okAction = UIAlertAction(title: "확인", style: .default){ _ in
+      guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+      if UIApplication.shared.canOpenURL(url) {
+        UIApplication.shared.open(url)
+      }
+    }
+    alertController.addAction(okAction)
     present(alertController, animated: true, completion: nil)
   }
 }

@@ -8,6 +8,6 @@
 import Foundation
 
 enum LocationManagerError: Error {
-  case authorizationDenied
+  case locationServicesError
   case coordinateError
 }
