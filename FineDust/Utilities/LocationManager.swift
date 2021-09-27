@@ -17,7 +17,6 @@ class LocationManager: NSObject {
     guard CLLocationManager.locationServicesEnabled() else {
       return
     }
-    
     locationManager.requestWhenInUseAuthorization()
     locationManager.requestLocation()
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -44,7 +43,6 @@ extension LocationManager : CLLocationManagerDelegate {
   }
   
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-    print(manager.authorizationStatus.rawValue)
     if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways{
       guard let coordinate = locationManager.location?.coordinate else { return }
       locationMangerDelegate?.currentLocationUpdate(coordinate: coordinate)
