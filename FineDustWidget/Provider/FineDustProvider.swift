@@ -51,7 +51,7 @@ struct Provider: TimelineProvider {
                                     locationName: locationName,
                                     fineDust:  $0.fineDust,
                                     ultraFineDust: $0.ultraFineDust)
-            let refreshDate = Calendar.current.date(byAdding: .minute, value: 30, to: currentDate)!
+            let refreshDate = date(currentDate)
             let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
             completion(timeline)
           })
@@ -62,7 +62,7 @@ struct Provider: TimelineProvider {
                               locationName: "위치 권한 오류",
                               fineDust: fineDustViewModel.fineDust("-"),
                               ultraFineDust: fineDustViewModel.ultraFineDust("-"))
-      let refreshDate = Calendar.current.date(byAdding: .second, value: 10, to: currentDate)!
+      let refreshDate = Calendar.current.date(byAdding: .minute, value: 1, to: currentDate)!
       let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
       completion(timeline)
     }
@@ -75,5 +75,12 @@ struct Provider: TimelineProvider {
         locationName: locationName,
         fineDust: fineDust,
         ultraFineDust: ultraFineDust))
+  }
+  
+  func date(_ currentDate: Date)-> Date{
+    let formatter = DateFormatter()
+    formatter.dateFormat = "mm"
+    let currentMinute = Int(formatter.string(from: Date()))!
+    return Calendar.current.date(byAdding: .minute, value: 63 - currentMinute, to: currentDate)!
   }
 }

@@ -3,6 +3,12 @@ import RxCocoa
 import RxSwift
 import MapKit
 
-var arr = [1,2,3,4]
+func date(_ currentDate: Date)-> Date{
+  let formatter = DateFormatter()
+  formatter.dateFormat = "mm"
+  let currentMinute = Int(formatter.string(from: Date()))!
+  return Calendar.current.date(byAdding: .minute, value: 63 - currentMinute, to: currentDate)!
+}
 
-print(arr.filter{ $0 != 1 })
+print(Date())
+print(date(Date()))

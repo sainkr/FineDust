@@ -130,7 +130,6 @@ class APIService{
   
   static func fetchStation(tmX: Double, tmY: Double, onComplete: @escaping (Result<String, Error>) -> Void){
     let url = stationURL(tmX: tmX, tmY: tmY)
-
     AF.request(url, method: .get, encoding: URLEncoding.default)
       .responseJSON{ (response) in
         switch response.result{
