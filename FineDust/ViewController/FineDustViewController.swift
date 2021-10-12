@@ -154,7 +154,9 @@ extension FineDustViewController{
   }
   
   @IBAction func refreshButtonDidTap(_ sender: Any) {
+    print("진입")
     guard let coordinate = currentLocation?.coordinate else {
+      print("eee")
       return }
     progressViewStyle = progressViewStyle == .bar ? .default : .bar
     loadFineDust(latitude: coordinate.latitude, longtitude: coordinate.longitude)

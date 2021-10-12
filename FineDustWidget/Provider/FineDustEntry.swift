@@ -10,7 +10,7 @@ import WidgetKit
 import SwiftUI
 import Intents
 
-struct SimpleEntry: TimelineEntry {
+struct FineDustEntry: TimelineEntry {
   let date: Date // 필수적으로 요구 ..
   let finedust: FineDustRequest
 }
@@ -19,4 +19,9 @@ struct FineDustRequest{
   let locationName: String
   let fineDust: FineDust
   let ultraFineDust: UltraFineDust
+}
+
+struct LocationInfo{
+  var locationName: String
+  var coordinate: CLLocationCoordinate2D
 }

@@ -31,7 +31,7 @@ struct FineDustWidget: Widget {
 struct FineDustWidget_Previews: PreviewProvider {
   static var previews: some View {
     let fineDustViewModel = FineDustViewModel()
-    FineDustWidgetEntryView(entry: SimpleEntry(
+    FineDustWidgetEntryView(entry: FineDustEntry(
                               date: Date(),
                               finedust: FineDustRequest(
                                 locationName: "원주시 태장동",

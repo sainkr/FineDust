@@ -47,19 +47,15 @@ class FineDustViewModel{
   }
   
   // Widget 현재 위치 fineDust
-  func loadFineDust(latitude: Double, longtitude: Double, completion: @escaping (FineDustRequest) -> ()){
+  func loadFineDust(coordinate: CLLocationCoordinate2D, completion: @escaping (FineDustRequest) -> ()){
     _ = APIService.loadAccessToken()
-      .flatMap{ accessToekn in APIService.loadTM(accessToken: accessToekn, latitude: latitude, longtitude: longtitude)}
+      .flatMap{ accessToekn in APIService.loadTM(accessToken: accessToekn, latitude: coordinate.latitude, longtitude: coordinate.longitude)}
       .flatMap{ tm in APIService.loadStation(tmX: tm.tmX, tmY: tm.tmY)}
       .flatMap{ station in APIService.loadFineDust(stationName: station)}
       .take(1)
       .subscribe(onNext:{ [weak self] response in
-        completion((self?.fineDustRequest(apiFineDust: response))!)
+        completion(FineDustRequest(locationName: "-", fineDust: response.fineDust, ultraFineDust: response.ultraFineDust))
       })
-  }
-    
-  private func fineDustRequest(apiFineDust: FineDustAPIData)-> FineDustRequest{
-    return FineDustRequest(locationName: "-", fineDust: apiFineDust.fineDust, ultraFineDust: apiFineDust.ultraFineDust)
   }
   
   func fineDust(_ fineDustValue: String)-> FineDust{
